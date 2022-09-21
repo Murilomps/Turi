@@ -248,8 +248,6 @@ nav {
   background-size: cover;
   color: white;
   height: 92vh;
-
-
 }
 
 .containersec4 {
@@ -259,7 +257,6 @@ nav {
   margin-top: 5%;
   display: flex;
   border-radius: 20px;
-
 }
 
 .grid-sec4 {
@@ -305,27 +302,23 @@ nav {
   padding-left: 30px;
   
 } */
+
 .grid-sec4 img {
   width: 80%;
 }
 
-
-
-
 /* .container-sec3 {
   margin-left: 5%;
   padding-top: 5%;
-  
-height: 90%;
-  
+  height: 90%;
   display: flex;
 }
+
 .container-sec3 img{
   float: right;
   padding-left: 100px;
-  
- 
 }
+
 .container-sec3 button{
   background-color: #802AA8;
   height: 10%;
@@ -354,6 +347,7 @@ height: 90%;
   font-weight: 300;
   float: left;
 }
+
 .textosec3{
  float: left;
  margin-top: 5%;
