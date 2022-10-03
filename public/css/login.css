@@ -367,8 +367,8 @@ form.sign-in-form {
   max-width: 380px;
   width: 100%;
   background-color: #f7f7f7;
-  margin: 10px 0;
-  height: 55px;
+  margin: 8px 0;
+  height: 47px;
   border-radius: 55px;
   display: grid;
   grid-template-columns: 15% 85%;

@@ -65,52 +65,83 @@
     <div class="container-log">
       <div class="forms-container">
         <div class="signin-signup">
+          
           <form action="#" class="sign-in-form">
             <h2 class="title">Entrar</h2>
+
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Usuário" />
+              <input type="text" placeholder="CNPJ/Email" />
             </div>
+
             <div class="input-field">
               <i class="fas fa-lock"></i>
               <input type="password" placeholder="Senha" />
             </div>
+
             <input type="submit" value="Entrar" class="btn-log solid" />
           </form>
+          
           <form action="#" class="sign-up-form">
             <h2 class="title">Cadastre-se</h2>
 
-            <div class="input-field">
+            <!-- Cadastro de Usuário da TURI -->
+            <!--Input que some e volta, baseado no valor do switch-->
+            <div class="input-field" id="nomeUsuario">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Usuário" id="empresa" />
+              <input type="text" placeholder="Nome de Usuário" id="empresa" />
             </div>
 
-            <div class="input-field">
+            <div class="input-field" id="emailTuri">
               <i class="fas fa-envelope"></i>
               <input type="email" placeholder="Email" />
             </div>
 
-            <div class="input-field" id="codTel">
-              <i class="fa-solid fa-phone"></i>
-              <input type="tel" placeholder="Telefone" />
-            </div>
-
-            <div class="input-field" id="codCnpj">
-              <i class="fa-solid fa-building-user"></i>
-              <input type="text" placeholder="CPNJ" />
-            </div>
-
-            <div class="input-field">
+            <div class="input-field" id="senhaTuri">
               <i class="fas fa-lock"></i>
               <input type="password" placeholder="Senha" />
             </div>
 
-            <!--Input que some e volta, baseado no valor do switch-->
-            
-              <div class="input-field" id="codEmpresa">
-                <i class="fa-solid fa-key"></i>
-                <input type="text" placeholder="Código da empresa">
-              </div>
+            <div class="input-field" id="codEmpresa">
+              <i class="fa-solid fa-key"></i>
+              <input type="text" placeholder="Código da Turi">
+            </div>
+
+            <!-- daqui até a linha 145, aparece somente quando o switch está ligado para cadastro empresarial -->
+            <div class="input-field" id="nomeEmpresa" style="display:none ;">
+              <i class="fa-solid fa-phone"></i>
+              <input type="tel" placeholder="Nome da Empresa" />
+            </div>
+
+            <div class="input-field" id="codCnpj" style="display:none ;">
+              <i class="fa-solid fa-building-user"></i>
+              <input type="text" placeholder="CPNJ" />
+            </div>
+
+            <div class="input-field" id="codRua" style="display:none ;">
+              <i class="fa-solid fa-phone"></i>
+              <input type="tel" placeholder="Rua" />
+            </div>
+
+            <div class="input-field" id="codBairro" style="display:none ;">
+              <i class="fa-solid fa-phone"></i>
+              <input type="tel" placeholder="Bairro" />
+            </div>
+
+            <div class="input-field" id="codNumero"style="display:none ;">
+              <i class="fa-solid fa-phone"></i>
+              <input type="tel" placeholder="Número" />
+            </div>
+
+            <div class="input-field" id="codCidade"style="display:none ;">
+              <i class="fa-solid fa-phone"></i>
+              <input type="tel" placeholder="Cidade" />
+            </div>
+
+            <div class="input-field" id="senhaCliente" style="display:none ;">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Senha" />
+            </div>
             
             <!--Botão de swicth-->
             <div class="container-switch">
@@ -118,7 +149,7 @@
                 <input type="checkbox" id="ipt_switch" onclick="sumirInput()">
                 <span class="slider round"></span>
               </label>
-              <p>Cadastro empresarial</p>
+              <p style="color:black ;">Cadastro empresarial</p>
             </div>
 
             <input type="submit" class="btn-log" value="Cadastrar" />
@@ -131,10 +162,10 @@
           <div class="content">
             <h3>Novo aqui?</h3>
             <p>
-              Aproveite a inovação de mercado e todo potencial de monitoramento que podemos oferecer-lhes. <br> Cadastre-se e confira!
+              Faça a sua conta empresarial e acompanhe as suas máquinas. <br> Confira!
             </p>
             <button class="btn-log transparent" id="sign-up-btn">
-              Entrar
+              Cadastre-se
             </button>
           </div>
         </div>
