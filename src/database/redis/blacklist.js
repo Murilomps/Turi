@@ -1,11 +1,11 @@
-import { blacklist } from './configRedis.js';
+// import { blacklist } from './configRedis.js';
 import jsonwebtoken from 'jsonwebtoken';
 import { createHash } from 'crypto';
 import { promisify } from 'util';
 
 const gerarHashToken = token => createHash('sha256').update(token).digest('hex');
-const existsAsync = promisify(blacklist.exists).bind(blacklist);
-const setAsync = promisify(blacklist.set).bind(blacklist);
+// const existsAsync = promisify(blacklist.exists).bind(blacklist);
+// const setAsync = promisify(blacklist.set).bind(blacklist);
 
 class Blacklist {
 

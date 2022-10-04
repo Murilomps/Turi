@@ -1,7 +1,7 @@
 import Usuario from '../model/Usuario.js';
 import jsonwebtoken from 'jsonwebtoken';
-import Blacklist from '../database/redis/blacklist.js';
-import { blacklist } from '../database/redis/configRedis.js';
+// import Blacklist from '../database/redis/blacklist.js';
+// import { blacklist } from '../database/redis/configRedis.js';
 
 class UsuarioController {
 
@@ -36,9 +36,11 @@ class UsuarioController {
     }
 
     static deslogar = async (req, res) => {
+        // Adicionar um modo de limpar o token
 
-        Blacklist.adicionarTokenNaBlackList(req.token);
-        res.status(201).json({ mensagem: "Usuario deslogado" });
+        
+        // Blacklist.adicionarTokenNaBlackList(req.token);
+        // res.status(201).json({ mensagem: "Usuario deslogado" });
     }
 
     static criarToken(usuario) {

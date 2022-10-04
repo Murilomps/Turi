@@ -4,7 +4,7 @@ import Usuario from '../../model/Usuario.js';
 import * as PassportCookie from 'passport-cookie';
 import jsonwebtoken from 'jsonwebtoken';
 import { compare } from 'bcrypt';
-import Blacklist from '../../database/redis/blacklist.js';
+// import Blacklist from '../../database/redis/blacklist.js';
 import { InvalidArgumentError, InternalServerError } from '../err/err.js';
 
 class AutenticacaoLogin {
@@ -64,12 +64,12 @@ class AutenticacaoToken {
 
     async validarToken () {
 
-        const tokenEstaNaBlackList = await Blacklist.tokenEstaNaBlackList(this.#token);
+        // const tokenEstaNaBlackList = await Blacklist.tokenEstaNaBlackList(this.#token);
         const payload = jsonwebtoken.verify(this.#token, process.env.CHAVE_JWT);
         this.#payload = payload; 
 
-        if(!this.#token || tokenEstaNaBlackList)
-            throw new InvalidArgumentError('Token inválido');
+    //     if(!this.#token || tokenEstaNaBlackList)
+    //         throw new InvalidArgumentError('Token inválido');
     }
 }
 
