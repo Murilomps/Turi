@@ -345,11 +345,25 @@ h6 {
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
+
 #hero {
   width: 100%;
   height: 100vh;
-  background: white;
   border-bottom: 2px solid white;
+  background: url("../img/teste_fundo5.jpg") top center no-repeat;
+  background-size: cover;
+  position: relative;
+  padding-top: 82px;
+}
+
+#hero:before {
+  content: "";
+  background: #6959ce15;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 #hero .container {
@@ -358,10 +372,10 @@ h6 {
 
 #hero h1 {
   margin: 0;
-  font-size: 48px;
-  font-weight: 400;
+  font-size: 60px;
+  font-weight: 300;
   line-height: 56px;
-  color: #434175;
+  color: white;
   font-family: "Poppins", sans-serif;
 }
 
@@ -487,9 +501,9 @@ section {
   padding: 60px 0;
 }
 
-.section-bg {
+/* .section-bg {
   background-color: #eeeef5;
-}
+} */
 
 .section-title {
   text-align: center;
@@ -524,6 +538,9 @@ section {
 /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
+
+
+
 .about .content h2 {
   font-weight: 700;
   font-size: 44px;
@@ -1022,6 +1039,10 @@ section {
 /*--------------------------------------------------------------
 # Team
 --------------------------------------------------------------*/
+
+.team {
+  background-color: #eeeef5c4;
+}
 .team .member {
   margin-bottom: 20px;
   overflow: hidden;
@@ -1214,6 +1235,9 @@ section {
 /*--------------------------------------------------------------
 # Frequently Asked Questions
 --------------------------------------------------------------*/
+.faq{
+  background-color: #eeeef5c4;
+}
 .faq {
   padding: 60px 0;
 }
@@ -1483,7 +1507,7 @@ section {
 
 #footer .footer-top {
   padding: 60px 0 30px 0;
-  background: #fff;
+  background: #eeeef5;
 }
 
 #footer .footer-top .footer-contact {
