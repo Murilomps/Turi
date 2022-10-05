@@ -21,6 +21,8 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="/public/assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <script src="./dash.js"></script>
 </head>
 
 <body id="page-top">
@@ -464,8 +466,8 @@
 
                     <div class="row">
 
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <!-- Area Chart Frequency of CPU-->
+                        <div class="col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -495,8 +497,8 @@
                             </div>
                         </div>
 
-                        <!-- Area Chart Temperature-->
-                        <div class="col-xl-8 col-lg-7">
+                        <!-- Area Chart Temperature of CPU-->
+                        <div class="col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -526,7 +528,7 @@
                             </div>
                         </div>
 
-                        <!-- Pie Chart -->
+                        <!-- Pie Chart Disk Machine 1  -->
                         <div class="col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
@@ -541,9 +543,9 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Máquinas:</div>
-                                            <a class="dropdown-item" href="#">Máquina 1</a>
-                                            <a class="dropdown-item" href="#">Máquina 2</a>
-                                            <a class="dropdown-item" href="#">Máquina 3</a>
+                                            <a class="dropdown-item" id="disk1"  >Máquina 1</a>
+                                            <a class="dropdown-item" id="disk2" onclick="trocarMaquinaDisco()" >Máquina 2</a>
+                                            <a class="dropdown-item" id="disk3" >Máquina 3</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">.</a>
                                         </div>
@@ -552,7 +554,7 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
+                                        <canvas id="chartDisk1"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
@@ -568,9 +570,53 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
+                        <!-- Pie Chart Disk Machine 2  -->
+                        <div class="col-xl-6 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD)</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Máquinas:</div>
+                                            <a class="dropdown-item" id="disk1" href="#">Máquina 1</a>
+                                            <a class="dropdown-item" id="disk2" href="#">Máquina 2</a>
+                                            <a class="dropdown-item" id="disk3" href="#">Máquina 3</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">.</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="chartDisk2"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Livre
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Em uso
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> Total
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    
 
-                    <!-- Pie Chart -->
+                    <!-- Pie Chart RAM -->
                     <div class="col-xl-6 col-lg-5">
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
@@ -584,18 +630,19 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink">
-                                        <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <div class="dropdown-header">Máquinas:</div>
+                                        <a class="dropdown-item" href="#">Máquina 1</a>
+                                        <a class="dropdown-item" href="#">Máquina 2</a>
+                                        <a class="dropdown-item" href="#">Máquina 3</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <a class="dropdown-item" href="#">.</a>
                                     </div>
                                 </div>
                             </div>
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChart2"></canvas>
+                                    <canvas id="chartRAM1"></canvas>
                                 </div>
                                 <div class="mt-4 text-center small">
                                     <span class="mr-2">
@@ -610,7 +657,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
 
                     <!-- Content Row -->
@@ -697,6 +743,7 @@
 
                         </div>
                     </div>
+                </div>
 
                 </div>
                 <!-- /.container-fluid -->

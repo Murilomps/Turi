@@ -34,7 +34,7 @@ var myLineChart = new Chart(ctx, {
   data: {
     labels: ["13:44:09", "13:46:09", "13:48:09", "13:50:09", "13:52:09", "13:54:09", "13:56:09", "13:58:09", "14:00:09", "14:02:09", "14:04:09", "14:06:09"],
     datasets: [{
-      label: "Frequência",
+      label: "Frequência - Máquina 1",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223,0)",
       borderColor: "rgb(105, 89, 206)",
@@ -49,7 +49,7 @@ var myLineChart = new Chart(ctx, {
       data: [0.91, 0.85, 0.95, 1.00, 1.20, 0.92, 0.97, 0.91, 0.89, 0.94, 0.91, 0.89],
     },
     { 
-      label: "Frequência",
+      label: "Frequência - Máquina 2",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0)",
       borderColor: "rgb(96, 25, 115)",
@@ -64,7 +64,7 @@ var myLineChart = new Chart(ctx, {
       data: [0.85, 0.89, 0.91, 0.95, 0.98, 1.00, 1.20, 1.10, 1.06, 1.01, 0.99, 0.95],
     },
     { 
-      label: "Frequência",
+      label: "Frequência - Máquina 3",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0)",
       borderColor: "rgb(95, 59, 160)",
@@ -156,7 +156,7 @@ var myLineChart = new Chart(ctx, {
   data: {
     labels: ["13:44:09", "13:46:09", "13:48:09", "13:50:09", "13:52:09", "13:54:09", "13:56:09", "13:58:09", "14:00:09", "14:02:09", "14:04:09", "14:06:09"],
     datasets: [{
-      label: "Temperatura",
+      label: "Temperatura - Máquina 1",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223,0)",
       borderColor: "rgb(105, 89, 206)",
@@ -171,7 +171,7 @@ var myLineChart = new Chart(ctx, {
       data: [23.5, 24.6, 22.9, 23.3, 25.2, 23.8, 23.9, 24.5, 24.8, 25.8, 21.9, 29.9],
     },
     { 
-      label: "Temperatura",
+      label: "Temperatura - Máquina 2",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0)",
       borderColor: "rgb(96, 25, 115)",
@@ -186,7 +186,7 @@ var myLineChart = new Chart(ctx, {
       data: [0.85, 0.89, 0.91, 0.95, 0.98, 1.00, 1.20, 1.10, 1.06, 1.01, 0.99, 0.95],
     },
     { 
-      label: "Temperatura",
+      label: "Temperatura - Máquina 3",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0)",
       borderColor: "rgb(95, 59, 160)",
