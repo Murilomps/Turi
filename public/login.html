@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8" />
@@ -89,22 +89,22 @@
             <!--Input que some e volta, baseado no valor do switch-->
             <div class="input-field" id="nomeUsuario">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Nome de Usuário" id="empresa" />
+              <input type="text" placeholder="Nome de Usuário" id="in_nomeTuri" />
             </div>
 
             <div class="input-field" id="emailTuri">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" />
+              <input type="email" placeholder="Email" id="in_emailTuri"/>
             </div>
 
             <div class="input-field" id="senhaTuri">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Senha" />
+              <input type="password" placeholder="Senha" id="in_senhaTuri"/>
             </div>
 
             <div class="input-field" id="codEmpresa">
               <i class="fa-solid fa-key"></i>
-              <input type="text" placeholder="Código da Turi">
+              <input type="text" placeholder="Código da Turi" id="in_codTuri">
             </div>
 
             <!-- daqui até a linha 145, aparece somente quando o switch está ligado para cadastro empresarial -->
@@ -152,7 +152,7 @@
               <p style="color:black ;">Cadastro empresarial</p>
             </div>
 
-            <input type="submit" class="btn-log" value="Cadastrar" />
+            <input type="button" class="btn-log" value="Cadastrar" onclick="Cadastrar()"/>
           </form>
         </div>
       </div>
@@ -221,3 +221,53 @@
 </body>
 
 </html>
+
+<script>
+  function Cadastrar() {
+
+      //Recupere o valor da nova input pelo nome do id
+      // Agora vá para o método fetch logo abaixo
+      var nomeVar = in_nomeTuri.value;
+      var emailVar = in_emailTuri.value;
+      var senhaVar = in_emailTuri.value;
+      var codVar = in_codTuri.value;
+
+      if (nomeVar == "" || emailVar == "" || senhaVar == "" || codVar == "") {
+        alert("valores vazios")
+        return false;
+      }
+
+      // Enviando o valor da nova input
+      fetch("/usuarios/cadastrar", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              // crie um atributo que recebe o valor recuperado aqui
+              // Agora vá para o arquivo routes/usuario.js
+              nomeServer: nomeVar,
+              emailServer: emailVar,
+              senhaServer: senhaVar
+          })
+      }).then(function (resposta) {
+
+          console.log("resposta: ", resposta);
+
+          if (resposta.ok) {
+              setTimeout(() => {
+                  window.location = "login.html";
+              }, "2000")
+              
+          } else {
+              throw ("Houve um erro ao tentar realizar o cadastro!");
+          }
+      }).catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+      });
+
+      return false;
+  }
+
+
+</script>
