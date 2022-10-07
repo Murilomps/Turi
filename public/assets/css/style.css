@@ -357,7 +357,6 @@ h6 {
 }
 
 #hero:before {
-  content: "";
   background: #6959ce15;
   position: absolute;
   bottom: 0;
