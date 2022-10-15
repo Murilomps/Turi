@@ -22,7 +22,7 @@
 
   text-transform: none;
 
-  speak: none;
+  speak-as: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
