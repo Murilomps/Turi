@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,11 +13,11 @@
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/style.css">
 
-   <!-- Favicons -->
-   <link href="assets/img/favicon.png" rel="icon">
-   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  
-   <title>Turi. | Cadastro</title>
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <title>Turi. | Cadastro</title>
 </head>
 
 <body>
@@ -65,23 +65,23 @@
     <div class="container-log">
       <div class="forms-container">
         <div class="signin-signup">
-          
+
           <form action="#" class="sign-in-form">
             <h2 class="title">Entrar</h2>
 
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="CNPJ/Email" />
+              <input type="text" placeholder="CNPJ/Email" id="in_usuarioLogin"/>
             </div>
 
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Senha" />
+              <input type="password" placeholder="Senha" id="in_senhaLogin"/>
             </div>
 
-            <a href="../startbootstrap-sb-admin-2-gh-pages/dashboard.html" type="submit" class="btn-log solid" style="display: flex; justify-content: inherit;align-items: center;color: white;" >Entrar</a>
+            <input type="button" class="btn-log" value="Entrar" onclick="Entrar()" />
           </form>
-          
+
           <form action="#" class="sign-up-form">
             <h2 class="title">Cadastre-se</h2>
 
@@ -94,12 +94,12 @@
 
             <div class="input-field" id="emailTuri">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" id="in_emailTuri"/>
+              <input type="email" placeholder="Email" id="in_emailTuri" />
             </div>
 
             <div class="input-field" id="senhaTuri">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Senha" id="in_senhaTuri"/>
+              <input type="password" placeholder="Senha" id="in_senhaTuri" />
             </div>
 
             <div class="input-field" id="codEmpresa">
@@ -110,39 +110,39 @@
             <!-- daqui até a linha 145, aparece somente quando o switch está ligado para cadastro empresarial -->
             <div class="input-field" id="nomeEmpresa" style="display:none ;">
               <i class="fa-solid fa-user-group"></i>
-              <input type="tel" placeholder="Nome da Empresa" />
+              <input type="tel" placeholder="Nome da Empresa" id="in_nomeEmpresa"/>
             </div>
 
             <div class="input-field" id="codCnpj" style="display:none ;">
               <i class="fa-solid fa-building-user"></i>
-              <input type="text" placeholder="CPNJ" />
+              <input type="text" placeholder="CPNJ" id="in_cnpjEmpresa"/>
             </div>
 
             <div class="input-field" id="codRua" style="display:none ;">
               <i class="fa-solid fa-street-view"></i>
-              <input type="tel" placeholder="Rua" />
+              <input type="tel" placeholder="Rua" id="in_ruaEmpresa"/>
             </div>
 
             <div class="input-field" id="codBairro" style="display:none ;">
               <i class="fa-solid fa-map-location-dot"></i>
-              <input type="tel" placeholder="Bairro" />
+              <input type="tel" placeholder="Bairro" id="in_bairroEmpresa"/>
             </div>
 
-            <div class="input-field" id="codNumero"style="display:none ;">
+            <div class="input-field" id="codNumero" style="display:none ;">
               <i class="fa-solid fa-house-user"></i>
-              <input type="tel" placeholder="Número" />
+              <input type="tel" placeholder="Número" id="in_numeroEmpresa"/>
             </div>
 
-            <div class="input-field" id="codCidade"style="display:none ;">
+            <div class="input-field" id="codCidade" style="display:none ;">
               <i class="fa-solid fa-city"></i>
-              <input type="tel" placeholder="Cidade" />
+              <input type="tel" placeholder="Cidade" id="in_cidadeEmpresa"/>
             </div>
 
             <div class="input-field" id="senhaCliente" style="display:none ;">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Senha" />
+              <input type="password" placeholder="Senha" id="in_senhaEmpresa"/>
             </div>
-            
+
             <!--Botão de swicth-->
             <div class="container-switch">
               <label class="switch">
@@ -152,7 +152,7 @@
               <p style="color:black ;">Cadastro empresarial</p>
             </div>
 
-            <input type="button" class="btn-log" value="Cadastrar" onclick="Cadastrar()"/>
+            <input type="button" class="btn-log" value="Cadastrar" onclick="Cadastrar()" />
           </form>
         </div>
       </div>
@@ -175,7 +175,7 @@
             <p>
               Entre em sua conta.
             </p>
-            <button class="btn-log transparent" id="sign-in-btn" >
+            <button class="btn-log transparent" id="sign-in-btn">
               Entrar
             </button>
           </div>
@@ -225,11 +225,49 @@
 <script>
   function Cadastrar() {
 
-      //Recupere o valor da nova input pelo nome do id
-      // Agora vá para o método fetch logo abaixo
+    if (ipt_switch.checked){
+      var nomeVar = in_nomeEmpresa.value;
+      var cnpjVar = in_cnpjEmpresa.value;
+      var senhaVar = in_senhaEmpresa.value;
+      var ruaVar = in_ruaEmpresa.value;
+      var bairroVar = in_bairroEmpresa.value;
+      var numeroVar = in_numeroEmpresa.value;
+      var cidadeVar = in_cidadeEmpresa.value;
+
+      if (nomeVar == "" || cnpjVar == "" || senhaVar == "") {
+        alert("valores vazios")
+        return false;
+      }
+
+      fetch("/usuarios/cadastrarEmpresa", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nomeServer: nomeVar,
+          cnpjServer: cnpjVar,
+          senhaServer: senhaVar
+        })
+      }).then(function (resposta) {
+
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000")
+
+        } else {
+          throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    } else {
       var nomeVar = in_nomeTuri.value;
       var emailVar = in_emailTuri.value;
-      var senhaVar = in_emailTuri.value;
+      var senhaVar = in_senhaTuri.value;
       var codVar = in_codTuri.value;
 
       if (nomeVar == "" || emailVar == "" || senhaVar == "" || codVar == "") {
@@ -237,37 +275,140 @@
         return false;
       }
 
-      // Enviando o valor da nova input
-      fetch("/usuarios/cadastrar", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-              // crie um atributo que recebe o valor recuperado aqui
-              // Agora vá para o arquivo routes/usuario.js
-              nomeServer: nomeVar,
-              emailServer: emailVar,
-              senhaServer: senhaVar
-          })
+      fetch("/usuarios/cadastrarUsuario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar
+        })
       }).then(function (resposta) {
 
-          console.log("resposta: ", resposta);
+        console.log("resposta: ", resposta);
 
-          if (resposta.ok) {
-              setTimeout(() => {
-                  window.location = "login.html";
-              }, "2000")
-              
-          } else {
-              throw ("Houve um erro ao tentar realizar o cadastro!");
-          }
+        if (resposta.ok) {
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000")
+
+        } else {
+          throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
       }).catch(function (resposta) {
-          console.log(`#ERRO: ${resposta}`);
+        console.log(`#ERRO: ${resposta}`);
       });
-
-      return false;
+    }
+    
+    return false;
+    
   }
+
+  function Entrar() {
+
+    var usuarioVar = in_usuarioLogin.value;
+    var senhaVar = in_senhaLogin.value;
+
+    if (usuarioVar == "" || senhaVar == "") {
+      alert("valores vazios")
+      return false;
+    }
+
+    console.log("FORM LOGIN: ", usuarioVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    if (usuarioVar.indexOf('@') > -1) {
+
+      fetch("/usuarios/autenticarUsuario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          usuarioServer: usuarioVar,
+          senhaServer: senhaVar
+        })
+      }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!")
+
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then(json => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+            sessionStorage.IDENTIFICADOR_USUARIO = json.email;
+            sessionStorage.NOME_USUARIO = json.nome;
+            sessionStorage.ID_USUARIO = json.id;
+
+            setTimeout(function () {
+              window.location = "dashboard.html";
+            }, 1000);
+
+          });
+
+        } else {
+
+          console.log("Houve um erro ao tentar realizar o login!");
+
+          resposta.text().then(texto => {
+            console.error(texto);
+          });
+        }
+
+      }).catch(function (erro) {
+        console.log(erro);
+      })
+    } else {
+      fetch("/usuarios/autenticarEmpresa", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          cnpjServer: usuarioVar,
+          senhaServer: senhaVar
+        })
+      }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!")
+
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then(json => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+            sessionStorage.IDENTIFICADOR_USUARIO = json.cnpj;
+            sessionStorage.NOME_USUARIO = json.nome;
+            sessionStorage.ID_USUARIO = json.id;
+
+            setTimeout(function () {
+              window.location = "dashboard.html";
+            }, 1000);
+
+          });
+
+        } else {
+
+          console.log("Houve um erro ao tentar realizar o login!");
+
+          resposta.text().then(texto => {
+            console.error(texto);
+          });
+        }
+
+      }).catch(function (erro) {
+        console.log(erro);
+      })
+    }
+
+    return false;
+  }
+
 
 
 </script>

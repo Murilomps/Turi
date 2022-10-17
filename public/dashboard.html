@@ -19,13 +19,17 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="/public/assets/img/favicon.png" rel="icon">
+    <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <script src="./dash.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/app.js"></script>
+    <script src="https://kit.fontawesome.com/0552a07945.js" crossorigin="anonymous"></script>
+    <script src="assets/js/main.js"></script>
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="validarSessao()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -36,7 +40,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
                 <div class="sidebar-brand-icon">
-                    <img src="../public/assets/img/logo.png" style="display: flex ;height:100%" alt="" class="img-fluid">
+                    <img src="assets/img/logo.png" style="display: flex ;height:100%" alt="" class="img-fluid">
                 </div>
                 <div class="sidebar-brand-text mx-3"><sup></sup></div>
             </a>
@@ -147,7 +151,7 @@
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <img class="sidebar-card-illustration mb-2" src="css/images/undraw_rocket.svg" alt="...">
                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
                 <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
             </div>
@@ -277,7 +281,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                        <img class="rounded-circle" src="css/images/undraw_profile_1.svg"
                                             alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
@@ -289,7 +293,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                        <img class="rounded-circle" src="css/images/undraw_profile_2.svg"
                                             alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
@@ -301,7 +305,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                                        <img class="rounded-circle" src="css/images/undraw_profile_3.svg"
                                             alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
@@ -333,9 +337,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="nome_usuario">Nome Usuario</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="css/images/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -353,7 +357,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" onclick="limparSessao()" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -528,24 +532,13 @@
                             </div>
                         </div>
 
-                    </div>
-
-                    <center>
-                    <br>
-                    <br>
-                    <h3>Dados Dinamicos</h3>
-                    <br>
-                    <br>
-                    </center>
-
-                        <div class="col-xl-8 col-lg-7" style="display: flex;"> <!--DivControle 1-->
                         <!-- Pie Chart Disk Machine 1  -->
                         <div class="col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) 1</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD)</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -588,7 +581,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) 2</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD)</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -633,7 +626,7 @@
                             <!-- Card Header - Dropdown -->
                             <div
                                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) 3</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Memória RAM</h6>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -669,147 +662,6 @@
                             </div>
                         </div>
                 </div>
-
-            </div>
-
-            <div class="col-xl-8 col-lg-7" style="display: flex;"> <!--DivControle 2-->
-                <!-- Pie Chart Disk Machine 1  -->
-                <div class="col-xl-6 col-lg-5">
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) 1</h6>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">Máquinas:</div>
-                                    <a class="dropdown-item" id="disk1"  >Máquina 1</a>
-                                    <a class="dropdown-item" id="disk2" onclick="trocarMaquinaDisco()" >Máquina 2</a>
-                                    <a class="dropdown-item" id="disk3" >Máquina 3</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">.</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card Body -->
-                        <div class="card-body">
-                            <div class="chart-pie pt-4 pb-2">
-                                <canvas id="chartDisk3"></canvas>
-                            </div>
-                            <div class="mt-4 text-center small">
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> Livre
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Em uso
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-info"></i> Total
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text" style="color: #FF0000;"></i> Buffers
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Pie Chart Disk Machine 2  -->
-                <div class="col-xl-6 col-lg-5">
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) 2</h6>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">Máquinas:</div>
-                                    <a class="dropdown-item" id="disk1" href="#">Máquina 1</a>
-                                    <a class="dropdown-item" id="disk2" href="#">Máquina 2</a>
-                                    <a class="dropdown-item" id="disk3" href="#">Máquina 3</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">.</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card Body -->
-                        <div class="card-body">
-                            <div class="chart-pie pt-4 pb-2">
-                                <canvas id="chartDisk2"></canvas>
-                            </div>
-                            <div class="mt-4 text-center small">
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> Livre
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Em uso
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-info"></i> Total
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            
-
-            <!-- Pie Chart RAM -->
-            <div class="col-xl-6 col-lg-5">
-                <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div
-                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) 3</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Máquinas:</div>
-                                <a class="dropdown-item" href="#">Máquina 1</a>
-                                <a class="dropdown-item" href="#">Máquina 2</a>
-                                <a class="dropdown-item" href="#">Máquina 3</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">.</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="chart-pie pt-4 pb-2">
-                            <canvas id="chartRAM1"></canvas>
-                        </div>
-                        <div class="mt-4 text-center small">
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-primary"></i> Livre
-                            </span>
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-success"></i> Em uso
-                            </span>
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-info"></i> Total
-                            </span>
-                        </div>
-                    </div>
-                </div>
-        </div>
-
-    </div>
-
-
 
                     <!-- Content Row -->
                     <div class="row">
@@ -868,7 +720,7 @@
                                 <div class="card-body">
                                     <div class="text-center">
                                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="img/undraw_posting_photo.svg" alt="...">
+                                            src="css/images/undraw_posting_photo.svg" alt="...">
                                     </div>
                                     <p>Add some quality, svg illustrations to your project courtesy of <a
                                             target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
@@ -897,7 +749,7 @@
                     </div>
                 </div>
 
-                
+                </div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -964,3 +816,15 @@
 </body>
 
 </html>
+
+<script>
+
+    // let proximaAtualizacao;
+
+    // window.onload = obterDadosGrafico(1);
+
+    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    // verificar_autenticacao();
+
+</script>

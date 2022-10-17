@@ -52,3 +52,29 @@ function sumirInput () {
        // myInputEmpresa.placeholder = 'Usuário';
     }
 }
+
+function validarSessao() {
+    // aguardar();
+
+    var identificador = sessionStorage.IDENTIFICADOR_USUARIO;
+    var nome = sessionStorage.NOME_USUARIO;
+
+    var nome_usuario = document.getElementById("nome_usuario");
+
+    if (identificador != null && nome != null) {
+        // window.alert(`Seja bem-vindo, ${nome}!`);
+        nome_usuario.innerHTML = nome;
+
+        // finalizarAguardar();
+    } else {
+        window.location = "../login.html";
+    }
+}
+
+
+function limparSessao() {
+    // aguardar();
+    sessionStorage.clear();
+    // finalizarAguardar();
+    window.location = "../login.html";
+}

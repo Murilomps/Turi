@@ -3,10 +3,10 @@ var sql = require('mssql');
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: "SEU_SERVIDOR",
-    database: "SEU_BANCO_DE_DADOS",
-    user: "SEU_USUARIO",
-    password: "SUA_SENHA",
+    server: "turi.database.windows.net",
+    database: "Turi",
+    user: "adm-turi",
+    password: "Urubu1002",
     pool: {
         max: 10,
         min: 0,
@@ -20,14 +20,14 @@ var sqlServerConfig = {
 // CONEXÃO DO MYSQL WORKBENCH (LOCAL)
 var mySqlConfig = {
     host: "localhost",
-    database: "SiteFantoches",
+    database: "Turi",
     user: "root",
     password: "12345678",
 };
 
 function executar(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
-    /* if (process.env.AMBIENTE_PROCESSO == "producao") {
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
         return new Promise(function (resolve, reject) {
             sql.connect(sqlServerConfig).then(function () {
                 return sql.query(instrucao);
@@ -42,7 +42,7 @@ function executar(instrucao) {
                 return ("ERRO NO SQL SERVER (Azure): ", erro);
             });
         });
-    } else */ if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         return new Promise(function (resolve, reject) {
             var conexao = mysql.createConnection(mySqlConfig);
             conexao.connect();
