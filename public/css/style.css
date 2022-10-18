@@ -11,28 +11,6 @@ body {
   margin-top: 3rem;
 }
 
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #7b68ee #ffffff;
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 12px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #191919;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #7b68ee;
-  border-radius: 10px;
-  border: 3px solid #6454c4;
-}
-
 a {
   color: #fff;
   text-decoration: none;
