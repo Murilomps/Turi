@@ -28,11 +28,13 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
+
+
+var ctx = document.getElementById("myAreaChart3");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["13:44:09", "13:46:09", "13:48:09", "13:50:09", "13:52:09", "13:54:09", "13:56:09", "13:58:09", "14:00:09", "14:02:09", "14:04:09", "14:06:09"],
+    labels: ["Horario da coleta aqui"],                       //HORARIO DA COLETA AQUI
     datasets: [{
       label: "Frequência - Máquina 1",
       lineTension: 0.3,
@@ -46,37 +48,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0.91, 0.85, 0.95, 1.00, 1.20, 0.92, 0.97, 0.91, 0.89, 0.94, 0.91, 0.89],
-    },
-    { 
-      label: "Frequência - Máquina 2",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0)",
-      borderColor: "rgb(96, 25, 115)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(96, 25, 115)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.85, 0.89, 0.91, 0.95, 0.98, 1.00, 1.20, 1.10, 1.06, 1.01, 0.99, 0.95],
-    },
-    { 
-      label: "Frequência - Máquina 3",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0)",
-      borderColor: "rgb(95, 59, 160)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(96, 25, 115)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.91, 0.89, 0.91, 0.95, 0.98, 1.01, 1.06, 1.10, 1.03, 1.00, 0.97, 0.92],
+      data: [1, 2 ,3],                                          //NUMERO RANDOMICO AQUI
     },
 
 ],
@@ -111,7 +83,7 @@ var myLineChart = new Chart(ctx, {
           maxTicksLimit: 5,
           padding: 10,
           callback: function(value, index, values) {
-            return number_format(value) + 'GhZ';
+            return number_format(value) + '%';
           }
         },
         gridLines: {
@@ -143,20 +115,20 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'GhZ' ;
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
         }
       }
     }
   }
 });
 
-var ctx = document.getElementById("myAreaChart2");
+var ctx = document.getElementById("myAreaChart4");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["13:44:09", "13:46:09", "13:48:09", "13:50:09", "13:52:09", "13:54:09", "13:56:09", "13:58:09", "14:00:09", "14:02:09", "14:04:09", "14:06:09"],
+    labels: ["Horario da coleta aqui"],                          //HORARIO DA COLETA AQUI
     datasets: [{
-      label: "Temperatura - Máquina 1",
+      label: "Frequência - Máquina 1",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223,0)",
       borderColor: "rgb(105, 89, 206)",
@@ -168,37 +140,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [23.5, 24.6, 22.9, 23.3, 25.2, 23.8, 23.9, 24.5, 24.8, 25.8, 21.9, 29.9],
-    },
-    { 
-      label: "Temperatura - Máquina 2",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0)",
-      borderColor: "rgb(96, 25, 115)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(96, 25, 115)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.85, 0.89, 0.91, 0.95, 0.98, 1.00, 1.20, 1.10, 1.06, 1.01, 0.99, 0.95],
-    },
-    { 
-      label: "Temperatura - Máquina 3",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0)",
-      borderColor: "rgb(95, 59, 160)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(96, 25, 115)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.91, 0.89, 0.91, 0.95, 0.98, 1.01, 1.06, 1.10, 1.03, 1.00, 0.97, 0.92],
+      data: [1, 2 ,3],                                            //NUMERO RANDOMICO AQUI
     },
 
 ],
@@ -233,7 +175,7 @@ var myLineChart = new Chart(ctx, {
           maxTicksLimit: 5,
           padding: 10,
           callback: function(value, index, values) {
-            return number_format(value) + '°C';
+            return number_format(value) + '%';
           }
         },
         gridLines: {
@@ -265,10 +207,653 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '°C' ;
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
         }
       }
     }
   }
 });
 
+var ctx = document.getElementById("myAreaChart5");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["Horario da coleta aqui"],
+    datasets: [{
+      label: "Frequência - Máquina 1",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: [1, 2 ,3],
+    },
+
+],
+    
+  },
+
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          callback: function(value, index, values) {
+            return number_format(value) + '%';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function(tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
+        }
+      }
+    }
+  }
+});
+
+var ctx = document.getElementById("myAreaChart6");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["Horario da coleta aqui"],                       //HORARIO DA COLETA AQUI
+    datasets: [{
+      label: "Frequência - Máquina 1",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: [1, 2 ,3],                                          //NUMERO RANDOMICO AQUI
+    },
+
+],
+    
+  },
+
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          callback: function(value, index, values) {
+            return number_format(value) + 'C°';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function(tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'C°' ;
+        }
+      }
+    }
+  }
+});
+
+var ctx = document.getElementById("myAreaChart7");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["Horario da coleta aqui"],                          //HORARIO DA COLETA AQUI
+    datasets: [{
+      label: "Frequência - Máquina 1",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: [1, 2 ,3],                                            //NUMERO RANDOMICO AQUI
+    },
+
+],
+    
+  },
+
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          callback: function(value, index, values) {
+            return number_format(value) + 'C°';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function(tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'C°' ;
+        }
+      }
+    }
+  }
+});
+
+var ctx = document.getElementById("myAreaChart8");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["Horario da coleta aqui"],
+    datasets: [{
+      label: "Frequência - Máquina 1",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: [1, 2 ,3],
+    },
+
+],
+    
+  },
+
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          callback: function(value, index, values) {
+            return number_format(value) + 'C°';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function(tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'C°' ;
+        }
+      }
+    }
+  }
+});
+
+var ctx = document.getElementById("myAreaChart9");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["Horario da coleta aqui"],                       //HORARIO DA COLETA AQUI
+    datasets: [{
+      label: "Frequência - Máquina 1",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: [1, 2 ,3],                                          //NUMERO RANDOMICO AQUI
+    },
+
+],
+    
+  },
+
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          callback: function(value, index, values) {
+            return number_format(value) + 'GB';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function(tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'GB' ;
+        }
+      }
+    }
+  }
+});
+
+var ctx = document.getElementById("myAreaChart10");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["Horario da coleta aqui"],                          //HORARIO DA COLETA AQUI
+    datasets: [{
+      label: "Frequência - Máquina 1",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: [1, 2 ,3],                                            //NUMERO RANDOMICO AQUI
+    },
+
+],
+    
+  },
+
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          callback: function(value, index, values) {
+            return number_format(value) + 'GB';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function(tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'GB' ;
+        }
+      }
+    }
+  }
+});
+
+var ctx = document.getElementById("myAreaChart11");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["Horario da coleta aqui"],
+    datasets: [{
+      label: "Frequência - Máquina 1",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: [1, 2 ,3],
+    },
+
+],
+    
+  },
+
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          callback: function(value, index, values) {
+            return number_format(value) + 'GB';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function(tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'C°' ;
+        }
+      }
+    }
+  }
+});
