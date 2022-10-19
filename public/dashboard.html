@@ -56,6 +56,17 @@
             </li>
 
             <!-- Divider -->
+            <hr class="sidebar-divider">
+
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="suporte.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Suporte</span></a>
+            </li>
+
+            <!-- Divider -->
             <!-- <hr class="sidebar-divider">
 
             Heading
@@ -355,7 +366,7 @@
                                     Atividade
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" onclick="limparSessao()" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Sair
                                 </a>
@@ -474,7 +485,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">CPU - Frequência</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Porcentagem de Uso (CPU)</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -565,9 +576,6 @@
                                         <span class="mr-2">
                                             <i class="fas fa-circle text-success"></i> Em uso
                                         </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Total
-                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -607,9 +615,6 @@
                                         </span>
                                         <span class="mr-2">
                                             <i class="fas fa-circle text-success"></i> Em uso
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Total
                                         </span>
                                     </div>
                                 </div>
@@ -737,15 +742,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Deseja mesmo sair?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Selecione "Logout" se tem certeza que deseja encerrar a sessão</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" onclick="limparSessao()">Logout</a>
                 </div>
             </div>
         </div>
@@ -780,6 +785,33 @@
 
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    // verificar_autenticacao();
+    setInterval(() => atualizarDados(), 2000);
+
+    function atualizarDados() {
+        let dateNow = new Date()
+
+        data1.labels.shift(); // apagar o primeiro
+        data1.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+        data1.datasets[0].data.shift();
+        data1.datasets[1].data.shift();
+        data1.datasets[2].data.shift();
+        data1.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
+        data1.datasets[1].data.push(Math.floor(Math.random() * 41) + 10);
+        data1.datasets[2].data.push(Math.floor(Math.random() * 41) + 10);
+
+
+        data2.labels.shift(); // apagar o primeiro
+        data2.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+        data2.datasets[0].data.shift();
+        data2.datasets[1].data.shift();
+        data2.datasets[2].data.shift();
+        data2.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
+        data2.datasets[1].data.push(Math.floor(Math.random() * 11) + 40);
+        data2.datasets[2].data.push(Math.floor(Math.random() * 11) + 40);
+
+        window.myLineChart1.update();
+        window.myLineChart2.update();
+
+    }
 
 </script>

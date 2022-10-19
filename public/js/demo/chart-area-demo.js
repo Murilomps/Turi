@@ -27,33 +27,105 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+// function obterDadosGrafico(idComputador) {
+
+//   // if (proximaAtualizacao != undefined) {
+//   //     clearTimeout(proximaAtualizacao);
+//   // }
+
+//   fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+//       if (response.ok) {
+//           response.json().then(function (resposta) {
+//               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+//               resposta.reverse();
+
+//               // inserirDados(resposta, idComputador);
+//           });
+//       } else {
+//           console.error('Nenhum dado encontrado ou erro na API');
+//       }
+//   })
+//       .catch(function (error) {
+//           console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+//       });
+// }
+
+// function inserirDados(resposta, idComputador) {
+//   console.log('iniciando plotagem do gráfico...');
+
+//   for (i = 0; i < resposta.length; i++) {
+//       var registro = resposta[i];
+//       dados.labels.push(registro.momento_grafico);
+
+//       dados.datasets[0].data.push(registro.umidade);
+//       dados.datasets[1].data.push(registro.temperatura);
+
+//   }
+// }
+
+
+
+
+let currentdate = new Date()
+
+let currentTime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+
+
+
+function cpuRandom() {
+  let result = [];
+  
+  for (i = 0; i < 5; i++) {
+    result[i] = Math.floor(Math.random() * 41) + 10;
+  }
+  return result
+}
+
+function temperatureRandom() {
+  let result = [];
+  
+  for (i = 0; i < 5; i++) {
+    result[i] = Math.floor(Math.random() * 11) + 40;
+  }
+  return result
+}
+
+function memoryRandom() {
+  let result = [];
+  
+  let rand = (Math.floor(Math.random() * 301))/100 + 2
+
+  for (i = 0; i < 5; i++) {
+    result[i] = rand;
+  }
+  return result
+}
+
+var data3 = {
+  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                       //HORARIO DA COLETA AQUI
+  datasets: [{
+    label: "Frequência - Máquina 1",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: cpuRandom(),                                          //NUMERO RANDOMICO AQUI
+  }]
+}
+
 // Area Chart Example
 
-
 var ctx = document.getElementById("myAreaChart3");
-var myLineChart = new Chart(ctx, {
+var myLineChart3 = new Chart(ctx, {
   type: 'line',
-  data: {
-    labels: ["Horario da coleta aqui"],                       //HORARIO DA COLETA AQUI
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [1, 2 ,3],                                          //NUMERO RANDOMICO AQUI
-    },
-
-],
-    
-  },
+  data: data3,
 
   options: {
     maintainAspectRatio: false,
@@ -82,6 +154,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + '%';
           }
@@ -121,31 +196,30 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+
+var data4 = {
+  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
+  datasets: [{
+    label: "Frequência - Máquina 2",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: cpuRandom(),                                            //NUMERO RANDOMICO AQUI
+  },],
+}
 
 var ctx = document.getElementById("myAreaChart4");
-var myLineChart = new Chart(ctx, {
+var myLineChart4 = new Chart(ctx, {
   type: 'line',
-  data: {
-    labels: ["Horario da coleta aqui"],                          //HORARIO DA COLETA AQUI
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [1, 2 ,3],                                            //NUMERO RANDOMICO AQUI
-    },
-
-],
-    
-  },
+  data: data4,
 
   options: {
     maintainAspectRatio: false,
@@ -174,6 +248,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + '%';
           }
@@ -213,31 +290,30 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+
+var data5 = {
+  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
+  datasets: [{
+    label: "Frequência - Máquina 3",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: cpuRandom(),                                            //NUMERO RANDOMICO AQUI
+  },],
+}
 
 var ctx = document.getElementById("myAreaChart5");
-var myLineChart = new Chart(ctx, {
+var myLineChart5 = new Chart(ctx, {
   type: 'line',
-  data: {
-    labels: ["Horario da coleta aqui"],
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [1, 2 ,3],
-    },
-
-],
-    
-  },
+  data: data5,
 
   options: {
     maintainAspectRatio: false,
@@ -266,6 +342,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + '%';
           }
@@ -306,30 +385,30 @@ var myLineChart = new Chart(ctx, {
   }
 });
 
-var ctx = document.getElementById("myAreaChart6");
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ["Horario da coleta aqui"],                       //HORARIO DA COLETA AQUI
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [1, 2 ,3],                                          //NUMERO RANDOMICO AQUI
-    },
 
-],
-    
-  },
+var data6 = {
+  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
+  datasets: [{
+    label: "Temperatura - Máquina 1",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: temperatureRandom(),                                            //NUMERO RANDOMICO AQUI
+  },],
+}
+
+var ctx = document.getElementById("myAreaChart6");
+var myLineChart6 = new Chart(ctx, {
+  type: 'line',
+  data: data6,
 
   options: {
     maintainAspectRatio: false,
@@ -358,6 +437,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + 'C°';
           }
@@ -397,31 +479,31 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+
+
+var data7 = {
+  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
+  datasets: [{
+    label: "Temperatura - Máquina 2",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: temperatureRandom(),                                            //NUMERO RANDOMICO AQUI
+  },],
+}
 
 var ctx = document.getElementById("myAreaChart7");
-var myLineChart = new Chart(ctx, {
+var myLineChart7 = new Chart(ctx, {
   type: 'line',
-  data: {
-    labels: ["Horario da coleta aqui"],                          //HORARIO DA COLETA AQUI
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [1, 2 ,3],                                            //NUMERO RANDOMICO AQUI
-    },
-
-],
-    
-  },
+  data: data7,
 
   options: {
     maintainAspectRatio: false,
@@ -450,6 +532,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + 'C°';
           }
@@ -489,31 +574,30 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+
+var data8 = {
+  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
+  datasets: [{
+    label: "Temperatura - Máquina 3",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: temperatureRandom(),                                            //NUMERO RANDOMICO AQUI
+  },],
+}
 
 var ctx = document.getElementById("myAreaChart8");
-var myLineChart = new Chart(ctx, {
+var myLineChart8 = new Chart(ctx, {
   type: 'line',
-  data: {
-    labels: ["Horario da coleta aqui"],
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [1, 2 ,3],
-    },
-
-],
-    
-  },
+  data: data8,
 
   options: {
     maintainAspectRatio: false,
@@ -542,6 +626,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + 'C°';
           }
@@ -582,30 +669,29 @@ var myLineChart = new Chart(ctx, {
   }
 });
 
-var ctx = document.getElementById("myAreaChart9");
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ["Horario da coleta aqui"],                       //HORARIO DA COLETA AQUI
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [1, 2 ,3],                                          //NUMERO RANDOMICO AQUI
-    },
+var data9 = {
+  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
+  datasets: [{
+    label: "Memoria - Máquina 1",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: memoryRandom(),                                            //NUMERO RANDOMICO AQUI
+  },],
+}
 
-],
-    
-  },
+var ctx = document.getElementById("myAreaChart9");
+var myLineChart9 = new Chart(ctx, {
+  type: 'line',
+  data: data9,
 
   options: {
     maintainAspectRatio: false,
@@ -634,6 +720,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 8,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + 'GB';
           }
@@ -673,31 +762,30 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+
+var data10 = {
+  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
+  datasets: [{
+    label: "Memoria - Máquina 2",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: memoryRandom(),                                            //NUMERO RANDOMICO AQUI
+  },],
+}
 
 var ctx = document.getElementById("myAreaChart10");
-var myLineChart = new Chart(ctx, {
+var myLineChart10 = new Chart(ctx, {
   type: 'line',
-  data: {
-    labels: ["Horario da coleta aqui"],                          //HORARIO DA COLETA AQUI
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [1, 2 ,3],                                            //NUMERO RANDOMICO AQUI
-    },
-
-],
-    
-  },
+  data: data10,
 
   options: {
     maintainAspectRatio: false,
@@ -726,6 +814,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 8,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + 'GB';
           }
@@ -766,30 +857,29 @@ var myLineChart = new Chart(ctx, {
   }
 });
 
-var ctx = document.getElementById("myAreaChart11");
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ["Horario da coleta aqui"],
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [1, 2 ,3],
-    },
+var data11 = {
+  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
+  datasets: [{
+    label: "Memoria - Máquina 3",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: memoryRandom(),                                            //NUMERO RANDOMICO AQUI
+  },],
+}
 
-],
-    
-  },
+var ctx = document.getElementById("myAreaChart11");
+var myLineChart11 = new Chart(ctx, {
+  type: 'line',
+  data: data11,
 
   options: {
     maintainAspectRatio: false,
@@ -818,6 +908,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 8,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + 'GB';
           }

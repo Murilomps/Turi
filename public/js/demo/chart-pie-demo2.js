@@ -6,61 +6,84 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 
+let currentdate2 = new Date()
+
+let currentTime2 = currentdate2.getHours() + ":" + currentdate2.getMinutes() + ":" + currentdate2.getSeconds();
+
+
+
+function cpuRandom() {
+  let result = [];
+  
+  for (i = 0; i < 12; i++) {
+    result[i] = Math.floor(Math.random() * 41) + 10;
+  }
+  return result
+}
+
+function temperatureRandom() {
+  let result = [];
+  
+  for (i = 0; i < 12; i++) {
+    result[i] = Math.floor(Math.random() * 11) + 40;
+  }
+  return result
+}
+
+var data1 = {
+  labels: [currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2],
+  datasets: [{
+    label: "Frequência - Máquina 1",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: cpuRandom(),
+  },
+  { 
+    label: "Frequência - Máquina 2",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223, 0)",
+    borderColor: "rgb(96, 25, 115)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(96, 25, 115)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: cpuRandom(),
+  },
+  { 
+    label: "Frequência - Máquina 3",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223, 0)",
+    borderColor: "rgb(95, 59, 160)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(96, 25, 115)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: cpuRandom(),
+  }]
+}
+
 
 var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
+var myLineChart1 = new Chart(ctx, {
   type: 'line',
-  data: {
-    labels: ["13:44:09", "13:46:09", "13:48:09", "13:50:09", "13:52:09", "13:54:09", "13:56:09", "13:58:09", "14:00:09", "14:02:09", "14:04:09", "14:06:09"],
-    datasets: [{
-      label: "Frequência - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.91, 0.85, 0.95, 1.00, 1.20, 0.92, 0.97, 0.91, 0.89, 0.94, 0.91, 0.89],
-    },
-    { 
-      label: "Frequência - Máquina 2",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0)",
-      borderColor: "rgb(96, 25, 115)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(96, 25, 115)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.85, 0.89, 0.91, 0.95, 0.98, 1.00, 1.20, 1.10, 1.06, 1.01, 0.99, 0.95],
-    },
-    { 
-      label: "Frequência - Máquina 3",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0)",
-      borderColor: "rgb(95, 59, 160)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(96, 25, 115)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.91, 0.89, 0.91, 0.95, 0.98, 1.01, 1.06, 1.10, 1.03, 1.00, 0.97, 0.92],
-    },
-
-],
-    
-  },
+  data: data1,
 
   options: {
     maintainAspectRatio: false,
@@ -89,8 +112,11 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
           callback: function(value, index, values) {
-            return number_format(value) + 'GhZ';
+            return number_format(value) + '%';
           }
         },
         gridLines: {
@@ -122,67 +148,66 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'GhZ' ;
+          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
         }
       }
     }
   }
 });
 
-var ctx = document.getElementById("myAreaChart2");
-var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ["13:44:09", "13:46:09", "13:48:09", "13:50:09", "13:52:09", "13:54:09", "13:56:09", "13:58:09", "14:00:09", "14:02:09", "14:04:09", "14:06:09"],
-    datasets: [{
-      label: "Temperatura - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [23.5, 24.6, 22.9, 23.3, 25.2, 23.8, 23.9, 24.5, 24.8, 25.8, 21.9, 29.9],
-    },
-    { 
-      label: "Temperatura - Máquina 2",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0)",
-      borderColor: "rgb(96, 25, 115)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(96, 25, 115)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.85, 0.89, 0.91, 0.95, 0.98, 1.00, 1.20, 1.10, 1.06, 1.01, 0.99, 0.95],
-    },
-    { 
-      label: "Temperatura - Máquina 3",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0)",
-      borderColor: "rgb(95, 59, 160)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(96, 25, 115)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0.91, 0.89, 0.91, 0.95, 0.98, 1.01, 1.06, 1.10, 1.03, 1.00, 0.97, 0.92],
-    },
-
-],
-    
+var data2 = {
+  labels: [currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2],
+  datasets: [{
+    label: "Temperatura - Máquina 1",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: temperatureRandom(),
   },
+  { 
+    label: "Temperatura - Máquina 2",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223, 0)",
+    borderColor: "rgb(96, 25, 115)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(96, 25, 115)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: temperatureRandom(),
+  },
+  { 
+    label: "Temperatura - Máquina 3",
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223, 0)",
+    borderColor: "rgb(95, 59, 160)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(96, 25, 115)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: temperatureRandom(),
+  }]  
+}
+
+var ctx = document.getElementById("myAreaChart2");
+var myLineChart2 = new Chart(ctx, {
+  type: 'line',
+  data: data2,
 
   options: {
     maintainAspectRatio: false,
@@ -211,6 +236,9 @@ var myLineChart = new Chart(ctx, {
         ticks: {
           maxTicksLimit: 5,
           padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
           callback: function(value, index, values) {
             return number_format(value) + '°C';
           }
@@ -255,11 +283,11 @@ var ctx = document.getElementById("chartDisk1");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Em uso", "Livre", "Total", "Buffers+Cache"],
+    labels: ["Em uso", "Livre"],
     datasets: [{
-      data: [44, 20, 64],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: [47, 53],
+      backgroundColor: ['#4e73df', '#1cc88a'],
+      hoverBackgroundColor: ['#2e59d9', '#17a673'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },
@@ -288,11 +316,11 @@ var ctx = document.getElementById("chartDisk2");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Em uso", "Livre", "Total", "Buffers+Cache"],
+    labels: ["Em uso", "Livre"],
     datasets: [{
-      data: [58, 68, 12],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: [42, 58],
+      backgroundColor: ['#4e73df', '#1cc88a'],
+      hoverBackgroundColor: ['#2e59d9', '#17a673'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },
