@@ -373,6 +373,12 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <select name="selMachine" id="selMachine" onchange="SelM()">
+                            <option>--Selecione sua maquina</option>
+                            <option value=1>Maquina 1</option>
+                            <option value=2>Maquina 2</option>
+                            <option value=3>Maquina 3</option>
+                        </select>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Gerar relatório</a>
                     </div>
@@ -465,7 +471,7 @@
                     </div>
 
 
-                        <div class="col-xl-8 col-lg-7" style="display: flex;"> <!--DivControle 1-->
+                        <div class="col-xl-8 col-lg-7" style="display: flex;" id="Maq1"> <!--DivControle 1-->
                         <!-- Pie Chart Disk Machine 1  -->
                         <div class="col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
@@ -505,14 +511,13 @@
                                 </div>
                             </div>
                         </div>
-                    
-                        <!-- Pie Chart Disk Machine 2  -->
+
                         <div class="col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) - Máquina 2</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Porcentagem de Uso (CPU) - Máquina 1</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -520,85 +525,30 @@
                                         </a>
                                         <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Máquinas:</div>
-                                            <a class="dropdown-item" id="disk1" href="#">Máquina 1</a>
-                                            <a class="dropdown-item" id="disk2" href="#">Máquina 2</a>
-                                            <a class="dropdown-item" id="disk3" href="#">Máquina 3</a>
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">.</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
                                         </div> -->
                                     </div>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="chartDisk2"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Livre
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Em uso
-                                        </span>
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart3"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                     
-
-                    <!-- Pie Chart RAM -->
-                    <div class="col-xl-6 col-lg-5">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div
-                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) - Máquina 3</h6>
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink">
-                                        <div class="dropdown-header">Máquinas:</div>
-                                        <a class="dropdown-item" href="#">Máquina 1</a>
-                                        <a class="dropdown-item" href="#">Máquina 2</a>
-                                        <a class="dropdown-item" href="#">Máquina 3</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">.</a>
-                                    </div> -->
-                                </div>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="chartDisk3"></canvas>
-                                </div>
-                                <div class="mt-4 text-center small">
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle text-primary"></i> Livre
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle text-success"></i> Em uso
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-
-            </div>
-
-            
-<div class="col-xl-8 col-lg-7" style="display: flex;"> <!--DivControle 2-->
-                 <!-- Area Chart Frequency of CPU-->
-                 <div class="col-xl-6 col-lg-5">
+                        <!-- Area Chart Frequency of CPU-->
+                <div class="col-xl-6 col-lg-5">
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Porcentagem de Uso (CPU) - Máquina 1</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Temperatura (CPU) - Máquina 1</h6>
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -617,7 +567,86 @@
                         <!-- Card Body -->
                         <div class="card-body">
                             <div class="chart-area">
-                                <canvas id="myAreaChart3"></canvas>
+                                <canvas id="myAreaChart6"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        
+                <!-- Area Chart Frequency of CPU-->
+            <div class="col-xl-6 col-lg-5">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 1</h6>
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Dropdown Header:</div>
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myAreaChart9"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    
+
+            </div>
+
+            
+<div class="col-xl-8 col-lg-7" style="display: flex;" id="Maq2"> <!--DivControle 2-->
+                 
+
+                <!-- Pie Chart Disk Machine 2  -->
+                <div class="col-xl-6 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) - Máquina 2</h6>
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-header">Máquinas:</div>
+                                    <a class="dropdown-item" id="disk1" href="#">Máquina 1</a>
+                                    <a class="dropdown-item" id="disk2" href="#">Máquina 2</a>
+                                    <a class="dropdown-item" id="disk3" href="#">Máquina 3</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">.</a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="chartDisk2"></canvas>
+                            </div>
+                            <div class="mt-4 text-center small">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-primary"></i> Livre
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-success"></i> Em uso
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -654,8 +683,116 @@
                     </div>
                 </div>
 
-                 <!-- Area Chart Frequency of CPU-->
-                 <div class="col-xl-6 col-lg-5">
+                <!-- Area Chart Frequency of CPU-->
+                <div class="col-xl-6 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Temperatura (CPU) - Máquina 2</h6>
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-header">Dropdown Header:</div>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="myAreaChart7"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Area Chart Frequency of CPU-->
+            <div class="col-xl-6 col-lg-5">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 2</h6>
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Dropdown Header:</div>
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myAreaChart10"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+
+
+            <div class="col-xl-8 col-lg-7" style="display: flex;" id="Maq3"> <!--DivControle 3-->
+                
+                <!-- Pie Chart RAM -->
+                <div class="col-xl-6 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) - Máquina 3</h6>
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-header">Máquinas:</div>
+                                    <a class="dropdown-item" href="#">Máquina 1</a>
+                                    <a class="dropdown-item" href="#">Máquina 2</a>
+                                    <a class="dropdown-item" href="#">Máquina 3</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">.</a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="chartDisk3"></canvas>
+                            </div>
+                            <div class="mt-4 text-center small">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-primary"></i> Livre
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-success"></i> Em uso
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+                <!-- Area Chart Frequency of CPU-->
+                <div class="col-xl-6 col-lg-5">
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div
@@ -684,73 +821,6 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
-
-
-
-            <div class="col-xl-8 col-lg-7" style="display: flex;"> <!--DivControle 3-->
-                <!-- Area Chart Frequency of CPU-->
-                <div class="col-xl-6 col-lg-5">
-                   <div class="card shadow mb-4">
-                       <!-- Card Header - Dropdown -->
-                       <div
-                           class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                           <h6 class="m-0 font-weight-bold text-primary">Temperatura (CPU) - Máquina 1</h6>
-                           <div class="dropdown no-arrow">
-                               <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                               </a>
-                               <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                   aria-labelledby="dropdownMenuLink">
-                                   <div class="dropdown-header">Dropdown Header:</div>
-                                   <a class="dropdown-item" href="#">Action</a>
-                                   <a class="dropdown-item" href="#">Another action</a>
-                                   <div class="dropdown-divider"></div>
-                                   <a class="dropdown-item" href="#">Something else here</a>
-                               </div> -->
-                           </div>
-                       </div>
-                       <!-- Card Body -->
-                       <div class="card-body">
-                           <div class="chart-area">
-                               <canvas id="myAreaChart6"></canvas>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-
-                <!-- Area Chart Frequency of CPU-->
-                <div class="col-xl-6 col-lg-5">
-                   <div class="card shadow mb-4">
-                       <!-- Card Header - Dropdown -->
-                       <div
-                           class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                           <h6 class="m-0 font-weight-bold text-primary">Temperatura (CPU) - Máquina 2</h6>
-                           <div class="dropdown no-arrow">
-                               <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                               </a>
-                               <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                   aria-labelledby="dropdownMenuLink">
-                                   <div class="dropdown-header">Dropdown Header:</div>
-                                   <a class="dropdown-item" href="#">Action</a>
-                                   <a class="dropdown-item" href="#">Another action</a>
-                                   <div class="dropdown-divider"></div>
-                                   <a class="dropdown-item" href="#">Something else here</a>
-                               </div> -->
-                           </div>
-                       </div>
-                       <!-- Card Body -->
-                       <div class="card-body">
-                           <div class="chart-area">
-                               <canvas id="myAreaChart7"></canvas>
-                           </div>
-                       </div>
-                   </div>
-               </div>
 
                 <!-- Area Chart Frequency of CPU-->
                 <div class="col-xl-6 col-lg-5">
@@ -783,103 +853,40 @@
                    </div>
                </div>
 
-           </div>
-
-           <div class="col-xl-8 col-lg-7" style="display: flex;"> <!--DivControle 3-->
-            <!-- Area Chart Frequency of CPU-->
+               <!-- Area Chart Frequency of CPU-->
             <div class="col-xl-6 col-lg-5">
-               <div class="card shadow mb-4">
-                   <!-- Card Header - Dropdown -->
-                   <div
-                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                       <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 1</h6>
-                       <div class="dropdown no-arrow">
-                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                           </a>
-                           <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                               aria-labelledby="dropdownMenuLink">
-                               <div class="dropdown-header">Dropdown Header:</div>
-                               <a class="dropdown-item" href="#">Action</a>
-                               <a class="dropdown-item" href="#">Another action</a>
-                               <div class="dropdown-divider"></div>
-                               <a class="dropdown-item" href="#">Something else here</a>
-                           </div> -->
-                       </div>
-                   </div>
-                   <!-- Card Body -->
-                   <div class="card-body">
-                       <div class="chart-area">
-                           <canvas id="myAreaChart9"></canvas>
-                       </div>
-                   </div>
-               </div>
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 3</h6>
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Dropdown Header:</div>
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myAreaChart11"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
            </div>
 
-            <!-- Area Chart Frequency of CPU-->
-            <div class="col-xl-6 col-lg-5">
-               <div class="card shadow mb-4">
-                   <!-- Card Header - Dropdown -->
-                   <div
-                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                       <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 2</h6>
-                       <div class="dropdown no-arrow">
-                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                           </a>
-                           <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                               aria-labelledby="dropdownMenuLink">
-                               <div class="dropdown-header">Dropdown Header:</div>
-                               <a class="dropdown-item" href="#">Action</a>
-                               <a class="dropdown-item" href="#">Another action</a>
-                               <div class="dropdown-divider"></div>
-                               <a class="dropdown-item" href="#">Something else here</a>
-                           </div> -->
-                       </div>
-                   </div>
-                   <!-- Card Body -->
-                   <div class="card-body">
-                       <div class="chart-area">
-                           <canvas id="myAreaChart10"></canvas>
-                       </div>
-                   </div>
-               </div>
-           </div>
-
-            <!-- Area Chart Frequency of CPU-->
-            <div class="col-xl-6 col-lg-5">
-               <div class="card shadow mb-4">
-                   <!-- Card Header - Dropdown -->
-                   <div
-                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                       <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 3</h6>
-                       <div class="dropdown no-arrow">
-                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                           </a>
-                           <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                               aria-labelledby="dropdownMenuLink">
-                               <div class="dropdown-header">Dropdown Header:</div>
-                               <a class="dropdown-item" href="#">Action</a>
-                               <a class="dropdown-item" href="#">Another action</a>
-                               <div class="dropdown-divider"></div>
-                               <a class="dropdown-item" href="#">Something else here</a>
-                           </div> -->
-                       </div>
-                   </div>
-                   <!-- Card Body -->
-                   <div class="card-body">
-                       <div class="chart-area">
-                           <canvas id="myAreaChart11"></canvas>
-                       </div>
-                   </div>
-               </div>
-           </div>
-
-       </div>
+           
 
 
 
@@ -952,6 +959,28 @@
 </html>
 
 <script>
+
+function SelM(){
+        // variaveis SelectMaquina
+    let maquina1 = document.getElementById("Maq1");
+    let maquina2 = document.getElementById("Maq2");
+    let maquina3 = document.getElementById("Maq3");
+    let sel = document.getElementById("selMachine");
+
+    if(sel.value == "1"){
+        maquina1.style.display = 'flex'
+        maquina2.style.display = 'none'
+        maquina3.style.display = 'none'
+    } else if(sel.value == "2"){
+        maquina1.style.display = 'none'
+        maquina2.style.display = 'flex'
+        maquina3.style.display = 'none'
+    } else if(sel.value == "3"){
+        maquina1.style.display = 'none'
+        maquina2.style.display = 'none'
+        maquina3.style.display = 'flex'
+    }
+}
 
     // let proximaAtualizacao;
 

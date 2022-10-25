@@ -15,7 +15,6 @@ function sumirInput () {
     var codCidade = document.getElementById("codCidade")
     var senhaCliente = document.getElementById("senhaCliente")
     
-    
     var mySwitch = document.getElementById('ipt_switch');
     
     console.log(mySwitch.checked);
@@ -78,3 +77,4 @@ function limparSessao() {
     // finalizarAguardar();
     window.location = "../login.html";
 }
+
