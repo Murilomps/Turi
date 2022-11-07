@@ -39,58 +39,67 @@ while True:
     memoriaInativa = round(vm.inactive*(2**-30),2)
     memoriaBuffer = round(vm.buffers*(2**-30),2)
     memoriaCache = round(vm.cached*(2**-30),2)
+#STATIC
+    sistemaOperacional = platform.system()
+    discoTotal = round(psutil.disk_usage('/').total*(2**-30),2)
+    memoriaTotal = round(psutil.virtual_memory().total*(2**-30),2)
+    nucleosFisicos = psutil.cpu_count(logical = False)
+    nucleosLogicos = psutil.cpu_count()
+    fkEmpresa = 1
 
 # SIMULATION
-    percentualCpu2 = percentualCpu + 10 if (percentualCpu <= 90) else 100.0
-    percentualCpu3 = percentualCpu2 + 5 if (percentualCpu2 <= 95) else 100.0
+    #percentualCpu2 = percentualCpu + 10 if (percentualCpu <= 90) else 100.0
+    #percentualCpu3 = percentualCpu2 + 5 if (percentualCpu2 <= 95) else 100.0
 
-    idleCpu2 = round(idleCpu * 1.05,2) if (idleCpu * 1.05 < interval) else interval   
-    idleCpu3 = round(idleCpu * 1.05,2) if (idleCpu * 1.05 < interval) else interval   
+    #idleCpu2 = round(idleCpu * 1.05,2) if (idleCpu * 1.05 < interval) else interval   
+    #idleCpu3 = round(idleCpu * 1.05,2) if (idleCpu * 1.05 < interval) else interval   
 
-    discoUsado2 = discoUsado * 1.05 if (discoUsado * 1.05 < discoTotal) else discoTotal   
-    discoUsado3 = discoUsado * 1.07 if (discoUsado * 1.07 < discoTotal) else discoTotal 
+    #discoUsado2 = discoUsado * 1.05 if (discoUsado * 1.05 < discoTotal) else discoTotal   
+    #discoUsado3 = discoUsado * 1.07 if (discoUsado * 1.07 < discoTotal) else discoTotal 
     
-    memoriaUsada2 = memoriaUsada * 1.05 if (memoriaUsada * 1.05 < memoriaTotal) else memoriaTotal
-    memoriaUsada3 = memoriaUsada * 1.05 if (memoriaUsada * 1.05 < memoriaTotal) else memoriaTotal
+    #memoriaUsada2 = memoriaUsada * 1.05 if (memoriaUsada * 1.05 < memoriaTotal) else memoriaTotal
+    #memoriaUsada3 = memoriaUsada * 1.05 if (memoriaUsada * 1.05 < memoriaTotal) else memoriaTotal
     
-    memoriaDisponivel2 = memoriaDisponivel * 0.95
-    memoriaDisponivel3 = memoriaDisponivel * 0.90
+    #memoriaDisponivel2 = memoriaDisponivel * 0.95
+    #memoriaDisponivel3 = memoriaDisponivel * 0.90
 
-    memoriaLivre2 = memoriaLivre *0.95 
-    memoriaLivre3 = memoriaLivre *0.90
+    #memoriaLivre2 = memoriaLivre *0.95 
+    #memoriaLivre3 = memoriaLivre *0.90
 
-    memoriaAtiva2 = memoriaAtiva *0.90  
-    memoriaAtiva3 = memoriaAtiva *0.85
+    #memoriaAtiva2 = memoriaAtiva *0.90  
+    #memoriaAtiva3 = memoriaAtiva *0.85
 
-    memoriaInativa2 = memoriaInativa * 1.10
-    memoriaInativa3 = memoriaInativa * 1.15
+    #memoriaInativa2 = memoriaInativa * 1.10
+    #memoriaInativa3 = memoriaInativa * 1.15
 
-    memoriaBuffer2 = memoriaBuffer * 1.20 
-    memoriaBuffer3 = memoriaBuffer * 1.25
+    #memoriaBuffer2 = memoriaBuffer * 1.20 
+    #memoriaBuffer3 = memoriaBuffer * 1.25
 
-    memoriaCache2 = memoriaCache * 0.90 
-    memoriaCache3 = memoriaCache * 0.95
+    #memoriaCache2 = memoriaCache * 0.90 
+    #memoriaCache3 = memoriaCache * 0.95
     
 
-    maquinas = [
-        [percentualCpu,idleCpu, memoriaUsada, memoriaDisponivel, memoriaLivre, memoriaAtiva, memoriaInativa, memoriaBuffer, memoriaCache, discoUsado],
-        [percentualCpu2,idleCpu2, memoriaUsada2, memoriaDisponivel2, memoriaLivre2, memoriaAtiva2, memoriaInativa2, memoriaBuffer2, memoriaCache2, discoUsado2],
-        [percentualCpu3,idleCpu3, memoriaUsada3, memoriaDisponivel3, memoriaLivre3, memoriaAtiva3, memoriaInativa3, memoriaBuffer3, memoriaCache3, discoUsado3],
-    ]
+    #maquinas = [
+        #[percentualCpu,idleCpu, memoriaUsada, memoriaDisponivel, memoriaLivre, memoriaAtiva, memoriaInativa, memoriaBuffer, memoriaCache, discoUsado],
+        #[percentualCpu2,idleCpu2, memoriaUsada2, memoriaDisponivel2, memoriaLivre2, memoriaAtiva2, memoriaInativa2, memoriaBuffer2, memoriaCache2, discoUsado2],
+        #[percentualCpu3,idleCpu3, memoriaUsada3, memoriaDisponivel3, memoriaLivre3, memoriaAtiva3, memoriaInativa3, memoriaBuffer3, memoriaCache3, discoUsado3],
+    #]
     
     cursor = con.cursor() # objeto que permite fazer interação por elementos de uma tabela lendo individualmente cada um
 
-
-    for index, maquina in enumerate(maquinas):
+    while (True):
+    #for index, maquina in enumerate(maquinas):
         # comando para inserir os dados das variaveis no banco
         sql = "INSERT INTO Leitura(fk_computador, data_hora,cpu_porcentagem, cpu_idle, memoria_usada, memoria_disponivel, memoria_livre, memoria_ativa, memoria_inativa, memoria_buffer, memoria_cache, disco_usado) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        values=[(index + 1), dataHora, maquina[0], maquina[1], maquina[2], maquina[3], maquina[4], maquina[5], maquina[6], maquina[7], maquina[8], maquina[9]]
-        cursor.execute(sql,values)
+        #values=[(index + 1), dataHora, maquina[0], maquina[1], maquina[2], maquina[3], maquina[4], maquina[5], maquina[6], maquina[7], maquina[8], maquina[9]]
+        cursor.execute(sql)
         meu_so = platform.system()
         print("SO que eu uso : ",meu_so)
         print(cursor.rowcount,"record inserted")
 
-    con.commit()
-    con.close() # esse método serve para encerrar a captura de dados e envio ao banco
+        con.commit()
+        con.close() # esse método serve para encerrar a captura de dados e envio ao banco
 
-    time.sleep(2.0) # discretização - reduzir tamanho do dado coletado 
+        time.sleep(2.0) # discretização - reduzir tamanho do dado coletado 
+
+        break
