@@ -373,10 +373,10 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <select name="selMachine" id="selMachine" onchange="SelM()">
-                            <option value=1>Maquina 1</option>
-                            <option value=2>Maquina 2</option>
-                            <option value=3>Maquina 3</option>
+                        <select name="selMachine" id="selMachine" onchange="SelM()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="margin-left: 63%;">
+                            <option value=1>Máquina 1</option>
+                            <option value=2>Máquina 2</option>
+                            <option value=3>Máquina 3</option>
                         </select>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Gerar relatório</a>
@@ -470,8 +470,9 @@
                     </div>
 
 
-                        <div class="col-xl-8 col-lg-7" style="display: flex;" id="Maq1"> <!--DivControle 1-->
+                        <div class="col-xl-8 col-lg-7" style="display: contents;" id="Maq1"> <!--DivControle 1-->
                         <!-- Pie Chart Disk Machine 1  -->
+                        <div style="display: flex;"> <!--opa salve-->
                         <div class="col-xl-6 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
@@ -540,10 +541,13 @@
                                 </div>
                             </div>
                         </div>
-                    
+                    </div>
+
                         <!-- Area Chart Frequency of CPU-->
+                <div style="display: flex;">
                 <div class="col-xl-6 col-lg-5">
                     <div class="card shadow mb-4">
+                
                         <!-- Card Header - Dropdown -->
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -602,15 +606,13 @@
                     </div>
                 </div>
             </div>
-
-                    
-
-            </div>
+        </div>
+</div>
 
             
-<div class="col-xl-8 col-lg-7" style="display: flex;" id="Maq2"> <!--DivControle 2-->
+<div class="col-xl-8 col-lg-7" style="display: none;" id="Maq2"> <!--DivControle 2-->
                  
-
+    <div style="display: flex;">
                 <!-- Pie Chart Disk Machine 2  -->
                 <div class="col-xl-6 col-lg-5">
                     <div class="card shadow mb-4">
@@ -681,7 +683,8 @@
                         </div>
                     </div>
                 </div>
-
+    </div>
+    <div style="display: flex;">
                 <!-- Area Chart Frequency of CPU-->
                 <div class="col-xl-6 col-lg-5">
                     <div class="card shadow mb-4">
@@ -743,13 +746,15 @@
                     </div>
                 </div>
             </div>
+    </div>
 
             </div>
 
 
 
-            <div class="col-xl-8 col-lg-7" style="display: flex;" id="Maq3"> <!--DivControle 3-->
+            <div class="col-xl-8 col-lg-7" style="display: none;" id="Maq3"> <!--DivControle 3-->
                 
+                <div style="display: flex;">
                 <!-- Pie Chart RAM -->
                 <div class="col-xl-6 col-lg-5">
                     <div class="card shadow mb-4">
@@ -820,7 +825,9 @@
                         </div>
                     </div>
                 </div>
+                </div>
 
+                <div style="display: flex;">
                 <!-- Area Chart Frequency of CPU-->
                 <div class="col-xl-6 col-lg-5">
                    <div class="card shadow mb-4">
@@ -882,6 +889,7 @@
                     </div>
                 </div>
             </div>
+        </div>
 
            </div>
 
@@ -967,17 +975,17 @@ function SelM(){
     let sel = document.getElementById("selMachine");
 
     if(sel.value == "1"){
-        maquina1.style.display = 'flex'
+        maquina1.style.display = 'contents'
         maquina2.style.display = 'none'
         maquina3.style.display = 'none'
     } else if(sel.value == "2"){
         maquina1.style.display = 'none'
-        maquina2.style.display = 'flex'
+        maquina2.style.display = 'contents'
         maquina3.style.display = 'none'
     } else if(sel.value == "3"){
         maquina1.style.display = 'none'
         maquina2.style.display = 'none'
-        maquina3.style.display = 'flex'
+        maquina3.style.display = 'contents'
     }
 }
 
