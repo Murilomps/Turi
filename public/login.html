@@ -234,7 +234,7 @@
       var numeroVar = in_numeroEmpresa.value;
       var cidadeVar = in_cidadeEmpresa.value;
 
-      if (nomeVar == "" || cnpjVar == "" || senhaVar == "") {
+      if (nomeVar == "" || cnpjVar == "" || senhaVar == "" || ruaVar == "" || bairroVar == "" || numeroVar == "" || cidadeVar == "") {
         alert("valores vazios")
         return false;
       }
@@ -247,7 +247,11 @@
         body: JSON.stringify({
           nomeServer: nomeVar,
           cnpjServer: cnpjVar,
-          senhaServer: senhaVar
+          ruaServer: ruaVar,
+          bairroServer: bairroVar,
+          numeroServer: numeroVar,
+          senhaServer: senhaVar,
+          cidadeServer: cidadeVar
         })
       }).then(function (resposta) {
 
@@ -274,8 +278,8 @@
         alert("valores vazios")
         return false;
       }
-
-      fetch("/usuarios/cadastrarUsuario", {
+      if (codVar == 1050) {
+        fetch("/usuarios/cadastrarUsuario", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -283,7 +287,7 @@
         body: JSON.stringify({
           nomeServer: nomeVar,
           emailServer: emailVar,
-          senhaServer: senhaVar
+          senhaServer: senhaVar,
         })
       }).then(function (resposta) {
 
@@ -301,8 +305,10 @@
         console.log(`#ERRO: ${resposta}`);
       });
     }
+  }
     
     return false;
+    
     
   }
 
