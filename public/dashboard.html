@@ -779,39 +779,79 @@
 
 <script>
 
-    // let proximaAtualizacao;
+    let proximaAtualizacao;
 
-    // window.onload = obterDadosGrafico(1);
+    window.onload = obterDadosGrafico(1);
 
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    setInterval(() => atualizarDados(), 2000);
-
-    function atualizarDados() {
-        let dateNow = new Date()
-
-        data1.labels.shift(); // apagar o primeiro
-        data1.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data1.datasets[0].data.shift();
-        data1.datasets[1].data.shift();
-        data1.datasets[2].data.shift();
-        data1.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
-        data1.datasets[1].data.push(Math.floor(Math.random() * 41) + 10);
-        data1.datasets[2].data.push(Math.floor(Math.random() * 41) + 10);
-
-
-        data2.labels.shift(); // apagar o primeiro
-        data2.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data2.datasets[0].data.shift();
-        data2.datasets[1].data.shift();
-        data2.datasets[2].data.shift();
-        data2.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
-        data2.datasets[1].data.push(Math.floor(Math.random() * 11) + 40);
-        data2.datasets[2].data.push(Math.floor(Math.random() * 11) + 40);
-
-        window.myLineChart1.update();
-        window.myLineChart2.update();
-
+    function alterarTitulo(idComputador) {
+        var tituloAquario = document.getElementById("tituloAquario")
+        tituloAquario.innerHTML = "Últimas medidas do <span style='color: #e3b062'>Hardware  " + idComputador + "</span>"
     }
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDadosGrafico(idComputador) {
+        alterarTitulo(idComputador)
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, idComputador);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // setInterval(() => atualizarDados(), 2000);
+
+    // function atualizarDados() {
+    //     let dateNow = new Date()
+
+    //     data1.labels.shift(); // apagar o primeiro
+    //     data1.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data1.datasets[0].data.shift();
+    //     data1.datasets[1].data.shift();
+    //     data1.datasets[2].data.shift();
+    //     data1.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
+    //     data1.datasets[1].data.push(Math.floor(Math.random() * 41) + 10);
+    //     data1.datasets[2].data.push(Math.floor(Math.random() * 41) + 10);
+
+
+    //     data2.labels.shift(); // apagar o primeiro
+    //     data2.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data2.datasets[0].data.shift();
+    //     data2.datasets[1].data.shift();
+    //     data2.datasets[2].data.shift();
+    //     data2.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
+    //     data2.datasets[1].data.push(Math.floor(Math.random() * 11) + 40);
+    //     data2.datasets[2].data.push(Math.floor(Math.random() * 11) + 40);
+
+    //     window.myLineChart1.update();
+    //     window.myLineChart2.update();
+
+    // }
 
 </script>
