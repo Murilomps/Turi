@@ -90,7 +90,7 @@ while True:
     while (True):
     #for index, maquina in enumerate(maquinas):
         # comando para inserir os dados das variaveis no banco
-        sql = "INSERT INTO Leitura(fk_computador, data_hora,cpu_porcentagem, cpu_idle, memoria_usada, memoria_disponivel, memoria_livre, memoria_ativa, memoria_inativa, memoria_buffer, memoria_cache, disco_usado) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        sql = "INSERT INTO Leitura(fk_computador, data_hora,cpu_porcentagem, cpu_idle, memoria_usada, memoria_disponivel, memoria_livre, memoria_ativa, memoria_inativa, memoria_buffer, memoria_cache, disco_usado, sistema_operacional, disco_total, memoria_total, nucleos_fisicos, nucleos_logicos) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         #values=[(index + 1), dataHora, maquina[0], maquina[1], maquina[2], maquina[3], maquina[4], maquina[5], maquina[6], maquina[7], maquina[8], maquina[9]]
         cursor.execute(sql)
         meu_so = platform.system()
