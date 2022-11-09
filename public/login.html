@@ -73,7 +73,7 @@
 
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="CNPJ/Email" id="in_usuarioLogin"/>
+              <input type="number" placeholder="CNPJ/Email" id="in_usuarioLogin"/>
             </div>
 
             <div class="input-field">
@@ -237,10 +237,30 @@
       var cidadeVar = in_cidadeEmpresa.value;
 
       if (nomeVar == "" || cnpjVar == "" || senhaVar == "" || ruaVar == "" || bairroVar == "" || numeroVar == "" || cidadeVar == "") {
-        alert("valores vazios")
-        return false;
-      }
-
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Valores vazios!',
+            showConfirmButton: false,
+            timer: 1000}
+          )
+      } else if (cnpjVar.length < 14 || cnpjVar.length > 14) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Seu CNPJ está fora do padrão!',
+            showConfirmButton: false,
+            timer: 1000}
+          )
+      } else if (senhaVar.length < 8) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Senha muito curta. <br> A senha deve ter no mínimo 8 caracteres.',
+            showConfirmButton: false,
+            timer: 1500}
+          )
+      } else {
       fetch("/usuarios/cadastrarEmpresa", {
         method: "POST",
         headers: {
@@ -277,6 +297,7 @@
       }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
+    }
     } else {
       var nomeVar = in_nomeTuri.value;
       var emailVar = in_emailTuri.value;
@@ -284,10 +305,38 @@
       var codVar = in_codTuri.value;
 
       if (nomeVar == "" || emailVar == "" || senhaVar == "" || codVar == "") {
-        alert("valores vazios")
-        return false;
-      }
-      if (codVar == 1050) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Valores vazios!',
+            showConfirmButton: false,
+            timer: 1000}
+          )
+      } else if (emailVar.indexOf('@') == -1) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Seu e-mail está fora do padrão!',
+            showConfirmButton: false,
+            timer: 1000}
+          )
+      } else if(codVar != 1050) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Código não localizado.',
+            showConfirmButton: false,
+            timer: 1000}
+          )
+      } else if (senhaVar.length < 8) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Senha muito curta. <br> A senha deve ter 8 caracteres.',
+            showConfirmButton: false,
+            timer: 1500}
+          )
+      } else {
         fetch("/usuarios/cadastrarUsuario", {
         method: "POST",
         headers: {
@@ -326,8 +375,8 @@
     
     return false;
     
-    
   }
+  
 
   function Entrar() {
 
