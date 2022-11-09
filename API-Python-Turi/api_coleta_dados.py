@@ -12,7 +12,7 @@ memoriaTotal = round(psutil.virtual_memory().total*(2**-30),2)
 while True:
     try:
         con = mysql.connector.connect(
-            host='localhost', user='root', password='sovocl1n', database='Turi')
+            host='localhost', user='root', password='Zazam@#1201', database='Turi')
         print("Conexão ao banco estabelecida!")
     except mysql.connector.Error as error:
         if error.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
