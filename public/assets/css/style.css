@@ -537,7 +537,9 @@ section {
 /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
-
+.about {
+  background-color: #f2f2f7;
+}
 .about .content h2 {
   font-weight: 700;
   font-size: 44px;
@@ -580,6 +582,8 @@ section {
 
 .why-us {
   padding-top: 0;
+  background-color: #f2f2f7;
+
  
 }
 
@@ -592,6 +596,7 @@ section {
 
 .why-us .box {
   padding: 50px 30px;
+  background-color: #fcfcfc;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   transition: all ease-in-out 0.3s;
   }
