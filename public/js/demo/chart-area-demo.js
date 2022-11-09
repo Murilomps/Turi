@@ -71,35 +71,63 @@ let currentdate = new Date()
 let currentTime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 
 
+function obterDadosGrafico(idComputador) {
+  // alterarTitulo(idComputador)
 
-function cpuRandom() {
-  let result = [];
-  
-  for (i = 0; i < 5; i++) {
-    result[i] = Math.floor(Math.random() * 41) + 10;
-  }
-  return result
+  // if (proximaAtualizacao != undefined) {
+  //     clearTimeout(proximaAtualizacao);
+  // }
+
+  return fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+          return response.json().then(function (resposta) {
+              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+              resposta.reverse();
+
+              // plotarGrafico(resposta, idComputador);
+              return resposta
+          });
+      } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+      }
+  })
+      .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
 }
 
-function temperatureRandom() {
-  let result = [];
-  
-  for (i = 0; i < 5; i++) {
-    result[i] = Math.floor(Math.random() * 11) + 40;
-  }
-  return result
-}
 
-function memoryRandom() {
-  let result = [];
-  
-  let rand = (Math.floor(Math.random() * 301))/100 + 2
 
-  for (i = 0; i < 5; i++) {
-    result[i] = rand;
-  }
-  return result
-}
+// function cpuRandom() {
+//   let result = [];
+  
+//   for (i = 0; i < 5; i++) {
+//     result[i] = Math.floor(Math.random() * 41) + 10;
+//   }
+//   return result
+// }
+
+// function temperatureRandom() {
+//   let result = [];
+  
+//   for (i = 0; i < 5; i++) {
+//     result[i] = Math.floor(Math.random() * 11) + 40;
+//   }
+//   return result
+// }
+
+// function memoryRandom() {
+//   let result = [];
+  
+//   let rand = (Math.floor(Math.random() * 301))/100 + 2
+
+//   for (i = 0; i < 5; i++) {
+//     result[i] = rand;
+//   }
+//   return result
+// }
+
+console.log(obterDadosGrafico(1), "aaaaaaaaaaaaaaaa")
 
 var data3 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                       //HORARIO DA COLETA AQUI
@@ -116,7 +144,7 @@ var data3 = {
     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
     pointHitRadius: 10,
     pointBorderWidth: 2,
-    data: cpuRandom(),                                          //NUMERO RANDOMICO AQUI
+    data: 1,
   }]
 }
 
@@ -212,7 +240,7 @@ var data4 = {
     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
     pointHitRadius: 10,
     pointBorderWidth: 2,
-    data: cpuRandom(),                                            //NUMERO RANDOMICO AQUI
+    data: 1,
   },],
 }
 
@@ -306,7 +334,7 @@ var data5 = {
     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
     pointHitRadius: 10,
     pointBorderWidth: 2,
-    data: cpuRandom(),                                            //NUMERO RANDOMICO AQUI
+    data: 1,
   },],
 }
 
@@ -401,7 +429,7 @@ var data6 = {
     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
     pointHitRadius: 10,
     pointBorderWidth: 2,
-    data: temperatureRandom(),                                            //NUMERO RANDOMICO AQUI
+    data: 1,
   },],
 }
 
@@ -496,7 +524,7 @@ var data7 = {
     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
     pointHitRadius: 10,
     pointBorderWidth: 2,
-    data: temperatureRandom(),                                            //NUMERO RANDOMICO AQUI
+    data: 1,
   },],
 }
 
@@ -590,7 +618,7 @@ var data8 = {
     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
     pointHitRadius: 10,
     pointBorderWidth: 2,
-    data: temperatureRandom(),                                            //NUMERO RANDOMICO AQUI
+    data: 1,
   },],
 }
 
@@ -684,7 +712,7 @@ var data9 = {
     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
     pointHitRadius: 10,
     pointBorderWidth: 2,
-    data: memoryRandom(),                                            //NUMERO RANDOMICO AQUI
+    data: 1,
   },],
 }
 
@@ -778,7 +806,7 @@ var data10 = {
     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
     pointHitRadius: 10,
     pointBorderWidth: 2,
-    data: memoryRandom(),                                            //NUMERO RANDOMICO AQUI
+    data: 1,
   },],
 }
 
@@ -872,7 +900,7 @@ var data11 = {
     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
     pointHitRadius: 10,
     pointBorderWidth: 2,
-    data: memoryRandom(),                                            //NUMERO RANDOMICO AQUI
+    data: 1,
   },],
 }
 

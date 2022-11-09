@@ -4,11 +4,11 @@ function buscarUltimasMedidas(req, res) {
 
     const limite_linhas = 7;
 
-    var idComputador = req.params.id;
+    var idComputador = req.params.idComputador;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.buscarUltimasMedidas(idComputador, limite_linhas).then(function (resultado) {
+    medidaModel.buscarUltimasMedidas(idComputador).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

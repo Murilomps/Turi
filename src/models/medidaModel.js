@@ -1,11 +1,11 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idComputador, limite_linhas) {
+function buscarUltimasMedidas(idComputador) {
 
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `SELECT TOP (7) id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel FROM Leitura where fk_computador = ${idComputador} order by id desc;`;
+        instrucaoSql = `SELECT TOP (3) id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel FROM Leitura where fk_computador = ${idComputador} order by id desc;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 

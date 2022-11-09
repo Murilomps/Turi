@@ -995,67 +995,67 @@ function SelM(){
 
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    setInterval(() => atualizarDados(), 2000);
+    // setInterval(() => atualizarDados(), 2000);
 
-    function atualizarDados() {
-        let dateNow = new Date()
+    // function atualizarDados() {
+    //     let dateNow = new Date()
 
-        data3.labels.shift(); // apagar o primeiro
-        data3.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data3.datasets[0].data.shift();
-        data3.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
+    //     data3.labels.shift(); // apagar o primeiro
+    //     data3.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data3.datasets[0].data.shift();
+    //     data3.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
 
-        data4.labels.shift(); // apagar o primeiro
-        data4.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data4.datasets[0].data.shift();
-        data4.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
+    //     data4.labels.shift(); // apagar o primeiro
+    //     data4.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data4.datasets[0].data.shift();
+    //     data4.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
 
-        data5.labels.shift(); // apagar o primeiro
-        data5.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data5.datasets[0].data.shift();
-        data5.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
+    //     data5.labels.shift(); // apagar o primeiro
+    //     data5.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data5.datasets[0].data.shift();
+    //     data5.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
 
-        data6.labels.shift(); // apagar o primeiro
-        data6.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data6.datasets[0].data.shift();
-        data6.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
+    //     data6.labels.shift(); // apagar o primeiro
+    //     data6.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data6.datasets[0].data.shift();
+    //     data6.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
 
-        data7.labels.shift(); // apagar o primeiro
-        data7.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data7.datasets[0].data.shift();
-        data7.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
+    //     data7.labels.shift(); // apagar o primeiro
+    //     data7.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data7.datasets[0].data.shift();
+    //     data7.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
 
-        data8.labels.shift(); // apagar o primeiro
-        data8.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data8.datasets[0].data.shift();
-        data8.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
+    //     data8.labels.shift(); // apagar o primeiro
+    //     data8.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data8.datasets[0].data.shift();
+    //     data8.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
 
-        data9.labels.shift(); // apagar o primeiro
-        data9.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data9.datasets[0].data.shift();
-        data9.datasets[0].data.push(data9.datasets[0].data[0]);
+    //     data9.labels.shift(); // apagar o primeiro
+    //     data9.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data9.datasets[0].data.shift();
+    //     data9.datasets[0].data.push(data9.datasets[0].data[0]);
 
-        data10.labels.shift(); // apagar o primeiro
-        data10.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data10.datasets[0].data.shift();
-        data10.datasets[0].data.push(data10.datasets[0].data[0]);
+    //     data10.labels.shift(); // apagar o primeiro
+    //     data10.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data10.datasets[0].data.shift();
+    //     data10.datasets[0].data.push(data10.datasets[0].data[0]);
 
-        data11.labels.shift(); // apagar o primeiro
-        data11.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-        data11.datasets[0].data.shift();
-        data11.datasets[0].data.push(data11.datasets[0].data[0]);
+    //     data11.labels.shift(); // apagar o primeiro
+    //     data11.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
+    //     data11.datasets[0].data.shift();
+    //     data11.datasets[0].data.push(data11.datasets[0].data[0]);
 
-        window.myLineChart3.update();
-        window.myLineChart4.update();
-        window.myLineChart5.update();
-        window.myLineChart6.update();
-        window.myLineChart7.update();
-        window.myLineChart8.update();
-        window.myLineChart9.update();
-        window.myLineChart10.update();
-        window.myLineChart11.update();
+    //     window.myLineChart3.update();
+    //     window.myLineChart4.update();
+    //     window.myLineChart5.update();
+    //     window.myLineChart6.update();
+    //     window.myLineChart7.update();
+    //     window.myLineChart8.update();
+    //     window.myLineChart9.update();
+    //     window.myLineChart10.update();
+    //     window.myLineChart11.update();
 
-    }
+    // }
 
 
     // function inserirDados() {
