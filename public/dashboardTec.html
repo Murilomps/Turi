@@ -49,11 +49,25 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
+
+            <select style="background-color: #252525;color:white; padding: 5%;margin: 5%;"class="nav-link" name="dashboardTec" id="dashTech" onchange="dashTech()">
             <li class="nav-item active">
                 <a class="nav-link" href="dashboardTec.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <option value=1>Dashboard</option>
+                    <option value=2>Saúde da máquina</option>
+                </a>
             </li>
+        </select>
+
+         <!-- Nav Item - Suporte -->
+        <li class="nav-item">
+            <a class="nav-link" href="suporte.html">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Suporte</span></a>
+        </li>
+
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -988,6 +1002,8 @@ function SelM(){
         maquina3.style.display = 'contents'
     }
 }
+
+
 
     // let proximaAtualizacao;
 
