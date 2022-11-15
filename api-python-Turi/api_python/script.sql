@@ -22,20 +22,21 @@ CREATE TABLE usuario (
     email VARCHAR(45) NOT NULL,
     senha VARCHAR(100) NOT NULL
 )AUTO_INCREMENT=100;
--- manter código da Turi no BD ou somente chapado no código?
+
 
 CREATE TABLE computador (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	fkEmpresa INT NOT NULL,
-    FOREIGN KEY (fkEmpresa) REFERENCES empresa(id),
-    sistema_operacional VARCHAR(45) NOT NULL,
-    disco_total FLOAT NOT NULL,
-	cpu_nucleos_logicos INT NOT NULL,
-    cpu_nucleos_fisicos INT NOT NULL,
-    memoria_total FLOAT NOT NULL
+	fk_empresa INT NOT NULL,
+    FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
+	memoria_total FLOAT,
+    disco_total FLOAT,
+    sistema_operacional VARCHAR(45),
+	cpu_nucleos_logicos INT,
+    cpu_nucleos_fisicos INT
 )AUTO_INCREMENT=200;
 
-select * from computador;
+insert into computador values (1,1,null,null,null,null,null), (2,1,null,null,null,null,null), (3,1,null,null,null,null,null);
+
 
 CREATE TABLE Leitura (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -43,13 +44,9 @@ CREATE TABLE Leitura (
     FOREIGN KEY (fk_computador) REFERENCES computador(id),
     data_hora datetime,
     cpu_porcentagem FLOAT,
-    cpu_idle FLOAT,
+	disco_usado FLOAT,
     memoria_usada FLOAT,
-    memoria_disponivel FLOAT,
-    memoria_livre FLOAT,
-    memoria_ativa FLOAT,
-    memoria_inativa FLOAT,
-    memoria_buffer FLOAT,
-    memoria_cache FLOAT,
-    disco_usado FLOAT
+    memoria_disponivel FLOAT
 );
+
+select * from Leitura;
