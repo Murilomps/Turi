@@ -63,9 +63,13 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 //   }
 // }
 
+
+
+
 let currentdate = new Date()
 
 let currentTime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+
 
 function obterDadosGrafico(idComputador) {
   // alterarTitulo(idComputador)
@@ -80,7 +84,7 @@ function obterDadosGrafico(idComputador) {
               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
               resposta.reverse();
 
-              plotarGrafico(resposta, idComputador);
+              // plotarGrafico(resposta, idComputador);
               return resposta
           });
       } else {
@@ -91,6 +95,8 @@ function obterDadosGrafico(idComputador) {
           console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
 }
+
+
 
 // function cpuRandom() {
 //   let result = [];
@@ -336,7 +342,7 @@ var ctx = document.getElementById("myAreaChart5");
 var myLineChart5 = new Chart(ctx, {
   type: 'line',
   data: data5,
-  
+
   options: {
     maintainAspectRatio: false,
     layout: {
@@ -406,6 +412,7 @@ var myLineChart5 = new Chart(ctx, {
     }
   }
 });
+
 
 var data6 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
@@ -500,6 +507,7 @@ var myLineChart6 = new Chart(ctx, {
     }
   }
 });
+
 
 var data7 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI

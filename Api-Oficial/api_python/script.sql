@@ -10,10 +10,11 @@ CREATE TABLE empresa (
     bairro VARCHAR(45) NOT NULL,
     numero INT NOT NULL,
     cidade VARCHAR(45) NOT NULL,
+    codigoVerificação VARCHAR(45) NOT NULL,
     senha VARCHAR(45) NOT NULL
 );
 
-INSERT INTO empresa VALUES(null, "Riachuelo", "00.038.166/0002-88","Rua Delurdes", "Vila Sônia", 85, "São Paulo","1234");
+INSERT INTO empresa VALUES(null, "Riachuelo", "00.038.166/0002-88","Rua Delurdes", "Vila Sônia", 85, "São Paulo", "241eadww123aw", "1234");
 
 CREATE TABLE usuario (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -45,8 +46,7 @@ CREATE TABLE Leitura (
     cpu_porcentagem FLOAT,
 	disco_usado FLOAT,
     memoria_usada FLOAT,
-    memoria_disponivel FLOAT,
-    temperatura FLOAT
+    memoria_disponivel FLOAT
 );
 
 select * from Leitura;
