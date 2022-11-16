@@ -88,12 +88,12 @@ while True:
         con.commit()
 
         # comando para inserir os dados das variaveis no banco NUVEM
-        sqlNuvem2 = "INSERT INTO computador(fk_empresa, memoria_total, disco_total, sistema_operacional, cpu_nucleos_logicos, cpu_nucleos_fisicos) VALUES (?,?,?,?,?,?)"
-        sqlNuvem = "INSERT INTO Leitura(fk_computador, data_hora,cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel) VALUES (?,?,?,?,?,?)"
-        valuesNuvem=[fkComputador, dataHora, percentualCpu, discoUsado, memoriaUsada, memoriaDisponivel]
-        valuesNuvem2=[fkEmpresa, memoriaTotal, discoTotal, meu_so, cpuLogicos, cpuFisicos]
-        cursor.execute(sqlNuvem2,valuesNuvem2)
+        sqlNuvem = "INSERT INTO computador(fk_empresa, memoria_total, disco_total, sistema_operacional, cpu_nucleos_logicos, cpu_nucleos_fisicos) VALUES (?,?,?,?,?,?)"
+        sqlNuvem2 = "INSERT INTO Leitura(fk_computador, data_hora,cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel) VALUES (?,?,?,?,?,?)"
+        valuesNuvem=[fkEmpresa, memoriaTotal, discoTotal, meu_so, cpuLogicos, cpuFisicos]
+        valuesNuvem2=[fkComputador, dataHora, percentualCpu, discoUsado, memoriaUsada, memoriaDisponivel]
         cursor.execute(sqlNuvem,valuesNuvem)
+        cursor.execute(sqlNuvem2,valuesNuvem2)
         print("SO que eu uso : ",meu_so)
         print(cursor.rowcount,"record inserted SQL SERVER")
         print("=======================")

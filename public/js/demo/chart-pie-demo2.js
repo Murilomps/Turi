@@ -1,29 +1,3 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#858796';
-
-// Pie Chart Example
-
-let currentdate2 = new Date()
-let currentTime2 = currentdate2.getHours() + ":" + currentdate2.getMinutes() + ":" + currentdate2.getSeconds();
-
-function cpuRandom() {
-  let result = [];
-
-  for (i = 0; i < 12; i++) {
-    result[i] = Math.floor(Math.random() * 41) + 10;
-  }
-  return result
-}
-
-function temperatureRandom() {
-  let result = [];
-
-  for (i = 0; i < 12; i++) {
-    result[i] = Math.floor(Math.random() * 11) + 40;
-  }
-  return result
-}
 
 var data1 = {
   labels: [currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2],
