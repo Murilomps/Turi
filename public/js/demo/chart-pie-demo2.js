@@ -1,34 +1,3 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#858796';
-
-
-
-// Pie Chart Example
-
-let currentdate2 = new Date()
-
-let currentTime2 = currentdate2.getHours() + ":" + currentdate2.getMinutes() + ":" + currentdate2.getSeconds();
-
-
-
-function cpuRandom() {
-  let result = [];
-  
-  for (i = 0; i < 12; i++) {
-    result[i] = Math.floor(Math.random() * 41) + 10;
-  }
-  return result
-}
-
-function temperatureRandom() {
-  let result = [];
-  
-  for (i = 0; i < 12; i++) {
-    result[i] = Math.floor(Math.random() * 11) + 40;
-  }
-  return result
-}
 
 var data1 = {
   labels: [currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2],
@@ -47,7 +16,7 @@ var data1 = {
     pointBorderWidth: 2,
     data: cpuRandom(),
   },
-  { 
+  {
     label: "Frequência - Máquina 2",
     lineTension: 0.3,
     backgroundColor: "rgba(78, 115, 223, 0)",
@@ -62,7 +31,7 @@ var data1 = {
     pointBorderWidth: 2,
     data: cpuRandom(),
   },
-  { 
+  {
     label: "Frequência - Máquina 3",
     lineTension: 0.3,
     backgroundColor: "rgba(78, 115, 223, 0)",
@@ -78,7 +47,6 @@ var data1 = {
     data: cpuRandom(),
   }]
 }
-
 
 var ctx = document.getElementById("myAreaChart");
 var myLineChart1 = new Chart(ctx, {
@@ -115,7 +83,7 @@ var myLineChart1 = new Chart(ctx, {
           beginAtZero: true,
           max: 100,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + '%';
           }
         },
@@ -146,9 +114,9 @@ var myLineChart1 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '%';
         }
       }
     }
@@ -172,7 +140,7 @@ var data2 = {
     pointBorderWidth: 2,
     data: temperatureRandom(),
   },
-  { 
+  {
     label: "Temperatura - Máquina 2",
     lineTension: 0.3,
     backgroundColor: "rgba(78, 115, 223, 0)",
@@ -187,7 +155,7 @@ var data2 = {
     pointBorderWidth: 2,
     data: temperatureRandom(),
   },
-  { 
+  {
     label: "Temperatura - Máquina 3",
     lineTension: 0.3,
     backgroundColor: "rgba(78, 115, 223, 0)",
@@ -201,7 +169,7 @@ var data2 = {
     pointHitRadius: 10,
     pointBorderWidth: 2,
     data: temperatureRandom(),
-  }]  
+  }]
 }
 
 var ctx = document.getElementById("myAreaChart2");
@@ -239,7 +207,7 @@ var myLineChart2 = new Chart(ctx, {
           beginAtZero: true,
           max: 100,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + '°C';
           }
         },
@@ -270,47 +238,14 @@ var myLineChart2 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '°C' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '°C';
         }
       }
     }
   }
 });
-
-var ctx = document.getElementById("chartDisk1");
-var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["Em uso", "Livre"],
-    datasets: [{
-      data: [47, 53],
-      backgroundColor: ['#4e73df', '#1cc88a'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-    },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  },
-});
-
-
 
 var ctx = document.getElementById("chartDisk2");
 var myPieChart = new Chart(ctx, {

@@ -1,4 +1,4 @@
-import pyodbc 
+import pyodbc
 import psutil
 import time
 import mysql.connector
@@ -15,13 +15,13 @@ while True:
     database = 'Turi'
     username = 'adm-turi'
     password = 'Urubu1002'
-    cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+server +
+    cnxn = pyodbc.connect('DRIVER={OBDC Driver 18 for SQL Server};SERVER='+server +
                         ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password)
     cursor = cnxn.cursor()
 
     try:
         con = mysql.connector.connect(
-            host='localhost', user='root', password='Zazam@#12', database='Turi')
+            host='localhost', user='root', password='Zazam@#12', database='Turi') #trocar localhost para endereço de ip do docker.
         print("Conexão ao banco estabelecida!")
     except mysql.connector.Error as error:
         if error.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
@@ -83,18 +83,19 @@ while True:
         values2=[fkEmpresa, memoriaTotal, discoTotal, meu_so, cpuLogicos, cpuFisicos]
         cursorLocal.execute(sql,values)
         cursorLocal.execute(sql2,values2)
+        cursorLocal.execute(sql,values)
         print("SO que eu uso : ",meu_so)
         print(cursorLocal.rowcount,"record inserted MYSQL LOCAL")
         print("=======================")
         con.commit()
 
         # comando para inserir os dados das variaveis no banco NUVEM
-        sqlNuvem2 = "INSERT INTO computador(fk_empresa, memoria_total, disco_total, sistema_operacional, cpu_nucleos_logicos, cpu_nucleos_fisicos) VALUES (?,?,?,?,?,?)"
         sqlNuvem = "INSERT INTO Leitura(fk_computador, data_hora,cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel) VALUES (?,?,?,?,?,?)"
         valuesNuvem=[fkComputador, dataHora, percentualCpu, discoUsado, memoriaUsada, memoriaDisponivel]
+        cursor.execute(sqlNuvem,valuesNuvem)
+        sqlNuvem2 = "INSERT INTO computador(fk_empresa, memoria_total, disco_total, sistema_operacional, cpu_nucleos_logicos, cpu_nucleos_fisicos) VALUES (?,?,?,?,?,?)"
         valuesNuvem2=[fkEmpresa, memoriaTotal, discoTotal, meu_so, cpuLogicos, cpuFisicos]
         cursor.execute(sqlNuvem2,valuesNuvem2)
-        cursor.execute(sqlNuvem,valuesNuvem)
         print("SO que eu uso : ",meu_so)
         print(cursor.rowcount,"record inserted SQL SERVER")
         print("=======================")
