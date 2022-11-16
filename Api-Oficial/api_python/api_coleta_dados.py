@@ -1,4 +1,4 @@
-import pyodbc 
+import pyodbc
 import psutil
 import time
 import mysql.connector
@@ -21,7 +21,7 @@ while True:
 
     try:
         con = mysql.connector.connect(
-            host='localhost', user='root', password='Zazam@#12', database='Turi')
+            host='localhost', user='root', password='1403', database='Turi')
         print("Conexão ao banco estabelecida!")
     except mysql.connector.Error as error:
         if error.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
@@ -44,8 +44,8 @@ while True:
     memoriaUsada = round(vm.used*(2**-30),2)
     memoriaDisponivel = round(vm.available*(2**-30),2) 
 
-    fkComputador = 1
-    fkEmpresa = 1
+    fkComputador = 2
+    fkEmpresa = 2
 
     meu_so = platform.system()
     
@@ -69,18 +69,17 @@ while True:
     #     [percentualCpu, discoUsado, memoriaUsada, memoriaDisponivel],
     #     [percentualCpu2, discoUsado2, memoriaUsada2, memoriaDisponivel2],
     #     [percentualCpu3, discoUsado3, memoriaUsada3, memoriaDisponivel3],
-    # ]
-    
-    cursorLocal = con.cursor() # objeto que permite fazer interação por elementos de uma tabela lendo individualmente cada um
+# ]
 
+    cursorLocal = con.cursor() # objeto que permite fazer interação por elementos de uma tabela lendo individualmente cada um
 
     while True:
         # comando para inserir os dados das variaveis no banco LOCAL
         sql = "INSERT INTO Leitura(fk_computador, data_hora,cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel) VALUES (%s,%s,%s,%s,%s,%s)"
-        sql2 = "INSERT INTO computador(fk_empresa, memoria_total, disco_total, sistema_operacional, cpu_nucleos_logicos, cpu_nucleos_fisicos) VALUES (%s,%s,%s,%s,%s,%s)"
         values=[fkComputador, dataHora, percentualCpu, discoUsado, memoriaUsada, memoriaDisponivel]
-        values2=[fkEmpresa, memoriaTotal, discoTotal, meu_so, cpuLogicos, cpuFisicos]
         cursorLocal.execute(sql,values)
+        sql2 = "INSERT INTO computador(fk_empresa, memoria_total, disco_total, sistema_operacional, cpu_nucleos_logicos, cpu_nucleos_fisicos) VALUES (%s,%s,%s,%s,%s,%s)"
+        values2=[fkEmpresa, memoriaTotal, discoTotal, meu_so, cpuLogicos, cpuFisicos]
         cursorLocal.execute(sql2,values2)
         print("SO que eu uso : ",meu_so)
         print(cursorLocal.rowcount,"record inserted MYSQL LOCAL")
@@ -88,12 +87,12 @@ while True:
         con.commit()
 
         # comando para inserir os dados das variaveis no banco NUVEM
-        sqlNuvem2 = "INSERT INTO computador(fk_empresa, memoria_total, disco_total, sistema_operacional, cpu_nucleos_logicos, cpu_nucleos_fisicos) VALUES (?,?,?,?,?,?)"
         sqlNuvem = "INSERT INTO Leitura(fk_computador, data_hora,cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel) VALUES (?,?,?,?,?,?)"
         valuesNuvem=[fkComputador, dataHora, percentualCpu, discoUsado, memoriaUsada, memoriaDisponivel]
+        cursor.execute(sqlNuvem,valuesNuvem)
+        sqlNuvem2 = "INSERT INTO computador(fk_empresa, memoria_total, disco_total, sistema_operacional, cpu_nucleos_logicos, cpu_nucleos_fisicos) VALUES (?,?,?,?,?,?)"
         valuesNuvem2=[fkEmpresa, memoriaTotal, discoTotal, meu_so, cpuLogicos, cpuFisicos]
         cursor.execute(sqlNuvem2,valuesNuvem2)
-        cursor.execute(sqlNuvem,valuesNuvem)
         print("SO que eu uso : ",meu_so)
         print(cursor.rowcount,"record inserted SQL SERVER")
         print("=======================")
