@@ -34,6 +34,7 @@ var myPieChart = new Chart(ctx, {
   },
 });
 
+
 var ctx = document.getElementById("chartDisk2");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
