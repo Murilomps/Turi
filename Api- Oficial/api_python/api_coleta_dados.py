@@ -39,6 +39,7 @@ while True:
     
 # DISK
     discoUsado = round(psutil.disk_usage('/').used*(2**-30),2)
+    
 # MEMORY
     vm = psutil.virtual_memory()
     memoriaUsada = round(vm.used*(2**-30),2)
