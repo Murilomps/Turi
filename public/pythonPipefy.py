@@ -4,13 +4,12 @@ import mysql.connector
 
 url = "https://api.pipefy.com/graphql" 
 
-empresa = ""
 server = 'turi.database.windows.net'
+database = 'Turi'
 username = 'adm-turi'
-password ='Urubu1002'
-database ='Turi'
-cnxn = pyodcb.connect('DRIVER={SQL Server};SERVER='+server +
-                        ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password')
+password = 'Urubu1002'
+cnxn = pyodbc.connect('DRIVER={OBDC Driver 18 for SQL Server};SERVER='+server +
+                        ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password)
 cursor = cnxn.cursor()
 
 

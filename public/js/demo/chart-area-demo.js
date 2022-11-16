@@ -123,10 +123,200 @@ function obterDadosGrafico(idComputador) {
 
 console.log(obterDadosGrafico(1), "aaaaaaaaaaaaaaaa")
 
+
+// Gráficos de CPU (temperatura e porcentagem de uso)
+
+var ctx = document.getElementById("myAreaChart");
+var myLineChart1 = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2],
+    datasets: [{
+      label: "Porcentagem de Uso - Máquina 1",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: cpuRandom(),
+    },
+  ]},
+
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
+          callback: function (value, index, values) {
+            return number_format(value) + '%';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function (tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '%';
+        }
+      }
+    }
+  }
+});
+
+var ctx = document.getElementById("myAreaChart2");
+var myLineChart2 = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2],
+    datasets: [{
+      label: "Temperatura - Máquina 1",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: temperatureRandom(),
+    }
+    ]},
+
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
+          callback: function (value, index, values) {
+            return number_format(value) + '°C';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function (tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '°C';
+        }
+      }
+    }
+  }
+});
+
+// gráfico de porcentagem de cpu máquina 1 
+
+var ctx = document.getElementById("myAreaChart3");
 var data3 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                       //HORARIO DA COLETA AQUI
   datasets: [{
-    label: "Frequência - Máquina 1",
+    label: "Porcentagem de Uso (CPU) - Máquina 1",
     lineTension: 0.3,
     backgroundColor: "rgba(78, 115, 223,0)",
     borderColor: "rgb(105, 89, 206)",
@@ -141,10 +331,6 @@ var data3 = {
     data: 1,
   }]
 }
-
-// Area Chart Example
-
-var ctx = document.getElementById("myAreaChart3");
 var myLineChart3 = new Chart(ctx, {
   type: 'line',
   data: data3,
@@ -219,10 +405,12 @@ var myLineChart3 = new Chart(ctx, {
   }
 });
 
+
+// gráfico  de porcentagem da cpu máquina máquina 2
 var data4 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
   datasets: [{
-    label: "Frequência - Máquina 2",
+    label: "Porcentagem de Uso (CPU) - Máquina 2",
     lineTension: 0.3,
     backgroundColor: "rgba(78, 115, 223,0)",
     borderColor: "rgb(105, 89, 206)",
@@ -237,7 +425,6 @@ var data4 = {
     data: 1,
   },],
 }
-
 var ctx = document.getElementById("myAreaChart4");
 var myLineChart4 = new Chart(ctx, {
   type: 'line',
@@ -313,10 +500,12 @@ var myLineChart4 = new Chart(ctx, {
   }
 });
 
+// gráfico  de porcentagem da cpu máquina máquina 3
+
 var data5 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
   datasets: [{
-    label: "Frequência - Máquina 3",
+    label: "Porcentagem de Uso (CPU) - Máquina 3",
     lineTension: 0.3,
     backgroundColor: "rgba(78, 115, 223,0)",
     borderColor: "rgb(105, 89, 206)",
@@ -331,12 +520,11 @@ var data5 = {
     data: 1,
   },],
 }
-
 var ctx = document.getElementById("myAreaChart5");
 var myLineChart5 = new Chart(ctx, {
   type: 'line',
   data: data5,
-  
+
   options: {
     maintainAspectRatio: false,
     layout: {
@@ -407,6 +595,8 @@ var myLineChart5 = new Chart(ctx, {
   }
 });
 
+
+// gráfico  de temperatura da cpu máquina máquina 1
 var data6 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
   datasets: [{
@@ -425,7 +615,6 @@ var data6 = {
     data: 1,
   },],
 }
-
 var ctx = document.getElementById("myAreaChart6");
 var myLineChart6 = new Chart(ctx, {
   type: 'line',
@@ -501,6 +690,7 @@ var myLineChart6 = new Chart(ctx, {
   }
 });
 
+// gráfico  de temperatura da cpu máquina máquina 2
 var data7 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
   datasets: [{
@@ -519,7 +709,6 @@ var data7 = {
     data: 1,
   },],
 }
-
 var ctx = document.getElementById("myAreaChart7");
 var myLineChart7 = new Chart(ctx, {
   type: 'line',
@@ -595,6 +784,7 @@ var myLineChart7 = new Chart(ctx, {
   }
 });
 
+// gráfico  de temperatura da cpu máquina máquina 3
 var data8 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
   datasets: [{
@@ -613,7 +803,6 @@ var data8 = {
     data: 1,
   },],
 }
-
 var ctx = document.getElementById("myAreaChart8");
 var myLineChart8 = new Chart(ctx, {
   type: 'line',
@@ -692,7 +881,7 @@ var myLineChart8 = new Chart(ctx, {
 var data9 = {
   labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
   datasets: [{
-    label: "Memoria - Máquina 1",
+    label: "Memória - Máquina 1",
     lineTension: 0.3,
     backgroundColor: "rgba(78, 115, 223,0)",
     borderColor: "rgb(105, 89, 206)",
@@ -710,7 +899,7 @@ var data9 = {
 
 var ctx = document.getElementById("myAreaChart9");
 var myLineChart9 = new Chart(ctx, {
-  type: 'line',
+  type: 'doughnut',
   data: data9,
 
   options: {
