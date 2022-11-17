@@ -78,14 +78,13 @@ function obterDadosGrafico(idComputador) {
   //     clearTimeout(proximaAtualizacao);
   // }
 
-  return fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
-          return response.json().then(function (resposta) {
+          response.json().then(function (resposta) {
               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
               resposta.reverse();
 
-              // plotarGrafico(resposta, idComputador);
-              return resposta
+              plotarGrafico(resposta, idComputador);
           });
       } else {
           console.error('Nenhum dado encontrado ou erro na API');
@@ -94,6 +93,29 @@ function obterDadosGrafico(idComputador) {
       .catch(function (error) {
           console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
+}
+
+function plotarGrafico(resposta, idComputador) {
+  var dados = {
+    labels: [],
+    datasets: [
+        {
+            yAxisID: 'yAxisID',
+            label: 'labelYAxis',
+            borderColor: '#32B9CD',
+            backgroundColor: '#32b9cd8f',
+            fill: true,
+            data: []
+        }
+    ]
+};
+  
+  for (i = 0; i < resposta.length; i++) {
+    var registro = resposta[i];
+    dados.data.labels.push(registro.data_hora);
+  
+    dados.data.datasets.data.push(registro.umidade);
+  }
 }
 
 
@@ -150,7 +172,7 @@ var myLineChart1 = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: cpuRandom(),
+      data: [],
     },
   ]},
 

@@ -796,16 +796,16 @@
 
 <script>
 
-    let proximaAtualizacao;
-
-    window.onload = obterDadosGrafico(1);
+    // let proximaAtualizacao;
 
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    
+    window.onload = obterDadosGrafico(1); // função vinda de chart-area-demo.js
 
-    function alterarTitulo(idComputador) {
-        var tituloAquario = document.getElementById("tituloAquario")
-        tituloAquario.innerHTML = "Últimas medidas do <span style='color: #e3b062'>Hardware  " + idComputador + "</span>"
-    }
+    // function alterarTitulo(idComputador) {
+    //     var tituloAquario = document.getElementById("tituloAquario")
+    //     tituloAquario.innerHTML = "Últimas medidas do <span style='color: #e3b062'>Hardware  " + idComputador + "</span>"
+    // }
 
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
@@ -818,29 +818,30 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(idComputador) {
-        alterarTitulo(idComputador)
 
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
+    // function obterDadosGrafico(idComputador) {
+    //     // alterarTitulo(idComputador)
 
-        fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
+    //     if (proximaAtualizacao != undefined) {
+    //         clearTimeout(proximaAtualizacao);
+    //     }
 
-                    plotarGrafico(resposta, idComputador);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-    }
+    //     fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+    //         if (response.ok) {
+    //             response.json().then(function (resposta) {
+    //                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+    //                 resposta.reverse();
+
+    //                 plotarGrafico(resposta, idComputador);
+    //             });
+    //         } else {
+    //             console.error('Nenhum dado encontrado ou erro na API');
+    //         }
+    //     })
+    //         .catch(function (error) {
+    //             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    //         });
+    // }
 
     // setInterval(() => atualizarDados(), 2000);
 
