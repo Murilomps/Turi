@@ -19,13 +19,14 @@ server = 'turi.database.windows.net'
 database = 'Turi'
 username = 'adm-turi'
 password = 'Urubu1002'
-cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+server +
+cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server +
                     ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password)
 cursor = cnxn.cursor()
 
 try:
     con = mysql.connector.connect(
-        host='localhost', user='root', password='Zazam@#12', database='Turi')
+        host='localhost', user='root', password='', database='Turi') # coloque a senha do seu mysql
+                       # o localhost pode ser o ip do seu docker, atenção
     print("Conexão ao banco estabelecida!")
 except mysql.connector.Error as error:
     if error.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
@@ -90,14 +91,14 @@ while True:
     database = 'Turi'
     username = 'adm-turi'
     password = 'Urubu1002'
-    cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+server +
+    cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server +
                         ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password)
     cursor = cnxn.cursor()
 
     try:
         con = mysql.connector.connect(
-            host='localhost', user='root', password='Zazam@#12', database='Turi')
-        print("Conexão ao banco estabelecida!")
+            host='localhost', user='root', password='', database='Turi') # coloque a senha do seu mysql
+        print("Conexão ao banco estabelecida!")                          # o localhost pode ser o ip do seu docker, atenção
     except mysql.connector.Error as error:
         if error.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
             print("Erro: Database não existe")

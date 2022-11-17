@@ -21,7 +21,7 @@ while True:
 
     try:
         con = mysql.connector.connect(
-            host='localhost', user='root', password='1403', database='Turi')
+            host='localhost', user='root', password='sovocl1n', database='Turi')
         print("Conexão ao banco estabelecida!")
     except mysql.connector.Error as error:
         if error.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:

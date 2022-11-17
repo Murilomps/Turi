@@ -10,7 +10,6 @@ CREATE TABLE empresa (
     bairro VARCHAR(45) NOT NULL,
     numero INT NOT NULL,
     cidade VARCHAR(45) NOT NULL,
-    codigoVerificação VARCHAR(45) NOT NULL,
     senha VARCHAR(45) NOT NULL
 );
 
@@ -32,13 +31,12 @@ CREATE TABLE computador (
     disco_total FLOAT,
     sistema_operacional VARCHAR(45),
 	cpu_nucleos_logicos INT,
-    cpu_nucleos_fisicos INT
+    cpu_nucleos_fisicos INT,
+	endereco_mac CHAR(12)
 )AUTO_INCREMENT=200;
 
-insert into computador values (1,1,null,null,null,null,null), (2,1,null,null,null,null,null), (3,1,null,null,null,null,null);
 
-
-CREATE TABLE Leitura (
+CREATE TABLE leitura (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     fk_computador INT NOT NULL,
     FOREIGN KEY (fk_computador) REFERENCES computador(id),
@@ -49,4 +47,3 @@ CREATE TABLE Leitura (
     memoria_disponivel FLOAT
 );
 
-select * from Leitura;
