@@ -96,26 +96,107 @@ function obterDadosGrafico(idComputador) {
 }
 
 function plotarGrafico(resposta, idComputador) {
-  var dados = {
-    labels: [],
-    datasets: [
-        {
-            yAxisID: 'yAxisID',
-            label: 'labelYAxis',
-            borderColor: '#32B9CD',
-            backgroundColor: '#32b9cd8f',
-            fill: true,
-            data: []
-        }
-    ]
-};
+  var baseDataLinha = {
+    labels: [],                       //HORARIO DA COLETA AQUI
+    datasets: [{
+      label: "label dentro do datasets",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223,0)",
+      borderColor: "rgb(105, 89, 206)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgb(105, 89, 206)",
+      pointBorderColor: "rgb(105, 89, 206)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: [],
+    }]
+  }
   
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
-    dados.data.labels.push(registro.data_hora);
+    baseDataLinha.labels.push(registro.data_hora);
   
-    dados.data.datasets.data.push(registro.umidade);
+    baseDataLinha.datasets.data.push(registro.umidade);
   }
+
+  var ctx = document.getElementById("myAreaChart4");
+  var myLineChart4 = new Chart(ctx, {
+    type: 'line',
+    data: data4,
+
+    options: {
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 25,
+          top: 25,
+          bottom: 0
+        }
+      },
+      scales: {
+        xAxes: [{
+          time: {
+            unit: 'date'
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+          ticks: {
+            maxTicksLimit: 7
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            maxTicksLimit: 5,
+            padding: 10,
+            beginAtZero: true,
+            max: 100,
+            min: 0,
+            callback: function(value, index, values) {
+              return number_format(value) + '%';
+            }
+          },
+          gridLines: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(0, 0, 0)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2]
+          }
+        }],
+      },
+      legend: {
+        display: false
+      },
+      tooltips: {
+        backgroundColor: "rgb(255,255,255)",
+        bodyFontColor: "#858796",
+        titleMarginBottom: 10,
+        titleFontColor: '#6e707e',
+        titleFontSize: 14,
+        borderColor: '#dddfeb',
+        borderWidth: 1,
+        xPadding: 15,
+        yPadding: 15,
+        displayColors: false,
+        intersect: false,
+        mode: 'index',
+        caretPadding: 10,
+        callbacks: {
+          label: function(tooltipItem, chart) {
+            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+            return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
+          }
+        }
+      }
+    }
+  });
+
 }
 
 
@@ -150,7 +231,6 @@ function plotarGrafico(resposta, idComputador) {
 // }
 
 console.log(obterDadosGrafico(1), "aaaaaaaaaaaaaaaa")
-
 
 // Gráficos de CPU (temperatura e porcentagem de uso)
 
