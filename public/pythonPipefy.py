@@ -1,6 +1,5 @@
 import requests 
 import pyodbc
-import mysql.connector
 
 url = "https://api.pipefy.com/graphql" 
 
@@ -12,9 +11,17 @@ cnxn = pyodbc.connect('DRIVER={OBDC Driver 18 for SQL Server};SERVER='+server +
                         ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password)
 cursor = cnxn.cursor()
 
+pipeid = 302754046
+empresa = "Riachuelo"
+componente = "Memória RAM"
+descricao = "A memória RAM atingiu 90% da sua capacidade"
+
+cursor.execute("SELECT id FROM computador WHERE fk_computador = computador.id")
+fkComp = cursor.fetchall()
+
 
 payload = {"query": 
-"mutation{createCard(input:{ pipe_id: \"302754046\" fields_attributes:[{field_id: \"empresa\", field_value: \"Riachuelo\"}{field_id: \"componente\", field_value: \"Memória RAM\"}{field_id: \"mais_informa_es\", field_value: \"A memória RAM atingiu 90% da sua capacidade\"}]}){clientMutationId card {id title}}}"} 
+"mutation{createCard(input:{ pipe_id: \"pipeid\" fields_attributes:[{field_id: \"empresa\", field_value: \"empresa\"}{field_id: \"componente\", field_value: \"componente\"}{field_id: \"mais_informa_es\", field_value: \"descricao\"}]}){clientMutationId card {id title}}}"} 
 
 headers = { 
 
@@ -26,4 +33,14 @@ headers = {
 
 response = requests.request("POST", url, json=payload, headers=headers) 
 print(response.text) 
+
+sqlNuvem = "INSERT INTO Alerta(fk_computador,componente,descricao) VALUES (?,?,?)"
+valuesNuvem=[fkComp, componente,descricao]
+cursor.execute(sqlNuvem,valuesNuvem)
+print(cursor.rowcount,"record inserted SQL SERVER")
+print("=======================")
+cnxn.commit()
+cnxn.close()
+
+
 
