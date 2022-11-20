@@ -1,13 +1,16 @@
 import requests 
 import pyodbc
+from uuid import getnode
 
 url = "https://api.pipefy.com/graphql" 
+
+mac = hex(getnode())[2:]
 
 server = 'turi.database.windows.net'
 database = 'Turi'
 username = 'adm-turi'
 password = 'Urubu1002'
-cnxn = pyodbc.connect('DRIVER={OBDC Driver 18 for SQL Server};SERVER='+server +
+cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server +
                         ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password)
 cursor = cnxn.cursor()
 
@@ -16,12 +19,13 @@ empresa = "Riachuelo"
 componente = "Memória RAM"
 descricao = "A memória RAM atingiu 90% da sua capacidade"
 
-cursor.execute("SELECT id FROM computador WHERE fk_computador = computador.id")
-fkComp = cursor.fetchall()
+cursor.execute("SELECT id FROM computador WHERE endereco_mac = ?", mac)
+fkComp = cursor.fetchall()[0]
+
 
 
 payload = {"query": 
-"mutation{createCard(input:{ pipe_id: \"pipeid\" fields_attributes:[{field_id: \"empresa\", field_value: \"empresa\"}{field_id: \"componente\", field_value: \"componente\"}{field_id: \"mais_informa_es\", field_value: \"descricao\"}]}){clientMutationId card {id title}}}"} 
+"mutation{createCard(input:{ pipe_id: \"302754046\" fields_attributes:[{field_id: \"empresa\", field_value: \"Riachuelo\"}{field_id: \"componente\", field_value: \"Disco Rígido\"}{field_id: \"mais_informa_es\", field_value: \"Disco rígido atingiu 80% de sua capacidade.\"}]}){clientMutationId card {id title}}}"} 
 
 headers = { 
 
