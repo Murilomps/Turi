@@ -13,7 +13,7 @@ CREATE TABLE empresa (
     senha VARCHAR(45) NOT NULL
 );
 
-INSERT INTO empresa VALUES(null, "Riachuelo", "00.038.166/0002-88","Rua Delurdes", "Vila Sônia", 85, "São Paulo", "241eadww123aw", "1234");
+INSERT INTO empresa VALUES(null, "Riachuelo", "00.038.166/0002-88","Rua Delurdes", "Vila Sônia", 85, "São Paulo", "1234");
 
 CREATE TABLE usuario (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -33,11 +33,56 @@ CREATE TABLE computador (
 	cpu_nucleos_logicos INT,
     cpu_nucleos_fisicos INT,
 	endereco_mac CHAR(12)
-)AUTO_INCREMENT=200;
+);
+
+
+
+CREATE TABLE alerta (
+    id int primary key auto_increment,
+    fk_computador int not null,
+    foreign key (fk_computador) references computador(id),
+    data_hora datetime,
+    componente varchar(50),
+    descricao varchar(100)
+);
+
+// AZURE
+
+/* MYSQL */
+CREATE TABLE empresa (
+    id int primary key IDENTITY,
+	nome VARCHAR(45) NOT NULL,
+    cnpj CHAR(18) NOT NULL,
+    rua VARCHAR(45) NOT NULL,
+    bairro VARCHAR(45) NOT NULL,
+    numero INT NOT NULL,
+    cidade VARCHAR(45) NOT NULL,
+    senha VARCHAR(45) NOT NULL
+);
+
+CREATE TABLE usuario (
+    id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL,
+    senha VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE computador (
+	id INT PRIMARY KEY IDENTITY,
+	fk_empresa INT NOT NULL,
+    FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
+	memoria_total FLOAT,
+    disco_total FLOAT,
+    sistema_operacional VARCHAR(45),
+	cpu_nucleos_logicos INT,
+    cpu_nucleos_fisicos INT,
+	endereco_mac CHAR(12)
+);
 
 
 CREATE TABLE leitura (
-	id INT PRIMARY KEY AUTO_INCREMENT,
+	id INT PRIMARY KEY IDENTITY,
     fk_computador INT NOT NULL,
     FOREIGN KEY (fk_computador) REFERENCES computador(id),
     data_hora datetime,
@@ -47,3 +92,11 @@ CREATE TABLE leitura (
     memoria_disponivel FLOAT
 );
 
+CREATE TABLE alerta (
+    id int primary key IDENTITY,
+    fk_computador int not null,
+    foreign key (fk_computador) references computador(id),
+    data_hora datetime,
+    componente varchar(50),
+    descricao varchar(100)
+);

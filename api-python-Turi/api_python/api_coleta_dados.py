@@ -6,6 +6,8 @@ import datetime
 import platform
 from uuid import getnode
 
+print(psutil.sensors_temperatures())
+
 psutil.cpu_percent()
 discoTotal = round(psutil.disk_usage('/').total*(2**-30),2)
 memoriaTotal = round(psutil.virtual_memory().total*(2**-30),2)

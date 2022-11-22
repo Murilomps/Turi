@@ -161,7 +161,7 @@ function pieChart (dado) {
 //   },
 // });
 
-function lineChart(dado) {
+function lineChart(dado,simbolo,max_value) {
   this.type = 'line',
   this.data = dado
   this.options = {
@@ -192,10 +192,10 @@ function lineChart(dado) {
           maxTicksLimit: 5,
           padding: 10,
           beginAtZero: true,
-          max: 100,
+          max: max_value,
           min: 0,
           callback: function (value, index, values) {
-            return number_format(value) + '%';
+            return number_format(value) + simbolo;
           }
         },
         gridLines: {
@@ -307,13 +307,13 @@ function plotarGrafico(resposta, idComputador) {
   if(ChartCPU != null){
     ChartCPU.destroy();
   }
-  ChartCPU = new Chart(ctx, new lineChart(dataCPU));
+  ChartCPU = new Chart(ctx, new lineChart(dataCPU,'%'));
 
   var ctx = document.getElementById("myAreaChart9");
   if(ChartMem != null){
     ChartMem.destroy();
   }
-  ChartMem = new Chart(ctx, new lineChart(dataMem));
+  ChartMem = new Chart(ctx, new lineChart(dataMem,'GB'));
 
   // var ctx = document.getElementById("myAreaChart6");
   // if(ChartTemp != null){
