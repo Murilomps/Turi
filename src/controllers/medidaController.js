@@ -24,7 +24,7 @@ function buscarUltimasMedidas(req, res) {
 
 function buscarMedidasEmTempoReal(req, res) {
 
-    var idComputador = req.params.id;
+    var idComputador = req.params.idComputador;
 
     console.log(`Recuperando medidas em tempo real`);
 

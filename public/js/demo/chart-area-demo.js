@@ -11,7 +11,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
     dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
     s = '',
-    toFixedFix = function(n, prec) {
+    toFixedFix = function (n, prec) {
       var k = Math.pow(10, prec);
       return '' + Math.round(n * k) / k;
     };
@@ -63,139 +63,314 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 //   }
 // }
 
+let proximaAtualizacao
+let ChartCPU
+let ChartMem
+let ChartTemp
+let ChartDisk
 
+function baseDataLinha (dtsetlabel) {
+  this.labels = []                       //HORARIO DA COLETA AQUI
+  this.datasets = [{
+    label: dtsetlabel,
+    lineTension: 0.3,
+    backgroundColor: "rgba(78, 115, 223,0)",
+    borderColor: "rgb(105, 89, 206)",
+    pointRadius: 3,
+    pointBackgroundColor: "rgb(105, 89, 206)",
+    pointBorderColor: "rgb(105, 89, 206)",
+    pointHoverRadius: 3,
+    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+    pointHitRadius: 10,
+    pointBorderWidth: 2,
+    data: [],
+  }]
+}
 
+function baseDataPie (labelsDados) {
+  this.labels = labelsDados
+  this.datasets = [{
+    data: [],
+    backgroundColor: ['#4e73df', '#1cc88a'],
+    hoverBackgroundColor: ['#2e59d9', '#17a673'],
+    hoverBorderColor: "rgba(234, 236, 244, 1)",
+  }]
+}
 
-let currentdate = new Date()
+// function baseDataPie (labelsDados) {
+//   this.labels = ["Em uso", "Livre"],
+//   this.datasets = [{
+//     data: [44, 56],
+//     backgroundColor: ['#4e73df', '#1cc88a'],
+//     hoverBackgroundColor: ['#2e59d9', '#17a673'],
+//     hoverBorderColor: "rgba(234, 236, 244, 1)",
+//   }]
+// }
 
-let currentTime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+function pieChart (dado) {
+  this.type = 'doughnut'
+  this.data = dado
+  this.options = {
+    maintainAspectRatio: false,
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      caretPadding: 10,
+    },
+    legend: {
+      display: false
+    },
+    cutoutPercentage: 80,
+  }
+} 
 
+// var ctx = document.getElementById("chartDisk1");
+// var myPieChart = new Chart(ctx, {
+//   type: 'doughnut',
+//   data: {
+//     labels: ["Em uso", "Livre"],
+//     datasets: [{
+//       data: [44, 56],
+//       backgroundColor: ['#4e73df', '#1cc88a'],
+//       hoverBackgroundColor: ['#2e59d9', '#17a673'],
+//       hoverBorderColor: "rgba(234, 236, 244, 1)",
+//     }],
+//   },
+//   options: {
+//     maintainAspectRatio: false,
+//     tooltips: {
+//       backgroundColor: "rgb(255,255,255)",
+//       bodyFontColor: "#858796",
+//       borderColor: '#dddfeb',
+//       borderWidth: 1,
+//       xPadding: 15,
+//       yPadding: 15,
+//       displayColors: false,
+//       caretPadding: 10,
+//     },
+//     legend: {
+//       display: false
+//     },
+//     cutoutPercentage: 80,
+//   },
+// });
+
+function lineChart(dado) {
+  this.type = 'line',
+  this.data = dado
+  this.options = {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          beginAtZero: true,
+          max: 100,
+          min: 0,
+          callback: function (value, index, values) {
+            return number_format(value) + '%';
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(0, 0, 0)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function (tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '%';
+        }
+      }
+    }
+  }
+}
 
 function obterDadosGrafico(idComputador) {
   // alterarTitulo(idComputador)
 
-  // if (proximaAtualizacao != undefined) {
-  //     clearTimeout(proximaAtualizacao);
-  // }
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao);
+  }
 
   fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) {
-      if (response.ok) {
-          response.json().then(function (resposta) {
-              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-              resposta.reverse();
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        resposta.reverse();
 
-              plotarGrafico(resposta, idComputador);
-          });
-      } else {
-          console.error('Nenhum dado encontrado ou erro na API');
-      }
-  })
-      .catch(function (error) {
-          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        plotarGrafico(resposta, idComputador);
       });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
 }
 
 function plotarGrafico(resposta, idComputador) {
-  var baseDataLinha = {
-    labels: [],                       //HORARIO DA COLETA AQUI
-    datasets: [{
-      label: "label dentro do datasets",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [],
-    }]
-  }
+  let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
   
+  let dataDisk = new baseDataPie(["Em uso", "Livre"])
+  let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
+  let dataMem = new baseDataLinha("Uso de Memória RAM")
+  // let dataTemp = new baseDataLinha("Temp")
+
+  let discoUsado = resposta[resposta.length - 1].disco_usado
+  dataDisk.datasets[0].data.push(discoUsado)
+  dataDisk.datasets[0].data.push(237.23 - discoUsado)
+
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
-    baseDataLinha.labels.push(registro.data_hora);
-  
-    baseDataLinha.datasets.data.push(registro.umidade);
+
+    let momentoBanco = new Date(registro.data_hora)
+    let horas = String(momentoBanco.getUTCHours());
+    while (horas.length < 2) { horas = "0" + horas; }
+    let minutos = String(momentoBanco.getUTCMinutes());
+    while (minutos.length < 2) { minutos = "0" + minutos; }
+    let segundos = String(momentoBanco.getUTCSeconds());
+    while (segundos.length < 2) { segundos = "0" + segundos; }
+    let horario = `${horas}:${minutos}:${segundos}`
+
+    dataCPU.labels.push(horario);
+    dataMem.labels.push(horario);
+    // dataTemp.labels.push(horario);
+
+    dataCPU.datasets[0].data.push(registro.cpu_porcentagem);
+    dataMem.datasets[0].data.push(registro.memoria_usada);
+    // dataTemp.datasets[0].data.push(registro.temperatura);
   }
 
-  var ctx = document.getElementById("myAreaChart4");
-  var myLineChart4 = new Chart(ctx, {
-    type: 'line',
-    data: data4,
+  dataGeneral.push(dataCPU)
+  dataGeneral.push(dataMem)
+  // dataGeneral.push(dataTemp)
 
-    options: {
-      maintainAspectRatio: false,
-      layout: {
-        padding: {
-          left: 10,
-          right: 25,
-          top: 25,
-          bottom: 0
-        }
-      },
-      scales: {
-        xAxes: [{
-          time: {
-            unit: 'date'
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false
-          },
-          ticks: {
-            maxTicksLimit: 7
-          }
-        }],
-        yAxes: [{
-          ticks: {
-            maxTicksLimit: 5,
-            padding: 10,
-            beginAtZero: true,
-            max: 100,
-            min: 0,
-            callback: function(value, index, values) {
-              return number_format(value) + '%';
-            }
-          },
-          gridLines: {
-            color: "rgb(234, 236, 244)",
-            zeroLineColor: "rgb(0, 0, 0)",
-            drawBorder: false,
-            borderDash: [2],
-            zeroLineBorderDash: [2]
-          }
-        }],
-      },
-      legend: {
-        display: false
-      },
-      tooltips: {
-        backgroundColor: "rgb(255,255,255)",
-        bodyFontColor: "#858796",
-        titleMarginBottom: 10,
-        titleFontColor: '#6e707e',
-        titleFontSize: 14,
-        borderColor: '#dddfeb',
-        borderWidth: 1,
-        xPadding: 15,
-        yPadding: 15,
-        displayColors: false,
-        intersect: false,
-        mode: 'index',
-        caretPadding: 10,
-        callbacks: {
-          label: function(tooltipItem, chart) {
-            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-            return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
-          }
-        }
-      }
+  
+
+  var ctx = document.getElementById("chartDisk1");
+  if(ChartDisk != null){
+    ChartDisk.destroy();
+  }
+  ChartDisk = new Chart(ctx, new pieChart(dataDisk));
+
+  var ctx = document.getElementById("myAreaChart3");
+  if(ChartCPU != null){
+    ChartCPU.destroy();
+  }
+  ChartCPU = new Chart(ctx, new lineChart(dataCPU));
+
+  var ctx = document.getElementById("myAreaChart9");
+  if(ChartMem != null){
+    ChartMem.destroy();
+  }
+  ChartMem = new Chart(ctx, new lineChart(dataMem));
+
+  // var ctx = document.getElementById("myAreaChart6");
+  // if(ChartTemp != null){
+  //   ChartTemp.destroy();
+  // }
+  // ChartTemp = new Chart(ctx, new lineChart(dataTemp));
+
+  setTimeout(() => atualizarGrafico(idComputador, dataGeneral), 2000);
+
+}
+
+function atualizarGrafico(idComputador, dados) {
+
+  fetch(`/medidas/tempo-real/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (novoRegistro) {
+
+        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+        console.log(`Dados atuais do gráfico: ${dados}`);
+
+        // tirando e colocando valores no gráfico
+        
+        let momentoBanco = new Date(novoRegistro[0].data_hora)
+        let horas = String(momentoBanco.getUTCHours());
+        while (horas.length < 2) { horas = "0" + horas; }
+        let minutos = String(momentoBanco.getUTCMinutes());
+        while (minutos.length < 2) { minutos = "0" + minutos; }
+        let segundos = String(momentoBanco.getUTCSeconds());
+        while (segundos.length < 2) { segundos = "0" + segundos; }
+        let horario = `${horas}:${minutos}:${segundos}`
+
+        dados.forEach(function (dado) {
+          dado.labels.shift();
+          dado.labels.push(horario);
+          dado.datasets[0].data.shift();
+        })
+
+        dados[0].datasets[0].data.push(novoRegistro[0].cpu_porcentagem);
+        dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
+        // dados[2].datasets[0].data.push(novoRegistro[0].temperatura);
+        
+        ChartCPU.update();
+        ChartMem.update();
+        // ChartTemp.update();
+
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+      // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+      proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
     }
-  });
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
 
 }
 
@@ -203,7 +378,7 @@ function plotarGrafico(resposta, idComputador) {
 
 // function cpuRandom() {
 //   let result = [];
-  
+
 //   for (i = 0; i < 5; i++) {
 //     result[i] = Math.floor(Math.random() * 41) + 10;
 //   }
@@ -212,7 +387,7 @@ function plotarGrafico(resposta, idComputador) {
 
 // function temperatureRandom() {
 //   let result = [];
-  
+
 //   for (i = 0; i < 5; i++) {
 //     result[i] = Math.floor(Math.random() * 11) + 40;
 //   }
@@ -221,7 +396,7 @@ function plotarGrafico(resposta, idComputador) {
 
 // function memoryRandom() {
 //   let result = [];
-  
+
 //   let rand = (Math.floor(Math.random() * 301))/100 + 2
 
 //   for (i = 0; i < 5; i++) {
@@ -229,8 +404,6 @@ function plotarGrafico(resposta, idComputador) {
 //   }
 //   return result
 // }
-
-console.log(obterDadosGrafico(1), "aaaaaaaaaaaaaaaa")
 
 // Gráficos de CPU (temperatura e porcentagem de uso)
 
@@ -254,7 +427,8 @@ var myLineChart1 = new Chart(ctx, {
       pointBorderWidth: 2,
       data: [],
     },
-  ]},
+    ]
+  },
 
   options: {
     maintainAspectRatio: false,
@@ -346,7 +520,8 @@ var myLineChart2 = new Chart(ctx, {
       pointBorderWidth: 2,
       data: temperatureRandom(),
     }
-    ]},
+    ]
+  },
 
   options: {
     maintainAspectRatio: false,
@@ -473,7 +648,7 @@ var myLineChart3 = new Chart(ctx, {
           beginAtZero: true,
           max: 100,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + '%';
           }
         },
@@ -504,9 +679,9 @@ var myLineChart3 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '%';
         }
       }
     }
@@ -534,79 +709,79 @@ var data4 = {
   },],
 }
 var ctx = document.getElementById("myAreaChart4");
-var myLineChart4 = new Chart(ctx, {
-  type: 'line',
-  data: data4,
+// var myLineChart4 = new Chart(ctx, {
+//   type: 'line',
+//   data: data4,
 
-  options: {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-          beginAtZero: true,
-          max: 100,
-          min: 0,
-          callback: function(value, index, values) {
-            return number_format(value) + '%';
-          }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(0, 0, 0)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      intersect: false,
-      mode: 'index',
-      caretPadding: 10,
-      callbacks: {
-        label: function(tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
-        }
-      }
-    }
-  }
-});
+//   options: {
+//     maintainAspectRatio: false,
+//     layout: {
+//       padding: {
+//         left: 10,
+//         right: 25,
+//         top: 25,
+//         bottom: 0
+//       }
+//     },
+//     scales: {
+//       xAxes: [{
+//         time: {
+//           unit: 'date'
+//         },
+//         gridLines: {
+//           display: false,
+//           drawBorder: false
+//         },
+//         ticks: {
+//           maxTicksLimit: 7
+//         }
+//       }],
+//       yAxes: [{
+//         ticks: {
+//           maxTicksLimit: 5,
+//           padding: 10,
+//           beginAtZero: true,
+//           max: 100,
+//           min: 0,
+//           callback: function (value, index, values) {
+//             return number_format(value) + '%';
+//           }
+//         },
+//         gridLines: {
+//           color: "rgb(234, 236, 244)",
+//           zeroLineColor: "rgb(0, 0, 0)",
+//           drawBorder: false,
+//           borderDash: [2],
+//           zeroLineBorderDash: [2]
+//         }
+//       }],
+//     },
+//     legend: {
+//       display: false
+//     },
+//     tooltips: {
+//       backgroundColor: "rgb(255,255,255)",
+//       bodyFontColor: "#858796",
+//       titleMarginBottom: 10,
+//       titleFontColor: '#6e707e',
+//       titleFontSize: 14,
+//       borderColor: '#dddfeb',
+//       borderWidth: 1,
+//       xPadding: 15,
+//       yPadding: 15,
+//       displayColors: false,
+//       intersect: false,
+//       mode: 'index',
+//       caretPadding: 10,
+//       callbacks: {
+//         label: function (tooltipItem, chart) {
+//           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+//           return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '%';
+//         }
+//       }
+//     }
+//   }
+// });
 
 // gráfico  de porcentagem da cpu máquina máquina 3
 
@@ -632,7 +807,7 @@ var ctx = document.getElementById("myAreaChart5");
 var myLineChart5 = new Chart(ctx, {
   type: 'line',
   data: data5,
-  
+
   options: {
     maintainAspectRatio: false,
     layout: {
@@ -663,7 +838,7 @@ var myLineChart5 = new Chart(ctx, {
           beginAtZero: true,
           max: 100,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + '%';
           }
         },
@@ -694,9 +869,9 @@ var myLineChart5 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + '%' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '%';
         }
       }
     }
@@ -756,7 +931,7 @@ var myLineChart6 = new Chart(ctx, {
           beginAtZero: true,
           max: 100,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + 'C°';
           }
         },
@@ -787,9 +962,9 @@ var myLineChart6 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'C°' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + 'C°';
         }
       }
     }
@@ -849,7 +1024,7 @@ var myLineChart7 = new Chart(ctx, {
           beginAtZero: true,
           max: 100,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + 'C°';
           }
         },
@@ -880,9 +1055,9 @@ var myLineChart7 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'C°' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + 'C°';
         }
       }
     }
@@ -943,7 +1118,7 @@ var myLineChart8 = new Chart(ctx, {
           beginAtZero: true,
           max: 100,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + 'C°';
           }
         },
@@ -974,9 +1149,9 @@ var myLineChart8 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'C°' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + 'C°';
         }
       }
     }
@@ -1037,7 +1212,7 @@ var myLineChart9 = new Chart(ctx, {
           beginAtZero: true,
           max: 8,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + 'GB';
           }
         },
@@ -1068,9 +1243,9 @@ var myLineChart9 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'GB' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + 'GB';
         }
       }
     }
@@ -1131,7 +1306,7 @@ var myLineChart10 = new Chart(ctx, {
           beginAtZero: true,
           max: 8,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + 'GB';
           }
         },
@@ -1162,9 +1337,9 @@ var myLineChart10 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'GB' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + 'GB';
         }
       }
     }
@@ -1225,7 +1400,7 @@ var myLineChart11 = new Chart(ctx, {
           beginAtZero: true,
           max: 8,
           min: 0,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return number_format(value) + 'GB';
           }
         },
@@ -1256,9 +1431,9 @@ var myLineChart11 = new Chart(ctx, {
       mode: 'index',
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
+        label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':'  + number_format(tooltipItem.yLabel) + 'C°' ;
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + 'C°';
         }
       }
     }
