@@ -503,7 +503,7 @@
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 1</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Memória - Máquina 1</h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -609,7 +609,7 @@
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 2</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Memória - Máquina 2</h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -627,9 +627,9 @@
             </div>
     </div>
 
-                    </div>
+    </div>
 
-                    <div class="col-xl-8 col-lg-7" style="display: none;" id="Maq3"> <!--DivControle 3-->
+        <div class="col-xl-8 col-lg-7" style="display: none;" id="Maq3"> <!--DivControle 3-->
                 
         <div style="display: flex;"> <!--opa salve-->
             <div class="col-xl-6 col-lg-5">
@@ -732,7 +732,7 @@
         <!-- Card Header - Dropdown -->
         <div
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 3</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Memória - Máquina 3</h6>
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -871,7 +871,7 @@
                         <!-- Card Header - Dropdown -->
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 4</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Memória - Máquina 4</h6>
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1010,7 +1010,7 @@
                         <!-- Card Header - Dropdown -->
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Memoria - Máquina 5</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Memória - Máquina 5</h6>
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1143,20 +1143,6 @@ function selMachineCorreto() {
     obterDadosGrafico(document.getElementById("selMachine").value)
 }
 
-// function dashTech(){
-
-//     let dashboardTec = document.getElementById("dashTec");
-//     let saudeMaquina = document.getElementById("saudeMaq");
-//     let sel = document.getElementById("selMachine");
-
-//     if(sel.value=="1"){
-//         window.location.href = "dashboardTec.html";
-//     }else{window.location.href = "dashboardSaudeMaq.html";
-
-//     }
-// }
-
-
     // let proximaAtualizacao;
 
     // window.onload = atualizarDados();
@@ -1165,88 +1151,72 @@ function selMachineCorreto() {
 
     window.onload = obterDadosGrafico(1);
 
-    // setInterval(() => atualizarDados(), 2000);
+function verificar(metrica, componente) {
+  const fkTotem = 50000
+  
+  
+  var empresa = sessionStorage.FK_EMPRESA
+  var nome = sessionStorage.NOME_EMPRESA
+            var frase = ""
+          
+            
+            // incluir uma nova medida de temperatura 
+            if(metrica >=70){
+              if (metrica >= 70 && metrica < 80) {
+                Swal.fire("CUIDADO", `${componente} está ficando sobrecarregada!`, "warning");
+                frase = `Alerta: O ${componente} do totem ${fkTotem}está ficando sobrecarregado! Porcentagem de uso: `
+                console.log('Cheguei aqui')
+                
+              } else if (metrica >= 80) {
+                Swal.fire("ALERTA", `${componente} está sobrecarregada!`, "danger");
+                frase = `Perigo: O ${componente} do totem ${fkTotem} está sobrecarregado! Porcentagem de uso:`
+              }
+              alertas(nome,componente,metrica,frase);
+            
+            
+        
+            console.log("INICIANDO O FETCH");
+            
+              
+			// Enviando o valor da nova input
+        fetch("/medidas/alertas", {
+				method: "POST",
+				headers: {
+          "Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+					// Agora vá para o arquivo routes/usuario.js
+					metricaServer: metrica,
+					fraseServer: frase,
+          componenteServer: componente,
+          fkTotemServer: fkTotem,
+          empresaServer: empresa
+					
+				})
+			}).then(function (resposta) {
+				console.log("entrei no fetch");
+				console.log("resposta: ", resposta);
+        
+				if (resposta.ok) {
+                console.log("Inserts feitos com sucesso");
+                
+              } else {
+                console.log("Erro nos inserts");
+				}
+			}).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
 
-    // function atualizarDados() {
-    //     let dateNow = new Date()
-
-    //     data3.labels.shift(); // apagar o primeiro
-    //     data3.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-    //     data3.datasets[0].data.shift();
-    //     data3.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
-
-    //     data4.labels.shift(); // apagar o primeiro
-    //     data4.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-    //     data4.datasets[0].data.shift();
-    //     data4.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
-
-    //     data5.labels.shift(); // apagar o primeiro
-    //     data5.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-    //     data5.datasets[0].data.shift();
-    //     data5.datasets[0].data.push(Math.floor(Math.random() * 41) + 10);
-
-    //     data6.labels.shift(); // apagar o primeiro
-    //     data6.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-    //     data6.datasets[0].data.shift();
-    //     data6.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
-
-    //     data7.labels.shift(); // apagar o primeiro
-    //     data7.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-    //     data7.datasets[0].data.shift();
-    //     data7.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
-
-    //     data8.labels.shift(); // apagar o primeiro
-    //     data8.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-    //     data8.datasets[0].data.shift();
-    //     data8.datasets[0].data.push(Math.floor(Math.random() * 11) + 40);
-
-    //     data9.labels.shift(); // apagar o primeiro
-    //     data9.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-    //     data9.datasets[0].data.shift();
-    //     data9.datasets[0].data.push(data9.datasets[0].data[0]);
-
-    //     data10.labels.shift(); // apagar o primeiro
-    //     data10.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-    //     data10.datasets[0].data.shift();
-    //     data10.datasets[0].data.push(data10.datasets[0].data[0]);
-
-    //     data11.labels.shift(); // apagar o primeiro
-    //     data11.labels.push(dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds());
-    //     data11.datasets[0].data.shift();
-    //     data11.datasets[0].data.push(data11.datasets[0].data[0]);
-
-    //     window.myLineChart3.update();
-    //     window.myLineChart4.update();
-    //     window.myLineChart5.update();
-    //     window.myLineChart6.update();
-    //     window.myLineChart7.update();
-    //     window.myLineChart8.update();
-    //     window.myLineChart9.update();
-    //     window.myLineChart10.update();
-    //     window.myLineChart11.update();
-
-    // }
-
-
-    // function inserirDados() {
-
-
-    //     data3.labels.shift(); // apagar o primeiro
-    //     dados.labels.push(novoRegistro[0].momento_grafico);
-    //     for (i = 0; i < resposta.length; i++) {
-    //         var registro = resposta[i];
-    //         dados.labels.push(registro.momento_grafico);
-
-    //         dados.datasets[0].data.push(registro.umidade);
-    //         dados.datasets[1].data.push(registro.temperatura);
-
-    //     }
-    // }
-
-    // setTimeout(setInterval(atualizarGraficos(), 3000), 2000)
-
+			});
     
+      
+      return false;
+      
+    }
 
-    // verificar_autenticacao();
+  }
+
+
+
 
 </script>

@@ -108,7 +108,7 @@ function baseDataPie (labelsDados) {
 //   }]
 // }
 
-function pieChart (dado) {
+function pieChart (dado,simbolo) {
   this.type = 'doughnut'
   this.data = dado
   this.options = {
@@ -264,7 +264,7 @@ function plotarGrafico(resposta, idComputador) {
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
-  // let dataTemp = new baseDataLinha("Temp")
+  let dataTemp = new baseDataLinha("Temp")
 
   let discoUsado = resposta[resposta.length - 1].disco_usado
   dataDisk.datasets[0].data.push(discoUsado)
@@ -284,16 +284,17 @@ function plotarGrafico(resposta, idComputador) {
 
     dataCPU.labels.push(horario);
     dataMem.labels.push(horario);
-    // dataTemp.labels.push(horario);
+    dataTemp.labels.push(horario);
 
     dataCPU.datasets[0].data.push(registro.cpu_porcentagem);
     dataMem.datasets[0].data.push(registro.memoria_usada);
-    // dataTemp.datasets[0].data.push(registro.temperatura);
+    dataTemp.datasets[0].data.push(registro.temperatura);
+
   }
 
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
-  // dataGeneral.push(dataTemp)
+  dataGeneral.push(dataTemp)
 
   
 
@@ -301,7 +302,7 @@ function plotarGrafico(resposta, idComputador) {
   if(ChartDisk != null){
     ChartDisk.destroy();
   }
-  ChartDisk = new Chart(ctx, new pieChart(dataDisk));
+  ChartDisk = new Chart(ctx, new pieChart(dataDisk,'GB'));
 
   var ctx = document.getElementById("myAreaChart3");
   if(ChartCPU != null){
@@ -353,11 +354,11 @@ function atualizarGrafico(idComputador, dados) {
 
         dados[0].datasets[0].data.push(novoRegistro[0].cpu_porcentagem);
         dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
-        // dados[2].datasets[0].data.push(novoRegistro[0].temperatura);
+        dados[2].datasets[0].data.push(novoRegistro[0].temperatura);
         
         ChartCPU.update();
         ChartMem.update();
-        // ChartTemp.update();
+        ChartTemp.update();
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);

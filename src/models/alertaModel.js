@@ -1,17 +1,16 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idComputador) {
+function contarChamados(idComputador) {
 
-    instrucaoSql = ''
+    instrucaoSql = 'select count(id) from Alerta Join computador on fk_computador = ${idComputador}';
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `SELECT TOP (3) id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel,temperatura FROM Leitura where fk_computador = ${idComputador} order by id desc;`;
+        instrucaoSql = ``;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
-        instrucaoSql = `select id, fk_computador, data_hora, cpu_porcentagem, disco_usado,memoria_usada,memoria_disponivel,temperatura
-        from Leitura
-        where fk_computador = ${idComputador} order by id desc limit 7;`;
+        instrucaoSql = `select count(alerta.id) from Alerta Join computador on fk_computador = ${idComputador}
+        and data_hora =  `;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -22,7 +21,7 @@ function buscarUltimasMedidas(idComputador) {
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idComputador) {
+function contarChamadosEmTempoReal(idComputador) {
 
     instrucaoSql = ''
 
@@ -44,6 +43,6 @@ function buscarMedidasEmTempoReal(idComputador) {
 
 
 module.exports = {
-    buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    contarChamados,
+    contarChamadosEmTempoReal
 }
