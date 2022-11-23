@@ -5,11 +5,11 @@ function buscarUltimasMedidas(idComputador) {
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `SELECT TOP (3) id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel,temperatura FROM Leitura where fk_computador = ${idComputador} order by id desc;`;
+        instrucaoSql = `SELECT TOP (3) id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel,temperatura,temperaturaMax FROM Leitura where fk_computador = ${idComputador} order by id desc;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
-        instrucaoSql = `select id, fk_computador, data_hora, cpu_porcentagem, disco_usado,memoria_usada,memoria_disponivel,temperatura
+        instrucaoSql = `select id, fk_computador, data_hora, cpu_porcentagem, disco_usado,memoria_usada,memoria_disponivel,temperatura,temperaturaMax
         from Leitura
         where fk_computador = ${idComputador} order by id desc limit 7;`;
 

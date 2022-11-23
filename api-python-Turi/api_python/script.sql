@@ -35,6 +35,17 @@ CREATE TABLE computador (
 	endereco_mac CHAR(12)
 );
 
+CREATE TABLE leitura (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    fk_computador INT NOT NULL,
+    FOREIGN KEY (fk_computador) REFERENCES computador(id),
+    data_hora datetime,
+    cpu_porcentagem FLOAT,
+	disco_usado FLOAT,
+    memoria_usada FLOAT,
+    memoria_disponivel FLOAT
+);
+
 
 
 CREATE TABLE alerta (
