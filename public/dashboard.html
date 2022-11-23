@@ -48,20 +48,9 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             
-            <!-- Nav Item - Dashboard -->
-            <!-- <select style="background-color: #252525;color:white; padding: 5%;margin: 5%;"class="nav-link" name="dashboardTec" id="dashTech" onchange="dashTech()">
-                <li class="nav-item active">
-                    <a class="nav-link">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <option value=1> <a href="dashDebora.html">Dashboard</a></option>
-                        <option value=2>Saúde da máquina</option>
-                    </a>
-                </li>
-            </select> -->
-
             <li class="nav-item">
                 <a class="nav-link" href="dashboard.html">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fa-solid fa-chart-line"></i>
                     <span>Dashboard</span></a>
             </li>
 
@@ -69,7 +58,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="dashDebora.html">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fa-solid fa-heart-pulse"></i>
                     <span>Saúde da máquina</span></a>
             </li>
 
@@ -77,16 +66,15 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="dashboardMW.html">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
                     <span>Foco no cliente</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
             
-            <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="suporte.html">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fa-solid fa-headset"></i>
                     <span>Suporte</span></a>
             </li>
 
@@ -322,11 +310,9 @@
                             <option value=4>Máquina 4</option>
                             <option value=5>Máquina 5</option>
                         </select>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Gerar relatório</a>
                     </div>
 
-                    <!-- Content Row -->
+                    <!-- Content Row Métricas -->
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
@@ -523,38 +509,36 @@
                     </div>
             
                     <div class="col-xl-8 col-lg-7" style="display: none;" id="Maq2"> <!--DivControle 2-->
-                 
-    <div style="display: flex;">
-                <!-- Pie Chart Disk Machine 2  -->
-                <div class="col-xl-6 col-lg-5">
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) - Máquina 2</h6>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
+                        <div style="display: flex;">
+                        <!-- Pie Chart Disk Machine 2  -->
+                            <div class="col-xl-6 col-lg-5">
+                                <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) - Máquina 2</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
                             </div>
-                        </div>
                         <!-- Card Body -->
-                        <div class="card-body">
-                            <div class="chart-pie pt-4 pb-2">
-                                <canvas id="chartDisk2"></canvas>
+                                    <div class="card-body">
+                                        <div class="chart-pie pt-4 pb-2">
+                                            <canvas id="chartDisk2"></canvas>
+                                        </div>
+                                        <div class="mt-4 text-center small">
+                                            <span class="mr-2">
+                                                <i class="fas fa-circle text-success"></i> Livre
+                                            </span>
+                                            <span class="mr-2">
+                                                <i class="fas fa-circle text-primary"></i> Em uso
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mt-4 text-center small">
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Livre
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> Em uso
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                  <!-- Area Chart Frequency of CPU-->
                  <div class="col-xl-6 col-lg-5">
@@ -627,9 +611,9 @@
             </div>
     </div>
 
-    </div>
+                    </div>
 
-        <div class="col-xl-8 col-lg-7" style="display: none;" id="Maq3"> <!--DivControle 3-->
+                    <div class="col-xl-8 col-lg-7" style="display: none;" id="Maq3"> <!--DivControle 3-->
                 
         <div style="display: flex;"> <!--opa salve-->
             <div class="col-xl-6 col-lg-5">
@@ -1038,6 +1022,14 @@
 
                     </div>
 
+                </div>
+            
+            </div>
+        
+        </div>
+
+    </div>
+
     <!-- Footer -->
     <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -1172,12 +1164,9 @@ function verificar(metrica, componente) {
                 frase = `Perigo: O ${componente} do totem ${fkTotem} está sobrecarregado! Porcentagem de uso:`
               }
               alertas(nome,componente,metrica,frase);
-            
-            
         
             console.log("INICIANDO O FETCH");
             
-              
 			// Enviando o valor da nova input
         fetch("/medidas/alertas", {
 				method: "POST",
@@ -1209,14 +1198,10 @@ function verificar(metrica, componente) {
 
 			});
     
-      
       return false;
       
     }
 
   }
-
-
-
 
 </script>
