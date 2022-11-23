@@ -1,3 +1,7 @@
+src="sweetalert2.all.min.js"
+src="//cdn.jsdelivr.net/npm/sweetalert2@11"
+
+
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
@@ -68,6 +72,8 @@ let ChartCPU
 let ChartMem
 let ChartTemp
 let ChartDisk
+let nomeEmp
+let idEmp
 
 function baseDataLinha (dtsetlabel) {
   this.labels = []                       //HORARIO DA COLETA AQUI
@@ -354,11 +360,17 @@ function atualizarGrafico(idComputador, dados) {
 
         dados[0].datasets[0].data.push(novoRegistro[0].cpu_porcentagem);
         dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
-        dados[2].datasets[0].data.push(novoRegistro[0].temperatura);
-        
+
         ChartCPU.update();
         ChartMem.update();
         ChartTemp.update();
+
+        let cpu = novoRegistro[0].cpu_porcentagem
+        let ram = novoRegistro[0].memoria_usada
+        let disco = novoRegistro[0].disco_usado
+        
+      
+        verificar(idComputador,cpu,ram,disco)
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
@@ -373,18 +385,111 @@ function atualizarGrafico(idComputador, dados) {
       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
 
+    
+
+}
+
+function verificar(idComputador,cpu,ram,disco) {
+  let cpuAlerta = [cpu,false,'CPU']
+  let ramAlerta = [ram,false,'RAM']
+  let discoAlerta = [disco,false,'Disco']
+
+  if (cpu > 50) {
+    if (cpu >= 90) {
+      Swal.fire(
+      "ALERTA: PERIGO! A CPU está muito sobrecarregada."
+      )} else {
+        Swal.fire(
+          "CUIDADO, a porcentagem de uso da CPU está grande."
+          )
+      }
+      cpuAlerta[1]=true
+  }
+
+  ram = (ram * 100) / totalRAM // vir do banco ainda
+  if(ram > 70) {
+    if (ram >= 90) {
+      Swal.fire(
+        "ALERTA: PERIGO! A memória RAM está sobrecarregada. Faça algo!"
+    )} else {
+      Swal.fire(
+        "CUIDADO, a RAM está ficando muito cheia."
+    )}
+
+      ramAlerta[1]=true
+    } 
+  
+
+  disco = (disco * 100)/ totalDisco // vir do banco ainda
+  if (disco > 70) {
+    if (disco >= 95) {
+      Swal.fire(
+        "ALERTA: PERIGO! O disco está quase em seu limite. Faça algo!"
+    )} else {
+      Swal.fire(
+        "CUIDADO, o disco está ficando muito cheio."
+    )}
+      discoAlerta[1]=true
+  } 
+
+    let alertas = [cpuAlerta,ramAlerta,discoAlerta]
+    nomeEmp = sessionStorage.NOME_USUARIO;
+    alertar(nomeEmp,idComputador,alertas)
+
+}
+  
+function alertar(nomeEmp,idComputador,alertas) {
+  let descricao = ''
+  let card = {
+    query: `mutation { createCard
+      (input:{ pipe_id:"302754046,
+      title: "Card",
+      fields_attributes:
+      [{field_id: "empresa", 
+      field_value:"empresa"},
+      {field_id: "id_computador", 
+      field_value:"id_computador"},
+      {field_id: "componente", 
+      field_value:"componente"},
+      {field_id:"mais_informa_es", 
+      field_value:"O 'componente' passou de 'valor'% de sua capacidade."}
+    ],}){card {title}}}"}`
+  }
+  const options = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIxNjcyNjYsImVtYWlsIjoidHVyaV9Ab3V0bG9vay5jb20uYnIiLCJhcHBsaWNhdGlvbiI6MzAwMjA1NzM5fX0.o_bj1L7j2n9rRELXyrKY2kz_P9ga6nyAkAy_5chbb3hPnknWCHaDbFhMtASg9zXuawa2DjXghQ4dQ1QyxLcj2A',
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(card)
+  }
+  for(let i = 0; i < alertas.length; i++) {
+    if(alertas[i][1]) {
+      card.query = `mutation { createCard
+        (input:{ pipe_id:"302754046,
+        title: "Card",
+        fields_attributes:
+        [{field_id: "empresa", 
+        field_value:"${nomeEmp}"},
+        {field_id: "id_computador", 
+        field_value:"${idComputador}"},
+        {field_id: "componente", 
+        field_value:"${alertas[i][2]}"},
+        {field_id:"mais_informa_es", 
+        field_value:"O ${componente} passou de ${alertas[i][0]}% de sua capacidade."}
+      ],}){card {title}}}"}`
+      };
+      fetch('https://api.pipefy.com/graphql', options)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
+  }
 }
 
 
 
-// function cpuRandom() {
-//   let result = [];
 
-//   for (i = 0; i < 5; i++) {
-//     result[i] = Math.floor(Math.random() * 41) + 10;
-//   }
-//   return result
-// }
 
 // function temperatureRandom() {
 //   let result = [];
@@ -395,16 +500,6 @@ function atualizarGrafico(idComputador, dados) {
 //   return result
 // }
 
-// function memoryRandom() {
-//   let result = [];
-
-//   let rand = (Math.floor(Math.random() * 301))/100 + 2
-
-//   for (i = 0; i < 5; i++) {
-//     result[i] = rand;
-//   }
-//   return result
-// }
 
 // Gráficos de CPU (temperatura e porcentagem de uso)
 

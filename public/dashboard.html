@@ -57,7 +57,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="dashDebora.html">
+                <a class="nav-link" href="dashDeBru.html">
                     <i class="fa-solid fa-heart-pulse"></i>
                     <span>Saúde da máquina</span></a>
             </li>
@@ -1142,66 +1142,5 @@ function selMachineCorreto() {
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     window.onload = obterDadosGrafico(1);
-
-function verificar(metrica, componente) {
-  const fkTotem = 50000
-  
-  
-  var empresa = sessionStorage.FK_EMPRESA
-  var nome = sessionStorage.NOME_EMPRESA
-            var frase = ""
-          
-            
-            // incluir uma nova medida de temperatura 
-            if(metrica >=70){
-              if (metrica >= 70 && metrica < 80) {
-                Swal.fire("CUIDADO", `${componente} está ficando sobrecarregada!`, "warning");
-                frase = `Alerta: O ${componente} do totem ${fkTotem}está ficando sobrecarregado! Porcentagem de uso: `
-                console.log('Cheguei aqui')
-                
-              } else if (metrica >= 80) {
-                Swal.fire("ALERTA", `${componente} está sobrecarregada!`, "danger");
-                frase = `Perigo: O ${componente} do totem ${fkTotem} está sobrecarregado! Porcentagem de uso:`
-              }
-              alertas(nome,componente,metrica,frase);
-        
-            console.log("INICIANDO O FETCH");
-            
-			// Enviando o valor da nova input
-        fetch("/medidas/alertas", {
-				method: "POST",
-				headers: {
-          "Content-Type": "application/json"
-				},
-				body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-					// Agora vá para o arquivo routes/usuario.js
-					metricaServer: metrica,
-					fraseServer: frase,
-          componenteServer: componente,
-          fkTotemServer: fkTotem,
-          empresaServer: empresa
-					
-				})
-			}).then(function (resposta) {
-				console.log("entrei no fetch");
-				console.log("resposta: ", resposta);
-        
-				if (resposta.ok) {
-                console.log("Inserts feitos com sucesso");
-                
-              } else {
-                console.log("Erro nos inserts");
-				}
-			}).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-
-			});
-    
-      return false;
-      
-    }
-
-  }
 
 </script>
