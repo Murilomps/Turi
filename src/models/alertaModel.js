@@ -26,10 +26,10 @@ function contarChamadosEmTempoReal(idComputador) {
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `SELECT TOP (1) id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel,temperatura FROM Leitura where fk_computador = ${idComputador} order by id desc;`;
+        instrucaoSql = `SELECT TOP (1) id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel,temperatura,temperaturaMax FROM Leitura where fk_computador = ${idComputador} order by id desc;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `SELECT id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel, temperatura
+        instrucaoSql = `SELECT id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel, temperatura,temperaturaMax
          FROM Leitura 
          where fk_computador = ${idComputador} order by id desc limit 1`;
     } else {
