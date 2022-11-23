@@ -70,7 +70,6 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 let proximaAtualizacao
 let ChartCPU
 let ChartMem
-let ChartTemp
 let ChartDisk
 let nomeEmp
 let idEmp
@@ -240,8 +239,15 @@ function lineChart(dado,simbolo,max_value) {
   }
 }
 
+function alterarTitulo(idComputador) {
+  var numpc = document.getElementsByClassName("numMac")
+  Array.from(numpc).forEach((idSpan) => {
+    idSpan.innerHTML = `${idComputador}`
+  })
+}
+
 function obterDadosGrafico(idComputador) {
-  // alterarTitulo(idComputador)
+  alterarTitulo(idComputador)
 
   if (proximaAtualizacao != undefined) {
     clearTimeout(proximaAtualizacao);
@@ -270,7 +276,6 @@ function plotarGrafico(resposta, idComputador) {
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
-  let dataTemp = new baseDataLinha("Temp")
 
   let discoUsado = resposta[resposta.length - 1].disco_usado
   dataDisk.datasets[0].data.push(discoUsado)
@@ -290,17 +295,14 @@ function plotarGrafico(resposta, idComputador) {
 
     dataCPU.labels.push(horario);
     dataMem.labels.push(horario);
-    dataTemp.labels.push(horario);
 
     dataCPU.datasets[0].data.push(registro.cpu_porcentagem);
     dataMem.datasets[0].data.push(registro.memoria_usada);
-    dataTemp.datasets[0].data.push(registro.temperatura);
 
   }
 
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
-  dataGeneral.push(dataTemp)
 
   
 
@@ -321,12 +323,6 @@ function plotarGrafico(resposta, idComputador) {
     ChartMem.destroy();
   }
   ChartMem = new Chart(ctx, new lineChart(dataMem,'GB'));
-
-  // var ctx = document.getElementById("myAreaChart6");
-  // if(ChartTemp != null){
-  //   ChartTemp.destroy();
-  // }
-  // ChartTemp = new Chart(ctx, new lineChart(dataTemp));
 
   setTimeout(() => atualizarGrafico(idComputador, dataGeneral), 2000);
 
@@ -361,9 +357,9 @@ function atualizarGrafico(idComputador, dados) {
         dados[0].datasets[0].data.push(novoRegistro[0].cpu_porcentagem);
         dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
 
+        
         ChartCPU.update();
         ChartMem.update();
-        ChartTemp.update();
 
         let cpu = novoRegistro[0].cpu_porcentagem
         let ram = novoRegistro[0].memoria_usada
@@ -385,40 +381,12 @@ function atualizarGrafico(idComputador, dados) {
       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
 
-    
-
 }
 
 function verificar(idComputador,cpu,ram,disco) {
   let cpuAlerta = [cpu,false,'CPU']
   let ramAlerta = [ram,false,'RAM']
   let discoAlerta = [disco,false,'Disco']
-
-  if (cpu > 50) {
-    if (cpu >= 90) {
-      Swal.fire(
-      "ALERTA: PERIGO! A CPU está muito sobrecarregada."
-      )} else {
-        Swal.fire(
-          "CUIDADO, a porcentagem de uso da CPU está grande."
-          )
-      }
-      cpuAlerta[1]=true
-  }
-
-  ram = (ram * 100) / totalRAM // vir do banco ainda
-  if(ram > 70) {
-    if (ram >= 90) {
-      Swal.fire(
-        "ALERTA: PERIGO! A memória RAM está sobrecarregada. Faça algo!"
-    )} else {
-      Swal.fire(
-        "CUIDADO, a RAM está ficando muito cheia."
-    )}
-
-      ramAlerta[1]=true
-    } 
-  
 
   disco = (disco * 100)/ totalDisco // vir do banco ainda
   if (disco > 70) {
@@ -596,193 +564,25 @@ var myLineChart1 = new Chart(ctx, {
   }
 });
 
-var ctx = document.getElementById("myAreaChart2");
-var myLineChart2 = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: [currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2, currentTime2],
-    datasets: [{
-      label: "Temperatura - Máquina 1",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223,0)",
-      borderColor: "rgb(105, 89, 206)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgb(105, 89, 206)",
-      pointBorderColor: "rgb(105, 89, 206)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: temperatureRandom(),
-    }
-    ]
-  },
+function verificar(idComputador,cpu,ram,disco) {
+  let cpuAlerta = [cpu,false,'CPU']
+  let ramAlerta = [ram,false,'RAM']
+  let discoAlerta = [disco,false,'Disco']
 
-  options: {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
+  if (cpu > 50) {
+    if (cpu >= 90) {
+      Swal.fire(
+      "ALERTA: PERIGO! A CPU está muito sobrecarregada."
+      )} else {
+        Swal.fire(
+          "CUIDADO, a porcentagem de uso da CPU está grande."
+          )
       }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-          beginAtZero: true,
-          max: 100,
-          min: 0,
-          callback: function (value, index, values) {
-            return number_format(value) + '°C';
-          }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(0, 0, 0)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      intersect: false,
-      mode: 'index',
-      caretPadding: 10,
-      callbacks: {
-        label: function (tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '°C';
-        }
-      }
-    }
+      cpuAlerta[1]=true
   }
-});
 
-// gráfico de porcentagem de cpu máquina 1 
-
-var ctx = document.getElementById("myAreaChart3");
-var data3 = {
-  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                       //HORARIO DA COLETA AQUI
-  datasets: [{
-    label: "Porcentagem de Uso (CPU) - Máquina 1",
-    lineTension: 0.3,
-    backgroundColor: "rgba(78, 115, 223,0)",
-    borderColor: "rgb(105, 89, 206)",
-    pointRadius: 3,
-    pointBackgroundColor: "rgb(105, 89, 206)",
-    pointBorderColor: "rgb(105, 89, 206)",
-    pointHoverRadius: 3,
-    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-    pointHitRadius: 10,
-    pointBorderWidth: 2,
-    data: 1,
-  }]
 }
-var myLineChart3 = new Chart(ctx, {
-  type: 'line',
-  data: data3,
 
-  options: {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-          beginAtZero: true,
-          max: 100,
-          min: 0,
-          callback: function (value, index, values) {
-            return number_format(value) + '%';
-          }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(0, 0, 0)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      intersect: false,
-      mode: 'index',
-      caretPadding: 10,
-      callbacks: {
-        label: function (tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '%';
-        }
-      }
-    }
-  }
-});
 
 
 // gráfico  de porcentagem da cpu máquina máquina 2
@@ -1273,265 +1073,5 @@ var data9 = {
   },],
 }
 
-var ctx = document.getElementById("myAreaChart9");
-var myLineChart9 = new Chart(ctx, {
-  type: 'doughnut',
-  data: data9,
 
-  options: {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-          beginAtZero: true,
-          max: 8,
-          min: 0,
-          callback: function (value, index, values) {
-            return number_format(value) + 'GB';
-          }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(0, 0, 0)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      intersect: false,
-      mode: 'index',
-      caretPadding: 10,
-      callbacks: {
-        label: function (tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + 'GB';
-        }
-      }
-    }
-  }
-});
 
-var data10 = {
-  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
-  datasets: [{
-    label: "Memoria - Máquina 2",
-    lineTension: 0.3,
-    backgroundColor: "rgba(78, 115, 223,0)",
-    borderColor: "rgb(105, 89, 206)",
-    pointRadius: 3,
-    pointBackgroundColor: "rgb(105, 89, 206)",
-    pointBorderColor: "rgb(105, 89, 206)",
-    pointHoverRadius: 3,
-    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-    pointHitRadius: 10,
-    pointBorderWidth: 2,
-    data: 1,
-  },],
-}
-
-var ctx = document.getElementById("myAreaChart10");
-var myLineChart10 = new Chart(ctx, {
-  type: 'line',
-  data: data10,
-
-  options: {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-          beginAtZero: true,
-          max: 8,
-          min: 0,
-          callback: function (value, index, values) {
-            return number_format(value) + 'GB';
-          }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(0, 0, 0)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      intersect: false,
-      mode: 'index',
-      caretPadding: 10,
-      callbacks: {
-        label: function (tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + 'GB';
-        }
-      }
-    }
-  }
-});
-
-var data11 = {
-  labels: [currentTime, currentTime, currentTime, currentTime, currentTime],                          //HORARIO DA COLETA AQUI
-  datasets: [{
-    label: "Memoria - Máquina 3",
-    lineTension: 0.3,
-    backgroundColor: "rgba(78, 115, 223,0)",
-    borderColor: "rgb(105, 89, 206)",
-    pointRadius: 3,
-    pointBackgroundColor: "rgb(105, 89, 206)",
-    pointBorderColor: "rgb(105, 89, 206)",
-    pointHoverRadius: 3,
-    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-    pointHitRadius: 10,
-    pointBorderWidth: 2,
-    data: 1,
-  },],
-}
-
-var ctx = document.getElementById("myAreaChart11");
-var myLineChart11 = new Chart(ctx, {
-  type: 'line',
-  data: data11,
-
-  options: {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-          beginAtZero: true,
-          max: 8,
-          min: 0,
-          callback: function (value, index, values) {
-            return number_format(value) + 'GB';
-          }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(0, 0, 0)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      intersect: false,
-      mode: 'index',
-      caretPadding: 10,
-      callbacks: {
-        label: function (tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + 'C°';
-        }
-      }
-    }
-  }
-});

@@ -23,4 +23,6 @@ router.post("/autenticarEmpresa", function (req, res) {
     usuarioController.entrarEmpresa(req, res);
 });
 
+
+
 module.exports = router;
