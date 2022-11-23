@@ -232,12 +232,14 @@ function lineChart(dado,simbolo,max_value) {
     }
   }
 }
+
 function alterarTitulo(idComputador) {
   var numpc = document.getElementsByClassName("numMac")
   Array.from(numpc).forEach((idSpan) => {
     idSpan.innerHTML = `${idComputador}`
   })
 }
+
 function obterDadosGrafico(idComputador) {
   alterarTitulo(idComputador)
 
