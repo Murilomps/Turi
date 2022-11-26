@@ -47,9 +47,28 @@
 }
 
 .satisfaction {
-    margin: 1rem;
-    height: 16rem;
-    width: 16rem;
+    text-align: center;
+    font-size: 12rem;
+}
+
+.cor-msat {
+    color: #37D234;
+}
+
+.cor-sat {
+    color: #96D234;
+}
+
+.cor-qm {
+    color: #D2C234;
+}
+
+.cor-desc {
+    color: #D28034;
+}
+
+.cor-insat {
+    color: #D23434;
 }
 
 html {
