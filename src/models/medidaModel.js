@@ -41,8 +41,26 @@ function buscarMedidasEmTempoReal(idComputador) {
     return database.executar(instrucaoSql);
 }
 
+function buscarMedidasEstaticas(idComputador) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT memoria_total, disco_total FROM computador where id = ${idComputador};`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `SELECT memoria_total, disco_total FROM computador where id = ${idComputador};`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    buscarMedidasEstaticas
 }

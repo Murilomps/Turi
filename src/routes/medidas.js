@@ -11,8 +11,9 @@ router.get("/tempo-real/:idComputador", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 })
 
+router.get("/computador/:idComputador", function (req,res) {
+    medidaController.buscarMedidasEstaticas(req, res);
+})
 
-
-router.get("/")
 
 module.exports = router;

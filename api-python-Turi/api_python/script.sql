@@ -105,9 +105,8 @@ CREATE TABLE leitura (
 
 CREATE TABLE alerta (
     id int primary key IDENTITY,
-    fk_computador int not null,
-    foreign key (fk_computador) references computador(id),
-    data_hora datetime,
+    fk_leitura int not null,
+    foreign key (fk_leitura) references leitura(id),
     componente varchar(50),
-    descricao varchar(100)
+    
 );

@@ -259,7 +259,7 @@ function obterDadosGrafico(idComputador) {
         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
         resposta.reverse();
 
-        plotarGrafico(resposta, idComputador);
+        plotarGrafico(resposta, idComputador)
       });
     } else {
       console.error('Nenhum dado encontrado ou erro na API');
@@ -270,19 +270,51 @@ function obterDadosGrafico(idComputador) {
     });
 }
 
-function plotarGrafico(resposta, idComputador) {
+function obterDadosEst(idComputador) {
+  alterarTitulo(idComputador)
+
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao);
+  }
+
+  
+}
+
+const plotarGrafico = async(resposta, idComputador) => {
+
   let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
   
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
 
+  let discoMax
+  let memoriaMax
+
+    await fetch(`/medidas/computador/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta2) {
+          console.log(`Dados recebidosaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ${JSON.stringify(resposta2)}`);
+          resposta2.reverse();
+          discoMax = resposta2[0].disco_total
+          memoriaMax = 16
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
   let discoUsado = resposta[resposta.length - 1].disco_usado
   dataDisk.datasets[0].data.push(discoUsado)
-  dataDisk.datasets[0].data.push(237.23 - discoUsado)
+  dataDisk.datasets[0].data.push(discoMax - discoUsado)
+
 
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
+    
 
     let momentoBanco = new Date(registro.data_hora)
     let horas = String(momentoBanco.getUTCHours());
@@ -316,13 +348,13 @@ function plotarGrafico(resposta, idComputador) {
   if(ChartCPU != null){
     ChartCPU.destroy();
   }
-  ChartCPU = new Chart(ctx, new lineChart(dataCPU,'%'));
+  ChartCPU = new Chart(ctx, new lineChart(dataCPU,'%', 100));
 
   var ctx = document.getElementById("myAreaChart9");
   if(ChartMem != null){
     ChartMem.destroy();
   }
-  ChartMem = new Chart(ctx, new lineChart(dataMem,'GB'));
+  ChartMem = new Chart(ctx, new lineChart(dataMem,'GB', memoriaMax));
 
   setTimeout(() => atualizarGrafico(idComputador, dataGeneral), 2000);
 
@@ -338,8 +370,10 @@ function atualizarGrafico(idComputador, dados) {
         console.log(`Dados atuais do gráfico: ${dados}`);
 
         // tirando e colocando valores no gráfico
-        
+         
+
         let momentoBanco = new Date(novoRegistro[0].data_hora)
+
         let horas = String(momentoBanco.getUTCHours());
         while (horas.length < 2) { horas = "0" + horas; }
         let minutos = String(momentoBanco.getUTCMinutes());
@@ -357,6 +391,7 @@ function atualizarGrafico(idComputador, dados) {
         dados[0].datasets[0].data.push(novoRegistro[0].cpu_porcentagem);
         dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
 
+
         
         ChartCPU.update();
         ChartMem.update();
@@ -366,7 +401,7 @@ function atualizarGrafico(idComputador, dados) {
         let disco = novoRegistro[0].disco_usado
         
       
-        verificar(idComputador,cpu,ram,disco)
+        // verificar(idComputador,cpu,ram,disco, novoRegistro[0].id)
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
@@ -383,12 +418,12 @@ function atualizarGrafico(idComputador, dados) {
 
 }
 
-function verificar(idComputador,cpu,ram,disco) {
+function verificar(idComputador,cpu,ram,disco,id_leitura) {
   let cpuAlerta = [cpu,false,'CPU']
   let ramAlerta = [ram,false,'RAM']
   let discoAlerta = [disco,false,'Disco']
 
-  disco = (disco * 100)/ totalDisco // vir do banco ainda
+  disco = (disco * 100) // totalDisco // vir do banco ainda
   if (disco > 70) {
     if (disco >= 95) {
       Swal.fire(
@@ -400,28 +435,40 @@ function verificar(idComputador,cpu,ram,disco) {
       discoAlerta[1]=true
   } 
 
+  if (cpu > 50) {
+    if (cpu >= 90) {
+      Swal.fire(
+      "ALERTA: PERIGO! A CPU está muito sobrecarregada."
+      )} else {
+        Swal.fire(
+          "CUIDADO, a porcentagem de uso da CPU está alta."
+          )
+      }
+      cpuAlerta[1]=true
+  }
+
+  ram = (ram * 100) // totalRAM // banco
+  if (ram > 70) {
+    if (ram >= 90) {
+      Swal.fire(
+        "ALERTA: PERIGO! A RAM está muito cheia."
+      )} else {
+        Swal.fire(
+          "CUIDADO, a RAM está ficando cheia."
+        )
+      }
+      ramAlerta[1]=true
+  }
+
     let alertas = [cpuAlerta,ramAlerta,discoAlerta]
     nomeEmp = sessionStorage.NOME_USUARIO;
-    alertar(nomeEmp,idComputador,alertas)
+    alertar(nomeEmp,idComputador,alertas,id_leitura)
 
 }
   
-function alertar(nomeEmp,idComputador,alertas) {
-  let descricao = ''
+function alertar(nomeEmp,idComputador,alertas,id_leitura) {
   let card = {
-    query: `mutation { createCard
-      (input:{ pipe_id:"302754046,
-      title: "Card",
-      fields_attributes:
-      [{field_id: "empresa", 
-      field_value:"empresa"},
-      {field_id: "id_computador", 
-      field_value:"id_computador"},
-      {field_id: "componente", 
-      field_value:"componente"},
-      {field_id:"mais_informa_es", 
-      field_value:"O 'componente' passou de 'valor'% de sua capacidade."}
-    ],}){card {title}}}"}`
+    query: ``
   }
   const options = {
     method: 'POST',
@@ -452,8 +499,36 @@ function alertar(nomeEmp,idComputador,alertas) {
         .then(response => response.json())
         .then(response => console.log(response))
         .catch(err => console.error(err));
+
+      fetch("/inserirAlerta", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          idServer: id_leitura,
+          componenteServer: alertas[i][2],
+          
+        })
+      }).then(function (resposta) {
+        if (resposta.ok) {
+            
+            console.log(`Enviados para o banco com sucesso!`)
+  
+        } else {
+          
+          console.log(`Falha ao enviar para o banco!`) 
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  
+      return false;
+    }
   }
-}
+
 
 
 
@@ -564,24 +639,7 @@ var myLineChart1 = new Chart(ctx, {
   }
 });
 
-function verificar(idComputador,cpu,ram,disco) {
-  let cpuAlerta = [cpu,false,'CPU']
-  let ramAlerta = [ram,false,'RAM']
-  let discoAlerta = [disco,false,'Disco']
 
-  if (cpu > 50) {
-    if (cpu >= 90) {
-      Swal.fire(
-      "ALERTA: PERIGO! A CPU está muito sobrecarregada."
-      )} else {
-        Swal.fire(
-          "CUIDADO, a porcentagem de uso da CPU está grande."
-          )
-      }
-      cpuAlerta[1]=true
-  }
-
-}
 
 
 

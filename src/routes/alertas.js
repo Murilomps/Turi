@@ -11,4 +11,8 @@ router.get("/tempo-real/:idComputador", function (req, res) {
     alertaController.contarChamadosEmTempoReal(req, res);
 })
 
+router.post("/inserirAlerta",function(req,res) {
+    alertaController.inserirAlerta(req,res);
+})
+
 module.exports = router;

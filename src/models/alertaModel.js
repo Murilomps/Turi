@@ -2,15 +2,16 @@ var database = require("../database/config");
 
 function contarChamados(idComputador) {
 
-    instrucaoSql = 'select count(id) from Alerta Join computador on fk_computador = ${idComputador}';
+    instrucaoSql = '';
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = ``;
+        instrucaoSql = `select count(alerta.id) from Alerta Join leitura on fk_leitura = leitura.id where fk_computador = ${idComputador}
+        and data_hora =    `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
-        instrucaoSql = `select count(alerta.id) from Alerta Join computador on fk_computador = ${idComputador}
-        and data_hora =  `;
+        instrucaoSql = `select count(alerta.id) from Alerta Join leitura on fk_leitura = leitura.id where fk_computador = ${idComputador}
+        and data_hora =    `;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -26,12 +27,9 @@ function contarChamadosEmTempoReal(idComputador) {
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `SELECT TOP (1) id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel,temperatura,temperaturaMax FROM Leitura where fk_computador = ${idComputador} order by id desc;`;
-
+        instrucaoSql = ``
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `SELECT id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel, temperatura,temperaturaMax
-         FROM Leitura 
-         where fk_computador = ${idComputador} order by id desc limit 1`;
+        instrucaoSql = ``;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -41,8 +39,18 @@ function contarChamadosEmTempoReal(idComputador) {
     return database.executar(instrucaoSql);
 }
 
+function inserirAlerta(id_leitura,componente) {
+    console.log("ACESSEI O ALERTA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function inserirAlerta():", id_leitura,componente);
+
+    var instrucao = `
+        INSERT INTO alerta (fk_leitura,componente) VALUES ('${id_leitura}', '${componente}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 module.exports = {
     contarChamados,
-    contarChamadosEmTempoReal
+    contarChamadosEmTempoReal,
+    inserirAlerta
 }
