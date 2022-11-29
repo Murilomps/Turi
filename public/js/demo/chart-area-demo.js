@@ -297,9 +297,12 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
 
+  let totalRAM = resposta2[0].memoria_total
+  let totalDisco = resposta2[0].disco_total
+
   let discoUsado = resposta[resposta.length - 1].disco_usado
   dataDisk.datasets[0].data.push(discoUsado)
-  dataDisk.datasets[0].data.push(resposta2[0].disco_total - discoUsado)
+  dataDisk.datasets[0].data.push( totalDisco - discoUsado)
 
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
@@ -326,6 +329,8 @@ function plotarGrafico(resposta, idComputador, resposta2) {
 
   
 
+  
+
   var ctx = document.getElementById("chartDisk1");
   if(ChartDisk != null){
     ChartDisk.destroy();
@@ -342,7 +347,7 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   if(ChartMem != null){
     ChartMem.destroy();
   }
-  ChartMem = new Chart(ctx, new lineChart(dataMem,'GB', Math.ceil(resposta2[0].memoria_total)));
+  ChartMem = new Chart(ctx, new lineChart(dataMem,'GB', Math.ceil(totalRAM)));
 
   setTimeout(() => atualizarGrafico(idComputador, dataGeneral), 2000);
 
@@ -389,7 +394,7 @@ function atualizarGrafico(idComputador, dados) {
         let disco = novoRegistro[0].disco_usado
         
       
-        // verificar(idComputador,cpu,ram,disco, novoRegistro[0].id)
+        verificar(idComputador,cpu,ram,disco, novoRegistro[0].id,totalDisco,totalRAM)
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
@@ -406,12 +411,12 @@ function atualizarGrafico(idComputador, dados) {
 
 }
 
-function verificar(idComputador,cpu,ram,disco,id_leitura) {
+function verificar(idComputador,cpu,ram,disco,id_leitura,totalDisco,totalRAM) {
   let cpuAlerta = [cpu,false,'CPU']
   let ramAlerta = [ram,false,'RAM']
   let discoAlerta = [disco,false,'Disco']
 
-  disco = (disco * 100) // totalDisco // vir do banco ainda
+  disco = (disco * 100) / totalDisco
   if (disco > 70) {
     if (disco >= 95) {
       Swal.fire(
@@ -435,7 +440,7 @@ function verificar(idComputador,cpu,ram,disco,id_leitura) {
       cpuAlerta[1]=true
   }
 
-  ram = (ram * 100) // totalRAM // banco
+  ram = (ram * 100) / totalRAM
   if (ram > 70) {
     if (ram >= 90) {
       Swal.fire(
