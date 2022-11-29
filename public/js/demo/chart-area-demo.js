@@ -200,7 +200,7 @@ function lineChart(dado,simbolo,max_value) {
           max: max_value,
           min: 0,
           callback: function (value, index, values) {
-            return number_format(value) + simbolo;
+            return value + simbolo;
           }
         },
         gridLines: {
@@ -259,7 +259,7 @@ function obterDadosGrafico(idComputador) {
         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
         resposta.reverse();
 
-        plotarGrafico(resposta, idComputador)
+        obterDadosEst(resposta, idComputador)
       });
     } else {
       console.error('Nenhum dado encontrado ou erro na API');
@@ -270,34 +270,14 @@ function obterDadosGrafico(idComputador) {
     });
 }
 
-function obterDadosEst(idComputador) {
-  alterarTitulo(idComputador)
+function obterDadosEst(resposta, idComputador) {
 
-  if (proximaAtualizacao != undefined) {
-    clearTimeout(proximaAtualizacao);
-  }
-
-  
-}
-
-const plotarGrafico = async(resposta, idComputador) => {
-
-  let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
-  
-  let dataDisk = new baseDataPie(["Em uso", "Livre"])
-  let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
-  let dataMem = new baseDataLinha("Uso de Memória RAM")
-
-  let discoMax
-  let memoriaMax
-
-    await fetch(`/medidas/computador/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/medidas/computador/${idComputador}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta2) {
           console.log(`Dados recebidosaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ${JSON.stringify(resposta2)}`);
-          resposta2.reverse();
-          discoMax = resposta2[0].disco_total
-          memoriaMax = 16
+
+          plotarGrafico(resposta, idComputador, resposta2)
         });
       } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -307,15 +287,23 @@ const plotarGrafico = async(resposta, idComputador) => {
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
 
+}
+
+function plotarGrafico(resposta, idComputador, resposta2) {
+
+  let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
+  
+  let dataDisk = new baseDataPie(["Em uso", "Livre"])
+  let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
+  let dataMem = new baseDataLinha("Uso de Memória RAM")
+
   let discoUsado = resposta[resposta.length - 1].disco_usado
   dataDisk.datasets[0].data.push(discoUsado)
-  dataDisk.datasets[0].data.push(discoMax - discoUsado)
-
+  dataDisk.datasets[0].data.push(resposta2[0].disco_total - discoUsado)
 
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
     
-
     let momentoBanco = new Date(registro.data_hora)
     let horas = String(momentoBanco.getUTCHours());
     while (horas.length < 2) { horas = "0" + horas; }
@@ -354,7 +342,7 @@ const plotarGrafico = async(resposta, idComputador) => {
   if(ChartMem != null){
     ChartMem.destroy();
   }
-  ChartMem = new Chart(ctx, new lineChart(dataMem,'GB', memoriaMax));
+  ChartMem = new Chart(ctx, new lineChart(dataMem,'GB', Math.ceil(resposta2[0].memoria_total)));
 
   setTimeout(() => atualizarGrafico(idComputador, dataGeneral), 2000);
 
