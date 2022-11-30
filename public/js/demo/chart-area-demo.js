@@ -1,5 +1,5 @@
-src="sweetalert2.all.min.js"
-src="//cdn.jsdelivr.net/npm/sweetalert2@11"
+src = "sweetalert2.all.min.js"
+src = "//cdn.jsdelivr.net/npm/sweetalert2@11"
 
 
 // Set new default font family and font color to mimic Bootstrap's default styling
@@ -76,7 +76,7 @@ let ChartSatisfacaoSemana
 let nomeEmp
 let idEmp
 
-function baseDataLinha (dtsetlabel) {
+function baseDataLinha(dtsetlabel) {
   this.labels = []                       //HORARIO DA COLETA AQUI
   this.datasets = [{
     label: dtsetlabel,
@@ -95,7 +95,7 @@ function baseDataLinha (dtsetlabel) {
   }]
 }
 
-function baseDataPie (labelsDados) {
+function baseDataPie(labelsDados) {
   this.labels = labelsDados
   this.datasets = [{
     data: [],
@@ -105,15 +105,15 @@ function baseDataPie (labelsDados) {
   }]
 }
 
-function baseDataBar (dtsetlabel) {
-    this.labels = []
-    this.datasets = [{
-      label: dtsetlabel,
-      backgroundColor: ["#D23434", "#D28034", "#96D234", "#D2C234", "#96D234", "#37D234"],
-      hoverBackgroundColor: ["#AD2C2C", "#A86629", "#82B62E", "#AEA129", "#82B62E", "#2FB22D"],
-      borderColor: "#4e73df",
-      data: [],
-    }]
+function baseDataBar(dtsetlabel) {
+  this.labels = []
+  this.datasets = [{
+    label: dtsetlabel,
+    backgroundColor: ["#D23434", "#D28034", "#96D234", "#D2C234", "#96D234", "#37D234"],
+    hoverBackgroundColor: ["#AD2C2C", "#A86629", "#82B62E", "#AEA129", "#82B62E", "#2FB22D"],
+    borderColor: "#4e73df",
+    data: [],
+  }]
 }
 
 // function baseDataPie (labelsDados) {
@@ -126,7 +126,7 @@ function baseDataBar (dtsetlabel) {
 //   }]
 // }
 
-function pieChart (dado,simbolo) {
+function pieChart(dado, simbolo) {
   this.type = 'doughnut'
   this.data = dado
   this.options = {
@@ -146,7 +146,7 @@ function pieChart (dado,simbolo) {
     },
     cutoutPercentage: 80,
   }
-} 
+}
 
 // var ctx = document.getElementById("chartDisk1");
 // var myPieChart = new Chart(ctx, {
@@ -180,9 +180,9 @@ function pieChart (dado,simbolo) {
 // });
 
 
-function lineChart(dado,simbolo,max_value) {
+function lineChart(dado, simbolo, max_value) {
   this.type = 'line',
-  this.data = dado
+    this.data = dado
   this.options = {
     maintainAspectRatio: false,
     layout: {
@@ -255,67 +255,67 @@ function lineChart(dado,simbolo,max_value) {
 
 function barChart(dado) {
   this.type = 'bar',
-  this.data = dado,
-  this.options = {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 10,
-        right: 25,
-        top: 25,
-        bottom: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 6
-        },
-        maxBarThickness: 25,
-      }],
-      yAxes: [{
-        ticks: {
-          min: 0,
-          max: 12,
-          maxTicksLimit: 6,
-          padding: 2,
-          stepSize: 4,
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(234, 236, 244)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
+    this.data = dado,
+    this.options = {
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 25,
+          top: 25,
+          bottom: 0
         }
-      }],
-    },
-    legend: {
-      display: false
-    },
-    tooltips: {
-      titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
-      titleFontSize: 14,
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-      callbacks: {
-      }
-    },
-  }
+      },
+      scales: {
+        xAxes: [{
+          time: {
+            unit: 'date'
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+          ticks: {
+            maxTicksLimit: 6
+          },
+          maxBarThickness: 25,
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: 12,
+            maxTicksLimit: 6,
+            padding: 2,
+            stepSize: 4,
+          },
+          gridLines: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(234, 236, 244)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2]
+          }
+        }],
+      },
+      legend: {
+        display: false
+      },
+      tooltips: {
+        titleMarginBottom: 10,
+        titleFontColor: '#6e707e',
+        titleFontSize: 14,
+        backgroundColor: "rgb(255,255,255)",
+        bodyFontColor: "#858796",
+        borderColor: '#dddfeb',
+        borderWidth: 1,
+        xPadding: 15,
+        yPadding: 15,
+        displayColors: false,
+        caretPadding: 10,
+        callbacks: {
+        }
+      },
+    }
 }
 // GRÁFICO BRUNA
 
@@ -383,27 +383,27 @@ function obterDadosGrafico(idComputador) {
 
 function obterDadosEst(resposta, idComputador) {
 
-    fetch(`/medidas/computador/${idComputador}`, { cache: 'no-store' }).then(function (response) {
-      if (response.ok) {
-        response.json().then(function (resposta2) {
-          console.log(`Dados recebidos: ${JSON.stringify(resposta2)}`);
+  fetch(`/medidas/computador/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (resposta2) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta2)}`);
 
-          plotarGrafico(resposta, idComputador, resposta2)
-        });
-      } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-      }
-    })
-      .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        plotarGrafico(resposta, idComputador, resposta2)
       });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
 
 }
 
 function plotarGrafico(resposta, idComputador, resposta2) {
 
   let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
-  
+
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
@@ -413,11 +413,11 @@ function plotarGrafico(resposta, idComputador, resposta2) {
 
   let discoUsado = resposta[resposta.length - 1].disco_usado
   dataDisk.datasets[0].data.push(discoUsado)
-  dataDisk.datasets[0].data.push( totalDisco - discoUsado)
+  dataDisk.datasets[0].data.push(totalDisco - discoUsado)
 
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
-    
+
     let momentoBanco = new Date(registro.data_hora)
     let horas = String(momentoBanco.getUTCHours());
     while (horas.length < 2) { horas = "0" + horas; }
@@ -439,22 +439,22 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   dataGeneral.push(dataMem)
 
   var ctx = document.getElementById("chartDisk1");
-  if(ChartDisk != null){
+  if (ChartDisk != null) {
     ChartDisk.destroy();
   }
-  ChartDisk = new Chart(ctx, new pieChart(dataDisk,'GB'));
+  ChartDisk = new Chart(ctx, new pieChart(dataDisk, 'GB'));
 
   var ctx = document.getElementById("myAreaChart3");
-  if(ChartCPU != null){
+  if (ChartCPU != null) {
     ChartCPU.destroy();
   }
-  ChartCPU = new Chart(ctx, new lineChart(dataCPU,'%', 100));
+  ChartCPU = new Chart(ctx, new lineChart(dataCPU, '%', 100));
 
   var ctx = document.getElementById("myAreaChart9");
-  if(ChartMem != null){
+  if (ChartMem != null) {
     ChartMem.destroy();
   }
-  ChartMem = new Chart(ctx, new lineChart(dataMem,'GB', Math.ceil(totalRAM)));
+  ChartMem = new Chart(ctx, new lineChart(dataMem, 'GB', Math.ceil(totalRAM)));
 
   setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
@@ -470,7 +470,7 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         console.log(`Dados atuais do gráfico: ${dados}`);
 
         // tirando e colocando valores no gráfico
-         
+
 
         let momentoBanco = new Date(novoRegistro[0].data_hora)
 
@@ -492,16 +492,16 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
 
 
-        
+
         ChartCPU.update();
         ChartMem.update();
 
         let cpu = novoRegistro[0].cpu_porcentagem
         let ram = novoRegistro[0].memoria_usada
         let disco = novoRegistro[0].disco_usado
-        
-      
-        verificar(idComputador,cpu,ram,disco, novoRegistro[0].id,totalDisco,totalRAM)
+
+
+        verificar(idComputador, cpu, ram, disco, novoRegistro[0].id, totalDisco, totalRAM)
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
@@ -518,33 +518,36 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
 
 }
 
-function verificar(idComputador,cpu,ram,disco,id_leitura,totalDisco,totalRAM) {
-  let cpuAlerta = [cpu,false,'CPU']
-  let ramAlerta = [ram,false,'RAM']
-  let discoAlerta = [disco,false,'Disco']
+function verificar(idComputador, cpu, ram, disco, id_leitura, totalDisco, totalRAM) {
+  let cpuAlerta = [cpu, false, 'CPU']
+  let ramAlerta = [ram, false, 'RAM']
+  let discoAlerta = [disco, false, 'Disco']
 
   disco = (disco * 100) / totalDisco
   if (disco > 70) {
     if (disco >= 95) {
       Swal.fire(
         "ALERTA: PERIGO! O disco está quase em seu limite. Faça algo!"
-    )} else {
+      )
+    } else {
       Swal.fire(
         "CUIDADO, o disco está ficando muito cheio."
-    )}
-      discoAlerta[1]=true
-  } 
+      )
+    }
+    discoAlerta[1] = true
+  }
 
   if (cpu > 50) {
     if (cpu >= 90) {
       Swal.fire(
-      "ALERTA: PERIGO! A CPU está muito sobrecarregada."
-      )} else {
-        Swal.fire(
-          "CUIDADO, a porcentagem de uso da CPU está alta."
-          )
-      }
-      cpuAlerta[1]=true
+        "ALERTA: PERIGO! A CPU está muito sobrecarregada."
+      )
+    } else {
+      Swal.fire(
+        "CUIDADO, a porcentagem de uso da CPU está alta."
+      )
+    }
+    cpuAlerta[1] = true
   }
 
   ram = (ram * 100) / totalRAM
@@ -552,21 +555,22 @@ function verificar(idComputador,cpu,ram,disco,id_leitura,totalDisco,totalRAM) {
     if (ram >= 90) {
       Swal.fire(
         "ALERTA: PERIGO! A RAM está muito cheia."
-      )} else {
-        Swal.fire(
-          "CUIDADO, a RAM está ficando cheia."
-        )
-      }
-      ramAlerta[1]=true
+      )
+    } else {
+      Swal.fire(
+        "CUIDADO, a RAM está ficando cheia."
+      )
+    }
+    ramAlerta[1] = true
   }
 
-    let alertas = [cpuAlerta,ramAlerta,discoAlerta]
-    nomeEmp = sessionStorage.NOME_USUARIO;
-    alertar(nomeEmp,idComputador,alertas,id_leitura)
+  let alertas = [cpuAlerta, ramAlerta, discoAlerta]
+  nomeEmp = sessionStorage.NOME_USUARIO;
+  alertar(nomeEmp, idComputador, alertas, id_leitura)
 
 }
-  
-function alertar(nomeEmp,idComputador,alertas,id_leitura) {
+
+function alertar(nomeEmp, idComputador, alertas, id_leitura) {
   let card = {
     query: ``
   }
@@ -579,8 +583,8 @@ function alertar(nomeEmp,idComputador,alertas,id_leitura) {
     },
     body: JSON.stringify(card)
   }
-  for(let i = 0; i < alertas.length; i++) {
-    if(alertas[i][1]) {
+  for (let i = 0; i < alertas.length; i++) {
+    if (alertas[i][1]) {
       card.query = `mutation { createCard
         (input:{ pipe_id:"302754046,
         title: "Card",
@@ -594,40 +598,40 @@ function alertar(nomeEmp,idComputador,alertas,id_leitura) {
         {field_id:"mais_informa_es", 
         field_value:"O ${componente} passou de ${alertas[i][0]}% de sua capacidade."}
       ],}){card {title}}}"}`
-      };
-      fetch('https://api.pipefy.com/graphql', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
+    };
+    fetch('https://api.pipefy.com/graphql', options)
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
 
-      fetch("/inserirAlerta", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
-          idServer: id_leitura,
-          componenteServer: alertas[i][2],
-          
-        })
-      }).then(function (resposta) {
-        if (resposta.ok) {
-            
-            console.log(`Enviados para o banco com sucesso!`)
-  
-        } else {
-          
-          console.log(`Falha ao enviar para o banco!`) 
-        }
-      }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  
-      return false;
-    }
+    fetch("/inserirAlerta", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        idServer: id_leitura,
+        componenteServer: alertas[i][2],
+
+      })
+    }).then(function (resposta) {
+      if (resposta.ok) {
+
+        console.log(`Enviados para o banco com sucesso!`)
+
+      } else {
+
+        console.log(`Falha ao enviar para o banco!`)
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+
+    return false;
   }
+}
 
 
 
@@ -1335,13 +1339,13 @@ function obterDadosGraficoBrumu(idComputador) { // Bruna e murilo, chamem a func
 function plotarGraficoBrumu(resposta) {
 
   // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
-  
+
   let dataBarBruna = new baseDataBar("Componente")
   let dataBarMurilo = new baseDataBar("Dias")
 
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
-    
+
     let momentoBanco = new Date(registro.dataDia) // murilo altere para usar somente os dados de dia e mes (e talvez ano, vai de você)
     let horas = String(momentoBanco.getUTCHours());
     while (horas.length < 2) { horas = "0" + horas; }
@@ -1360,13 +1364,70 @@ function plotarGraficoBrumu(resposta) {
   }
 
   var ctx = document.getElementById("chartDisk1"); // Bruna plotagem, removendo possível gráfico de outra máquina
-  if(ChartComponente != null){
+  if (ChartComponente != null) {
     ChartComponente.destroy();
   }
   ChartComponente = new Chart(ctx, new barChart(dataBarBruna));
 
   var ctx = document.getElementById("chartDisk1"); // murilo plotagem
-  
+  ChartSatisfacaoSemana = new Chart(ctx, new barChart(dataBarMurilo));
+
+  // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
+
+}
+
+
+
+function obterDadosGraficoMu(idEmpresa) { // Bruna e murilo, chamem a funcao no onload da pagina. Caso murilo, passar idEmpresa. Pegue o dado de idEmpresa no sessionStorage
+  // alterarTitulo(idComputador) // Para Bruna
+
+  // if (proximaAtualizacao != undefined) {
+  //   clearTimeout(proximaAtualizacao);
+  // }
+
+  fetch(`/alertas/contarSat/${idEmpresa}`, { cache: 'no-store' }).then(function (response) { // Fazer rotas, controller e model, o qual possuirá o código SQL passado no whatsapp
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
+
+        plotarGraficoMu(resposta, idEmpresa)
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+}
+
+function plotarGraficoMu(resposta) {
+
+  // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
+
+  let dataBarMurilo = new baseDataBar("Dias")
+
+  for (i = 0; i < resposta.length; i++) {
+    var registro = resposta[i];
+
+    let momentoBanco = new Date(registro.dataDia) // murilo altere para usar somente os dados de dia e mes (e talvez ano, vai de você)
+    let horas = String(momentoBanco.getUTCHours());
+    while (horas.length < 2) { horas = "0" + horas; }
+    let minutos = String(momentoBanco.getUTCMinutes());
+    while (minutos.length < 2) { minutos = "0" + minutos; }
+    let segundos = String(momentoBanco.getUTCSeconds());
+    while (segundos.length < 2) { segundos = "0" + segundos; }
+    let horario = `${horas}:${minutos}:${segundos}`
+
+    dataBarMurilo.labels.push(horario);
+
+    dataBarMurilo.datasets[0].data.push(registro.quantidade);
+
+  }
+
+
+  var ctx = document.getElementById("graphMurilo"); // murilo plotagem
   ChartSatisfacaoSemana = new Chart(ctx, new barChart(dataBarMurilo));
 
   // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);

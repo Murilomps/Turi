@@ -15,4 +15,8 @@ router.post("/inserirAlerta",function(req,res) {
     alertaController.inserirAlerta(req,res);
 })
 
+router.get("/contarSat/:idEmpresa",function(req,res) {
+    alertaController.contarSat(req,res);
+})
+
 module.exports = router;

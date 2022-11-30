@@ -49,8 +49,29 @@ function inserirAlerta(id_leitura,componente) {
     return database.executar(instrucao);
 }
 
+function contarSat(idEmpresa) {
+
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT TOP (6) count(alerta.id) as quantidade, CAST(data_hora AS DATE) as DataDia FROM alerta join leitura on fk_leitura = leitura.id join computador on fk_computador = computador.id where fk_empresa = ${idEmpresa} group by CAST(data_hora AS DATE) order by CAST(data_hora AS DATE) desc`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+
+        instrucaoSql = `SELECT count(alerta.id) as quantidade, CAST(data_hora AS DATE) as DataDia FROM alerta join leitura on fk_leitura = leitura.id join computador on fk_computador = computador.id where fk_empresa = ${idEmpresa} group by CAST(data_hora AS DATE) order by CAST(data_hora AS DATE)`;
+
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     contarChamados,
     contarChamadosEmTempoReal,
-    inserirAlerta
+    inserirAlerta,
+    contarSat
 }
