@@ -6,7 +6,7 @@ import datetime
 import platform
 from uuid import getnode
 
-print(psutil.sensors_temperatures())
+# print(psutil.sensors_temperatures())
 
 psutil.cpu_percent()
 discoTotal = round(psutil.disk_usage('/').total*(2**-30),2)
@@ -65,7 +65,7 @@ cursor.execute("SELECT id FROM computador WHERE endereco_mac = ?", mac)
 idComp = cursor.fetchall()
 print(cursor.rowcount)
 if (cursor.rowcount == 0):
-    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    # print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
    
     cnxn.commit()
     sqlNuvem = "INSERT INTO computador(fk_empresa, memoria_total, disco_total, sistema_operacional, cpu_nucleos_logicos, cpu_nucleos_fisicos, endereco_mac) VALUES (?,?,?,?,?,?,?)"

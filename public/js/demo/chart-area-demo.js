@@ -166,6 +166,7 @@ function pieChart (dado,simbolo) {
 //   },
 // });
 
+
 function lineChart(dado,simbolo,max_value) {
   this.type = 'line',
   this.data = dado
@@ -239,6 +240,39 @@ function lineChart(dado,simbolo,max_value) {
   }
 }
 
+// GRÁFICO BRUNA
+
+var ctx = document.getElementById("myChartComponente");
+var myPieChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ["RAM", "Disco", "Porcentagem CPU", "Outros"],
+    datasets: [{
+      data: [44, 56,44,20,10],
+      backgroundColor: ['#ADA9A9', '#6959CE','#ADA9A9','#6959CE'],
+      hoverBackgroundColor: ['#6959CE', '#ADA9A9','#6959CE','#ADA9A9'],
+      hoverBorderColor: "rgba(234, 236, 244, 1)",
+    }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      caretPadding: 10,
+    },
+    legend: {
+      display: false
+    },
+    cutoutPercentage: 80,
+  },
+});
+
 function alterarTitulo(idComputador) {
   var numpc = document.getElementsByClassName("numMac")
   Array.from(numpc).forEach((idSpan) => {
@@ -275,7 +309,7 @@ function obterDadosEst(resposta, idComputador) {
     fetch(`/medidas/computador/${idComputador}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta2) {
-          console.log(`Dados recebidosaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ${JSON.stringify(resposta2)}`);
+          console.log(`Dados recebidos: ${JSON.stringify(resposta2)}`);
 
           plotarGrafico(resposta, idComputador, resposta2)
         });
