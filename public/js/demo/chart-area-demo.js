@@ -327,10 +327,6 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
 
-  
-
-  
-
   var ctx = document.getElementById("chartDisk1");
   if(ChartDisk != null){
     ChartDisk.destroy();
@@ -349,11 +345,11 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   }
   ChartMem = new Chart(ctx, new lineChart(dataMem,'GB', Math.ceil(totalRAM)));
 
-  setTimeout(() => atualizarGrafico(idComputador, dataGeneral), 2000);
+  setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
 }
 
-function atualizarGrafico(idComputador, dados) {
+function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
 
   fetch(`/medidas/tempo-real/${idComputador}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
