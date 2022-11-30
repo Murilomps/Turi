@@ -7,6 +7,12 @@ router.get("/ultimas/:idComputador", function (req, res) {
     alertaController.contarChamados(req, res);
 });
 
+// ROTA BRUNA 
+
+router.get("/componente/:idComputador", function (req, res) {
+    alertaController.contarComponente(req, res);
+});
+
 router.get("/tempo-real/:idComputador", function (req, res) {
     alertaController.contarChamadosEmTempoReal(req, res);
 })
