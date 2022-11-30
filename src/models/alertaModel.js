@@ -22,6 +22,28 @@ function contarChamados(idComputador) {
     return database.executar(instrucaoSql);
 }
 
+// MODEL BRUNA
+
+function contarComponente(idComputador) {
+
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select count(alerta.id) as quantidade, componente from Alerta Join leitura on fk_leitura = leitura.id where fk_computador = ${idComputador} group by componente`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+
+        instrucaoSql = `select count(alerta.id) as quantidade, componente from Alerta Join leitura on fk_leitura = leitura.id where fk_computador = ${idComputador} group by componente`;
+
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function contarChamadosEmTempoReal(idComputador) {
 
     instrucaoSql = ''
@@ -73,5 +95,6 @@ module.exports = {
     contarChamados,
     contarChamadosEmTempoReal,
     inserirAlerta,
-    contarSat
+    contarSat,
+    contarComponente
 }

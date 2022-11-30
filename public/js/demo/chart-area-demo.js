@@ -1433,3 +1433,53 @@ function plotarGraficoMu(resposta) {
   // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
 }
+
+  // FUNÇÕES BRUNA
+
+function obterDadosGraficoBruna(idComputador) { // Bruna e murilo, chamem a funcao no onload da pagina. Caso murilo, passar idEmpresa. Pegue o dado de idEmpresa no sessionStorage
+
+  alterarTitulo(idComputador)
+
+  // if (proximaAtualizacao != undefined) {
+  //   clearTimeout(proximaAtualizacao);
+  // }
+
+  fetch(`/alertas/componente/${idComputador}`, { cache: 'no-store' }).then(function (response) { // Fazer rotas, controller e model, o qual possuirá o código SQL passado no whatsapp
+      if (response.ok) {
+          response.json().then(function (resposta) {
+              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+              // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
+
+              plotarGraficoBruna(resposta)
+          });
+      } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+      }
+  })
+      .catch(function (error) {
+          console.error(`Erro na +obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+}
+
+function plotarGraficoBruna(resposta) {
+
+    // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
+
+    let dataBarBruna = new baseDataBar("Componente")
+
+    for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+
+        dataBarBruna.labels.push(registro.componente)
+
+        dataBarBruna.datasets[0].data.push(registro.quantidade);
+
+    }
+
+    var ctx = document.getElementById("myChartComponente"); // Plotagem, removendo possível gráfico de outra máquina
+    if (ChartComponente != null) {
+        ChartComponente.destroy();
+    }
+    ChartComponente = new Chart(ctx, new barChart(dataBarBruna));
+
+}
