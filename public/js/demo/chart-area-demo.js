@@ -71,6 +71,8 @@ let proximaAtualizacao
 let ChartCPU
 let ChartMem
 let ChartDisk
+let ChartComponente
+let ChartSatisfacaoSemana
 let nomeEmp
 let idEmp
 
@@ -101,6 +103,17 @@ function baseDataPie (labelsDados) {
     hoverBackgroundColor: ['#2e59d9', '#17a673'],
     hoverBorderColor: "rgba(234, 236, 244, 1)",
   }]
+}
+
+function baseDataBar (dtsetlabel) {
+    this.labels = []
+    this.datasets = [{
+      label: dtsetlabel,
+      backgroundColor: ["#D23434", "#D28034", "#96D234", "#D2C234", "#96D234", "#37D234"],
+      hoverBackgroundColor: ["#AD2C2C", "#A86629", "#82B62E", "#AEA129", "#82B62E", "#2FB22D"],
+      borderColor: "#4e73df",
+      data: [],
+    }]
 }
 
 // function baseDataPie (labelsDados) {
@@ -240,23 +253,57 @@ function lineChart(dado,simbolo,max_value) {
   }
 }
 
-// GRÁFICO BRUNA
-
-var ctx = document.getElementById("myChartComponente");
-var myPieChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ["RAM", "Disco", "Porcentagem CPU", "Outros"],
-    datasets: [{
-      data: [44, 56,44,20,10],
-      backgroundColor: ['#ADA9A9', '#6959CE','#ADA9A9','#6959CE'],
-      hoverBackgroundColor: ['#6959CE', '#ADA9A9','#6959CE','#ADA9A9'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-  },
-  options: {
+function barChart(dado) {
+  this.type = 'bar',
+  this.data = dado,
+  this.options = {
     maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 6
+        },
+        maxBarThickness: 25,
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 12,
+          maxTicksLimit: 6,
+          padding: 2,
+          stepSize: 4,
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(234, 236, 244)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
     tooltips: {
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
       backgroundColor: "rgb(255,255,255)",
       bodyFontColor: "#858796",
       borderColor: '#dddfeb',
@@ -265,13 +312,43 @@ var myPieChart = new Chart(ctx, {
       yPadding: 15,
       displayColors: false,
       caretPadding: 10,
+      callbacks: {
+      }
     },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  },
-});
+  }
+}
+// GRÁFICO BRUNA
+
+// var ctx = document.getElementById("myChartComponente");
+// var myPieChart = new Chart(ctx, {
+//   type: 'bar',
+//   data: {
+//     labels: ["RAM", "Disco", "Porcentagem CPU", "Outros"],
+//     datasets: [{
+//       data: [44, 56,44,20,10],
+//       backgroundColor: ['#ADA9A9', '#6959CE','#ADA9A9','#6959CE'],
+//       hoverBackgroundColor: ['#6959CE', '#ADA9A9','#6959CE','#ADA9A9'],
+//       hoverBorderColor: "rgba(234, 236, 244, 1)",
+//     }],
+//   },
+//   options: {
+//     maintainAspectRatio: false,
+//     tooltips: {
+//       backgroundColor: "rgb(255,255,255)",
+//       bodyFontColor: "#858796",
+//       borderColor: '#dddfeb',
+//       borderWidth: 1,
+//       xPadding: 15,
+//       yPadding: 15,
+//       displayColors: false,
+//       caretPadding: 10,
+//     },
+//     legend: {
+//       display: false
+//     },
+//     cutoutPercentage: 80,
+//   },
+// });
 
 function alterarTitulo(idComputador) {
   var numpc = document.getElementsByClassName("numMac")
@@ -1154,5 +1231,144 @@ var data9 = {
   },],
 }
 
+// Graph murilo
 
+// var ctx2 = document.getElementById("myBarChart2");
+// var myBarChart2 = new Chart(ctx2, {
+//   type: 'bar',
+//   data: {
+//     labels: ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
+//     datasets: [{
+//       label: "Horas",
+//       backgroundColor: ["#D23434", "#D28034", "#96D234", "#D2C234", "#96D234", "#37D234"],
+//       hoverBackgroundColor: ["#AD2C2C", "#A86629", "#82B62E", "#AEA129", "#82B62E", "#2FB22D"],
+//       borderColor: "#4e73df",
+//       data: [12, 10, 5, 7, 4, 1],
+//     }],
+//   },
+//   options: {
+//     maintainAspectRatio: false,
+//     layout: {
+//       padding: {
+//         left: 10,
+//         right: 25,
+//         top: 25,
+//         bottom: 0
+//       }
+//     },
+//     scales: {
+//       xAxes: [{
+//         time: {
+//           unit: 'DIA'
+//         },
+//         gridLines: {
+//           display: false,
+//           drawBorder: false
+//         },
+//         ticks: {
+//           maxTicksLimit: 6
+//         },
+//         maxBarThickness: 25,
+//       }],
+//       yAxes: [{
+//         ticks: {
+//           min: 0,
+//           max: 12,
+//           maxTicksLimit: 6,
+//           padding: 2,
+//           stepSize: 4,
+//         },
+//         gridLines: {
+//           color: "rgb(234, 236, 244)",
+//           zeroLineColor: "rgb(234, 236, 244)",
+//           drawBorder: false,
+//           borderDash: [2],
+//           zeroLineBorderDash: [2]
+//         }
+//       }],
+//     },
+//     legend: {
+//       display: false
+//     },
+//     tooltips: {
+//       titleMarginBottom: 10,
+//       titleFontColor: '#6e707e',
+//       titleFontSize: 14,
+//       backgroundColor: "rgb(255,255,255)",
+//       bodyFontColor: "#858796",
+//       borderColor: '#dddfeb',
+//       borderWidth: 1,
+//       xPadding: 15,
+//       yPadding: 15,
+//       displayColors: false,
+//       caretPadding: 10,
+//       callbacks: {
+//       }
+//     },
+//   }
+// });
 
+function obterDadosGraficoBrumu(idComputador) { // Bruna e murilo, chamem a funcao no onload da pagina. Caso murilo, passar idEmpresa. Pegue o dado de idEmpresa no sessionStorage
+  // alterarTitulo(idComputador) // Para Bruna
+
+  // if (proximaAtualizacao != undefined) {
+  //   clearTimeout(proximaAtualizacao);
+  // }
+
+  fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) { // Fazer rotas, controller e model, o qual possuirá o código SQL passado no whatsapp
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
+
+        plotarGraficoBrumu(resposta, idComputador)
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+}
+
+function plotarGraficoBrumu(resposta) {
+
+  // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
+  
+  let dataBarBruna = new baseDataBar("Componente")
+  let dataBarMurilo = new baseDataBar("Dias")
+
+  for (i = 0; i < resposta.length; i++) {
+    var registro = resposta[i];
+    
+    let momentoBanco = new Date(registro.dataDia) // murilo altere para usar somente os dados de dia e mes (e talvez ano, vai de você)
+    let horas = String(momentoBanco.getUTCHours());
+    while (horas.length < 2) { horas = "0" + horas; }
+    let minutos = String(momentoBanco.getUTCMinutes());
+    while (minutos.length < 2) { minutos = "0" + minutos; }
+    let segundos = String(momentoBanco.getUTCSeconds());
+    while (segundos.length < 2) { segundos = "0" + segundos; }
+    let horario = `${horas}:${minutos}:${segundos}`
+
+    dataBarMurilo.labels.push(horario);
+    dataBarBruna.labels.push(registro.componente)
+
+    dataBarMurilo.datasets[0].data.push(registro.quantidade);
+    dataBarBruna.datasets[0].data.push(registro.quantidade);
+
+  }
+
+  var ctx = document.getElementById("chartDisk1"); // Bruna plotagem, removendo possível gráfico de outra máquina
+  if(ChartComponente != null){
+    ChartComponente.destroy();
+  }
+  ChartComponente = new Chart(ctx, new barChart(dataBarBruna));
+
+  var ctx = document.getElementById("chartDisk1"); // murilo plotagem
+  
+  ChartSatisfacaoSemana = new Chart(ctx, new barChart(dataBarMurilo));
+
+  // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
+
+}
