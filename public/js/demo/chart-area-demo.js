@@ -566,8 +566,7 @@ function plotarGrafico(resposta, idComputador, resposta2) {
 
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
-  dataGeneral.push(dataSaude)
-  dataGeneral.push(dataSaude)
+  // dataGeneral.push(dataSaude)
 
   var ctx = document.getElementById("chartDisk1");
   if (ChartDisk != null) {
@@ -642,7 +641,7 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         
         ChartCPU.update();
         ChartMem.update();
-        ChartSaude.update()
+        // ChartSaude.update()
 
         // verificar(idComputador, cpu, ram, disco, novoRegistro[0].id, totalDisco, totalRAM)
 
