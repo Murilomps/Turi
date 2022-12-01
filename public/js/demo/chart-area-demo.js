@@ -106,12 +106,12 @@ function baseDataPie(labelsDados) {
   }]
 }
 
-function baseDataPie2(labelsDados, cor) {
+function baseDataPieCores(labelsDados) {
   this.labels = labelsDados
   this.datasets = [{
     data: [],
-    backgroundColor: [cor],
-    hoverBackgroundColor: [cor],
+    backgroundColor: [],
+    hoverBackgroundColor: [],
     hoverBorderColor: "rgba(234, 236, 244, 1)",
   }]
 }
@@ -137,7 +137,7 @@ function baseDataBar(dtsetlabel) {
 //   }]
 // }
 
-function pieChart(dado, simbolo) {
+function pieChart(dado) {
   this.type = 'doughnut'
   this.data = dado
   this.options = {
@@ -146,34 +146,6 @@ function pieChart(dado, simbolo) {
       backgroundColor: "rgb(255,255,255)",
       bodyFontColor: "#858796",
       borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-    },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  }
-}
-
-function pieChart2(dado,simbolo,cor) {
-  this.type = 'doughnut'
-  this.labels = labelsDados
-  this.datasets = [{
-    data: dado,
-    backgroundColor: cor,
-    hoverBackgroundColor: cor,
-    hoverBorderColor: "rgba(234, 236, 244, 1)",
-  }]
-  this.options = {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "#F0FFFF",
-      bodyFontColor: "#858796",
-      borderColor: cor,
       borderWidth: 1,
       xPadding: 15,
       yPadding: 15,
@@ -389,6 +361,16 @@ function barChart(dado) {
 //   },
 // });
 
+function corDado(dado, cores, parametros) { // *DÉBORA* função que define a cor, baseado em um dado único, nas cores passadas(array) e nos parametros(array) que correspondem ao valor mínimo para uso daquela cor
+  let i
+  for (i = 1; i < cores.length; i++) {    
+    if(dado < parametros[i]) {
+      break
+    }
+  }
+  return cores[i - 1]
+}
+
 function alterarTitulo(idComputador) {
   var numpc = document.getElementsByClassName("numMac")
   Array.from(numpc).forEach((idSpan) => {
@@ -447,17 +429,7 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
-  let dataSaude = new baseDataPie2("Porcentagem de Saúde")
-
-
-  let totalRAM = resposta2[0].memoria_total
-  let totalDisco = resposta2[0].disco_total
-  console.log(`Oi, sou a ram ${totalRAM}`)
-  console.log(`Oi, sou o disco ${totalDisco}`)
-
-  let discoUsado = resposta[resposta.length - 1].disco_usado
-  dataDisk.datasets[0].data.push(discoUsado)
-  dataDisk.datasets[0].data.push(totalDisco - discoUsado)
+  let dataSaude = new baseDataPieCores(["Saúde Máquina", ""]) // *DÉBORA* nomes que vão aparecer em cada setor do gráfico de rosca
 
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
@@ -478,42 +450,49 @@ function plotarGrafico(resposta, idComputador, resposta2) {
     dataMem.datasets[0].data.push(registro.memoria_usada);
   }
 
-    let cpu = registro.cpu_porcentagem
-    let ram = registro.memoria_usada
-    let disco = registro.disco_usado
-    console.log(`cpu: ${cpu}`)
+  let totalRAM = resposta2[0].memoria_total
+  let totalDisco = resposta2[0].disco_total
+  console.log(`Oi, sou a ram ${totalRAM}`)
+  console.log(`Oi, sou o disco ${totalDisco}`)
 
-    // transformando em porcentagem (para individual Débora)
-    disco = (disco * 100) / totalDisco 
-    ram = (ram * 100) / totalRAM
-    
-    // saúde
-    let saudeDisco = parseInt(disco * 0.333)
-    let saudeRam = parseInt(ram * 0.333)
-    let saudeCpu = parseInt(cpu * 0.333)
-    
-    let saudeTotal = (100 - (saudeDisco + saudeRam + saudeCpu))
+  let cpu = registro.cpu_porcentagem // *DÉBORA* parte do código que eu adaptei, baseado na sua jogada de gênio
+  let ram = registro.memoria_usada
+  let disco = registro.disco_usado
 
-    console.log(saudeTotal)
-    dataSaude.datasets[0].data.push(saudeTotal)
+  dataDisk.datasets[0].data.push(disco)
+  dataDisk.datasets[0].data.push(totalDisco - disco)
+    
+  console.log(`cpu: ${cpu}`)
 
-    if(saudeTotal > 0 && saudeTotal < 40) {
-      cor = "#FF0000"
-    }
-    if(saudeTotal > 40 && saudeTotal < 75) {
-      cor = "#FFA500"
-    }
-    if(saudeTotal > 75 && saudeTotal < 100) {
-      cor = "#00FF00"
-    }
-    
-    var ctx = document.getElementById("chartSaude");
-    if (ChartSaude != null) {
-      ChartSaude.destroy();
-    }
-    ChartSaude = new Chart(ctx, new pieChart2(dataSaude, '%',cor));
-    
+  // transformando em porcentagem (para individual Débora)
+  disco = (disco * 100) / totalDisco 
+  ram = (ram * 100) / totalRAM
   
+  // saúde
+  let saudeDisco = parseInt(disco/3)
+  let saudeRam = parseInt(ram/3)
+  let saudeCpu = parseInt(cpu/3)
+  
+  let saudeTotal = (100 - (saudeDisco + saudeRam + saudeCpu)) // *DÉBORA* 3 linhas onde são definidas as cores E o número a partir do qual as cores são usadas
+  let cores = ["#FF0000", "#FFA500", "#00FF00"]
+  let parametros = [0, 40, 75]
+
+  console.log("saude:", saudeTotal)
+  
+  dataSaude.datasets[0].data.push(saudeTotal) // *DÉBORA* push da saude da máquina e do que falta pra chegar em 100%
+  dataSaude.datasets[0].data.push(100 - saudeTotal)
+
+  dataSaude.datasets[0].backgroundColor.push(corDado(saudeTotal, cores, parametros)) // *DÉBORA* definição das cores, baseado na função corDado(), e o #DDDDDD é só um cinza que você pode alterar para a cor que achar mais bonita
+  dataSaude.datasets[0].backgroundColor.push("#DDDDDD")
+  dataSaude.datasets[0].hoverBackgroundColor.push(corDado(saudeTotal, cores, parametros))
+  dataSaude.datasets[0].hoverBackgroundColor.push("#DDDDDD")
+  
+
+  var ctx = document.getElementById("chartSaude"); // *DÉBORA* Criação do chart (não alterei essa parte praticamente, apenas exclui o pieChart2 que me pareceu desnecessário)
+  if (ChartSaude != null) {
+    ChartSaude.destroy();
+  }
+  ChartSaude = new Chart(ctx, new pieChart(dataSaude));
 
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
@@ -537,8 +516,6 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   }
   ChartMem = new Chart(ctx, new lineChart(dataMem, 'GB', Math.ceil(totalRAM)));
 
-  
-  
   setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
 }
