@@ -71,6 +71,7 @@ let proximaAtualizacao
 let ChartCPU
 let ChartMem
 let ChartDisk
+let ChartSaude
 let ChartComponente
 let ChartSatisfacaoSemana
 let nomeEmp
@@ -105,6 +106,16 @@ function baseDataPie(labelsDados) {
   }]
 }
 
+function baseDataPie2(labelsDados) {
+  this.labels = labelsDados
+  this.datasets = [{
+    data: [],
+    backgroundColor: ['#4e73df'],
+    hoverBackgroundColor: ['#2e59d9'],
+    hoverBorderColor: "rgba(234, 236, 244, 1)",
+  }]
+}
+
 function baseDataBar(dtsetlabel) {
   this.labels = []
   this.datasets = [{
@@ -127,6 +138,28 @@ function baseDataBar(dtsetlabel) {
 // }
 
 function pieChart(dado, simbolo) {
+  this.type = 'doughnut'
+  this.data = dado
+  this.options = {
+    maintainAspectRatio: false,
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      caretPadding: 10,
+    },
+    legend: {
+      display: false
+    },
+    cutoutPercentage: 80,
+  }
+}
+
+function pieChart2(dado, simbolo) {
   this.type = 'doughnut'
   this.data = dado
   this.options = {
@@ -407,6 +440,7 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
+  let dataSaude = new baseDataPie2(["Porcentagem de Saúde"])
 
   let totalRAM = resposta2[0].memoria_total
   let totalDisco = resposta2[0].disco_total
@@ -433,10 +467,46 @@ function plotarGrafico(resposta, idComputador, resposta2) {
     dataCPU.datasets[0].data.push(registro.cpu_porcentagem);
     dataMem.datasets[0].data.push(registro.memoria_usada);
 
+    let cpu = registro.cpu_porcentagem
+    let ram = registro.memoria_usada
+    let disco = registro.disco_usado
+
+    // transformando em porcentagem (para individual Débora)
+
+    disco = (disco * 100) / totalDisco 
+    ram = (ram * 100) / totalRAM
+    
+    // saúde
+    let saudeDisco = parseInt(disco * 0.333)
+    let saudeRam = parseInt(ram * 0.333)
+    let saudeCpu = parseInt(cpu * 0.333)
+    
+    let saudeTotal = 100 - (saudeDisco + saudeRam + saudeCpu)
+
+    dataSaude.datasets[0].data.push(saudeTotal)
+
+
+  }
+
+  var ctx = document.getElementById("chartSaude");
+  if (ChartSaude != null) {
+    ChartSaude.destroy();
+  }
+  ChartSaude = new Chart(ctx, new pieChart2(dataSaude, '%'));
+
+  if(dataSaude > 0 && dataSaude < 40) {
+    Chart.defaults.backgroundColor.ChartSaude = "rgb(255,0,0)"
+  }
+  if(dataSaude > 40 && dataSaude < 75) {
+    Chart.defaults.backgroundColor.ChartSaude = "rgb(233, 164, 0)"
+  }
+  if(dataSaude > 75 && dataSaude < 100) {
+    Chart.defaults.backgroundColor.ChartSaude = "rgb(89, 255, 0)"
   }
 
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
+  dataGeneral.push(dataSaude)
 
   var ctx = document.getElementById("chartDisk1");
   if (ChartDisk != null) {
@@ -456,6 +526,8 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   }
   ChartMem = new Chart(ctx, new lineChart(dataMem, 'GB', Math.ceil(totalRAM)));
 
+  
+  
   setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
 }
@@ -491,17 +563,30 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         dados[0].datasets[0].data.push(novoRegistro[0].cpu_porcentagem);
         dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
 
+        // let cpu = novoRegistro[0].cpu_porcentagem
+        // let ram = novoRegistro[0].memoria_usada
+        // let disco = novoRegistro[0].disco_usado
 
+        // // transformando em porcentagem (para alertas e individual Débora)
+
+        // disco = (disco * 100) / totalDisco 
+        // ram = (ram * 100) / totalRAM
+        
+        // saúde
+        // let saudeDisco = parseInt(disco * 0.333)
+        // let saudeRam = parseInt(ram * 0.333)
+        // let saudeCpu = parseInt(cpu * 0.333)
+        
+        // let saudeTotal = 100 - (saudeDisco + saudeRam + saudeCpu)
+        // saudeTotal = novoRegistro
+
+        // dados[2].datasets[0].data.push(saudeTotal);
 
         ChartCPU.update();
         ChartMem.update();
+        // ChartSaude.update()
 
-        let cpu = novoRegistro[0].cpu_porcentagem
-        let ram = novoRegistro[0].memoria_usada
-        let disco = novoRegistro[0].disco_usado
-
-
-        verificar(idComputador, cpu, ram, disco, novoRegistro[0].id, totalDisco, totalRAM)
+        // verificar(idComputador, cpu, ram, disco, novoRegistro[0].id, totalDisco, totalRAM)
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
@@ -523,7 +608,6 @@ function verificar(idComputador, cpu, ram, disco, id_leitura, totalDisco, totalR
   let ramAlerta = [ram, false, 'RAM']
   let discoAlerta = [disco, false, 'Disco']
 
-  disco = (disco * 100) / totalDisco
   if (disco > 70) {
     if (disco >= 95) {
       Swal.fire(
@@ -550,7 +634,6 @@ function verificar(idComputador, cpu, ram, disco, id_leitura, totalDisco, totalR
     cpuAlerta[1] = true
   }
 
-  ram = (ram * 100) / totalRAM
   if (ram > 70) {
     if (ram >= 90) {
       Swal.fire(
@@ -633,11 +716,6 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
   }
 }
 
-
-
-
-
-
 // function temperatureRandom() {
 //   let result = [];
 
@@ -646,7 +724,6 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
 //   }
 //   return result
 // }
-
 
 // Gráficos de CPU (temperatura e porcentagem de uso)
 
@@ -742,9 +819,6 @@ var myLineChart1 = new Chart(ctx, {
     }
   }
 });
-
-
-
 
 
 // gráfico  de porcentagem da cpu máquina máquina 2
@@ -1235,6 +1309,8 @@ var data9 = {
   },],
 }
 
+// FUNÇÕES E PLOTAGENS DOS GRÁFICOS INDIVIDUAIS
+
 // Graph murilo
 
 // var ctx2 = document.getElementById("myBarChart2");
@@ -1483,3 +1559,7 @@ function plotarGraficoBruna(resposta) {
     ChartComponente = new Chart(ctx, new barChart(dataBarBruna));
 
 }
+
+// débora
+
+

@@ -385,43 +385,7 @@
 
                     <div class="col-xl-8 col-lg-7" style="display: contents;" id="Maq1">
                         <!--DivControle 1-->
-                        <!-- Pie Chart Saúde 1  -->
-                        <div style="display: flex;">
-                            <!--opa salve-->
-                            <div class="col-xl-4 col-lg-5">
-                                <div class="card shadow mb-4">
-                                    <!-- Card Header - Dropdown -->
-                                    <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">Saúde da Máquina <span
-                                                class="numMac"></span></h6>
-                                        <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                            </a>
-
-                                        </div>
-                                    </div>
-                                    <!-- Card Body -->
-                                    <div class="card-body">
-                                        <div class="chart-pie pt-4 pb-2">
-                                            <canvas id="chartSaude"></canvas>
-                                        </div>
-                                        <div class="mt-4 text-center small">
-                                            <span class="mr-2">
-                                                <i class="fas fa-circle text-success"></i> Boa
-                                            </span>
-                                            <span class="mr-2">
-                                                <i class="fas fa-circle text-primary"></i> Média
-                                            </span>
-                                            <span class="mr-2">
-                                                <i class="fas fa-circle text"></i> Ruim
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        
 
                             <div class="col-xl-4 col-lg-3">
                                 <div class="card shadow mb-4">
@@ -532,6 +496,7 @@
     
 function selMachineCorreto() {
         obterDadosGrafico(document.getElementById("selMachine").value)
+        obterDadosGraficoBruna(documentGetElementById("selMachine").value)
     }
 
     // let proximaAtualizacao;
@@ -539,26 +504,7 @@ function selMachineCorreto() {
     
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    var ctx = document.getElementById("chartSaude");
-        if (ChartSaude != null) {
-            ChartSaude.destroy();
-        }
-        ChartSaude = new Chart(ctx, new pieChart(saude, '%'));
-
-    // validações e tratamento dos dados para entrarem na métrica de SAÚDE
-    var cpuAtual = novoRegistro[0].cpu_porcentagem
-    cpuAtual = (cpuAtual * 100) / 100 * 0.25
-
-    var ramAtual = novoRegistro[0].memoria_usada
-    ramAtual = (ramAtual * 100) / totalRAM * 0.25 // AINDA NÃO ESTAMOS PEGANDO O TOTAL DA RAM PELO SELECT DO BANCO NA TABELA COMPUTADOR
-
-    var tempAtual = novoRegistro[0].temperatura
-    tempAtual = (tempAtual * 100) / maxTemp * 0.25
-
-    var diskAtual = discoUsado
-    diskAtual = (diskAtual * 100) / totalDisco * 0.25  // AINDA NÃO TEMOS O TOTAL
-
-    let saude = 100 - (cpuAtual + ramAtual + tempAtual + diskAtual)
+   
 
     saude.datasets[0].data.push(novoRegistro[0].saude)
 
