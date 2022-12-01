@@ -71,10 +71,12 @@ let proximaAtualizacao
 let ChartCPU
 let ChartMem
 let ChartDisk
+let ChartSaude
 let ChartComponente
 let ChartSatisfacaoSemana
 let nomeEmp
 let idEmp
+let ChartRAM1
 
 function baseDataLinha(dtsetlabel) {
   this.labels = []                       //HORARIO DA COLETA AQUI
@@ -101,6 +103,16 @@ function baseDataPie(labelsDados) {
     data: [],
     backgroundColor: ['#4e73df', '#1cc88a'],
     hoverBackgroundColor: ['#2e59d9', '#17a673'],
+    hoverBorderColor: "rgba(234, 236, 244, 1)",
+  }]
+}
+
+function baseDataPie2(labelsDados, cor) {
+  this.labels = labelsDados
+  this.datasets = [{
+    data: [],
+    backgroundColor: [cor],
+    hoverBackgroundColor: [cor],
     hoverBorderColor: "rgba(234, 236, 244, 1)",
   }]
 }
@@ -135,6 +147,34 @@ function pieChart(dado, simbolo) {
       backgroundColor: "rgb(255,255,255)",
       bodyFontColor: "#858796",
       borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      caretPadding: 10,
+    },
+    legend: {
+      display: false
+    },
+    cutoutPercentage: 80,
+  }
+}
+
+function pieChart2(dado,simbolo,cor) {
+  this.type = 'doughnut'
+  this.labels = labelsDados
+  this.datasets = [{
+    data: dado,
+    backgroundColor: cor,
+    hoverBackgroundColor: cor,
+    hoverBorderColor: "rgba(234, 236, 244, 1)",
+  }]
+  this.options = {
+    maintainAspectRatio: false,
+    tooltips: {
+      backgroundColor: "#F0FFFF",
+      bodyFontColor: "#858796",
+      borderColor: cor,
       borderWidth: 1,
       xPadding: 15,
       yPadding: 15,
@@ -317,6 +357,74 @@ function barChart(dado) {
       },
     }
 }
+
+// GRÁFICO MARCUS
+
+function barChart2(dado) {
+  this.type = 'bar',
+    this.data = dado,
+    this.options = {
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 25,
+          top: 25,
+          bottom: 0
+        }
+      },
+      scales: {
+        xAxes: [{
+          time: {
+            unit: 'date'
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+          ticks: {
+            maxTicksLimit: 6
+          },
+          maxBarThickness: 25,
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: 8,
+            maxTicksLimit: 6,
+            padding: 2,
+            stepSize: 2,
+          },
+          gridLines: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(234, 236, 244)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2]
+          }
+        }],
+      },
+      legend: {
+        display: false
+      },
+      tooltips: {
+        titleMarginBottom: 10,
+        titleFontColor: '#6e707e',
+        titleFontSize: 14,
+        backgroundColor: "rgb(255,255,255)",
+        bodyFontColor: "#858796",
+        borderColor: '#dddfeb',
+        borderWidth: 1,
+        xPadding: 15,
+        yPadding: 15,
+        displayColors: false,
+        caretPadding: 10,
+        callbacks: {
+        }
+      },
+    }
+}
+
 // GRÁFICO BRUNA
 
 // var ctx = document.getElementById("myChartComponente");
@@ -398,6 +506,7 @@ function obterDadosEst(resposta, idComputador) {
       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
 
+    
 }
 
 function plotarGrafico(resposta, idComputador, resposta2) {
@@ -407,9 +516,13 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
+  let dataSaude = new baseDataPie2("Porcentagem de Saúde")
+
 
   let totalRAM = resposta2[0].memoria_total
   let totalDisco = resposta2[0].disco_total
+  console.log(`Oi, sou a ram ${totalRAM}`)
+  console.log(`Oi, sou o disco ${totalDisco}`)
 
   let discoUsado = resposta[resposta.length - 1].disco_usado
   dataDisk.datasets[0].data.push(discoUsado)
@@ -432,11 +545,48 @@ function plotarGrafico(resposta, idComputador, resposta2) {
 
     dataCPU.datasets[0].data.push(registro.cpu_porcentagem);
     dataMem.datasets[0].data.push(registro.memoria_usada);
-
   }
+
+    let cpu = registro.cpu_porcentagem
+    let ram = registro.memoria_usada
+    let disco = registro.disco_usado
+    console.log(`cpu: ${cpu}`)
+
+    // transformando em porcentagem (para individual Débora)
+    disco = (disco * 100) / totalDisco 
+    ram = (ram * 100) / totalRAM
+    
+    // saúde
+    let saudeDisco = parseInt(disco * 0.333)
+    let saudeRam = parseInt(ram * 0.333)
+    let saudeCpu = parseInt(cpu * 0.333)
+    
+    let saudeTotal = (100 - (saudeDisco + saudeRam + saudeCpu))
+
+    console.log(saudeTotal)
+    dataSaude.datasets[0].data.push(saudeTotal)
+
+    if(saudeTotal > 0 && saudeTotal < 40) {
+      cor = "#FF0000"
+    }
+    if(saudeTotal > 40 && saudeTotal < 75) {
+      cor = "#FFA500"
+    }
+    if(saudeTotal > 75 && saudeTotal < 100) {
+      cor = "#00FF00"
+    }
+    
+    var ctx = document.getElementById("chartSaude");
+    if (ChartSaude != null) {
+      ChartSaude.destroy();
+    }
+    ChartSaude = new Chart(ctx, new pieChart2(dataSaude, '%',cor));
+    
+  
 
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
+  dataGeneral.push(dataSaude)
 
   var ctx = document.getElementById("chartDisk1");
   if (ChartDisk != null) {
@@ -456,6 +606,8 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   }
   ChartMem = new Chart(ctx, new lineChart(dataMem, 'GB', Math.ceil(totalRAM)));
 
+  
+  
   setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
 }
@@ -482,26 +634,45 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         while (segundos.length < 2) { segundos = "0" + segundos; }
         let horario = `${horas}:${minutos}:${segundos}`
 
-        dados.forEach(function (dado) {
-          dado.labels.shift();
-          dado.labels.push(horario);
-          dado.datasets[0].data.shift();
-        })
-
+        // dados.forEach(function (dado) {
+        //   dado.labels.shift();
+        //   dado.labels.push(horario);
+        //   dado.datasets[0].data.shift();
+        // })
+        
+        dados[0].labels.shift();
+        dados[0].labels.push(horario);
+        dados[0].datasets[0].data.shift();
+        dados[1].labels.shift();
+        dados[1].labels.push(horario);
+        dados[1].datasets[0].data.shift();
+        
         dados[0].datasets[0].data.push(novoRegistro[0].cpu_porcentagem);
         dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
-
-
-
+        
+        // let cpu = novoRegistro[0].cpu_porcentagem
+        // let ram = novoRegistro[0].memoria_usada
+        // let disco = novoRegistro[0].disco_usado
+        
+        // // transformando em porcentagem (para alertas e individual Débora)
+        
+        // disco = (disco * 100) / totalDisco 
+        // ram = (ram * 100) / totalRAM
+      
+        // let saudeDisco = parseInt(disco * 0.333)
+        // let saudeRam = parseInt(ram * 0.333)
+        // let saudeCpu = parseInt(cpu * 0.333)
+        
+        // let saudeTotal = 100 - (saudeDisco + saudeRam + saudeCpu)
+        // console.log(saudeTotal)
+        
+        // dados[2].datasets[0].data.push(saudeTotal);
+        
         ChartCPU.update();
         ChartMem.update();
+        ChartSaude.update()
 
-        let cpu = novoRegistro[0].cpu_porcentagem
-        let ram = novoRegistro[0].memoria_usada
-        let disco = novoRegistro[0].disco_usado
-
-
-        verificar(idComputador, cpu, ram, disco, novoRegistro[0].id, totalDisco, totalRAM)
+        // verificar(idComputador, cpu, ram, disco, novoRegistro[0].id, totalDisco, totalRAM)
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
@@ -523,7 +694,6 @@ function verificar(idComputador, cpu, ram, disco, id_leitura, totalDisco, totalR
   let ramAlerta = [ram, false, 'RAM']
   let discoAlerta = [disco, false, 'Disco']
 
-  disco = (disco * 100) / totalDisco
   if (disco > 70) {
     if (disco >= 95) {
       Swal.fire(
@@ -550,7 +720,6 @@ function verificar(idComputador, cpu, ram, disco, id_leitura, totalDisco, totalR
     cpuAlerta[1] = true
   }
 
-  ram = (ram * 100) / totalRAM
   if (ram > 70) {
     if (ram >= 90) {
       Swal.fire(
@@ -633,11 +802,6 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
   }
 }
 
-
-
-
-
-
 // function temperatureRandom() {
 //   let result = [];
 
@@ -646,7 +810,6 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
 //   }
 //   return result
 // }
-
 
 // Gráficos de CPU (temperatura e porcentagem de uso)
 
@@ -742,9 +905,6 @@ var myLineChart1 = new Chart(ctx, {
     }
   }
 });
-
-
-
 
 
 // gráfico  de porcentagem da cpu máquina máquina 2
@@ -1235,82 +1395,6 @@ var data9 = {
   },],
 }
 
-// Graph murilo
-
-// var ctx2 = document.getElementById("myBarChart2");
-// var myBarChart2 = new Chart(ctx2, {
-//   type: 'bar',
-//   data: {
-//     labels: ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
-//     datasets: [{
-//       label: "Horas",
-//       backgroundColor: ["#D23434", "#D28034", "#96D234", "#D2C234", "#96D234", "#37D234"],
-//       hoverBackgroundColor: ["#AD2C2C", "#A86629", "#82B62E", "#AEA129", "#82B62E", "#2FB22D"],
-//       borderColor: "#4e73df",
-//       data: [12, 10, 5, 7, 4, 1],
-//     }],
-//   },
-//   options: {
-//     maintainAspectRatio: false,
-//     layout: {
-//       padding: {
-//         left: 10,
-//         right: 25,
-//         top: 25,
-//         bottom: 0
-//       }
-//     },
-//     scales: {
-//       xAxes: [{
-//         time: {
-//           unit: 'DIA'
-//         },
-//         gridLines: {
-//           display: false,
-//           drawBorder: false
-//         },
-//         ticks: {
-//           maxTicksLimit: 6
-//         },
-//         maxBarThickness: 25,
-//       }],
-//       yAxes: [{
-//         ticks: {
-//           min: 0,
-//           max: 12,
-//           maxTicksLimit: 6,
-//           padding: 2,
-//           stepSize: 4,
-//         },
-//         gridLines: {
-//           color: "rgb(234, 236, 244)",
-//           zeroLineColor: "rgb(234, 236, 244)",
-//           drawBorder: false,
-//           borderDash: [2],
-//           zeroLineBorderDash: [2]
-//         }
-//       }],
-//     },
-//     legend: {
-//       display: false
-//     },
-//     tooltips: {
-//       titleMarginBottom: 10,
-//       titleFontColor: '#6e707e',
-//       titleFontSize: 14,
-//       backgroundColor: "rgb(255,255,255)",
-//       bodyFontColor: "#858796",
-//       borderColor: '#dddfeb',
-//       borderWidth: 1,
-//       xPadding: 15,
-//       yPadding: 15,
-//       displayColors: false,
-//       caretPadding: 10,
-//       callbacks: {
-//       }
-//     },
-//   }
-// });
 
 function obterDadosGraficoBrumu(idComputador) { // Bruna e murilo, chamem a funcao no onload da pagina. Caso murilo, passar idEmpresa. Pegue o dado de idEmpresa no sessionStorage
   // alterarTitulo(idComputador) // Para Bruna
@@ -1373,6 +1457,7 @@ function plotarGraficoBrumu(resposta) {
   ChartSatisfacaoSemana = new Chart(ctx, new barChart(dataBarMurilo));
 
   // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
+
 
 }
 
@@ -1482,4 +1567,60 @@ function plotarGraficoBruna(resposta) {
     }
     ChartComponente = new Chart(ctx, new barChart(dataBarBruna));
 
+}
+
+// débora
+
+// Marcus
+// nome do grafico memoriaRAM1
+
+function obterDadosGraficoMarcus(idComputador) {
+
+  fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) { //setado a rota para coleta de dados e definição do parametro
+    if (response.ok) {
+        response.json().then(function (resposta) {
+            console.log("AAAAAAAAAAAAAAAAAAA")
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
+
+            plotarGraficoMarcus(resposta)
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+    }
+})
+    .catch(function (error) {
+        console.error(`Erro na +obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+
+};
+
+function plotarGraficoMarcus(resposta) {
+
+  console.log("INICIOU PELO MENOS")
+    
+  // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
+
+  let dataBarMarcus = new baseDataBar("RAM1")
+
+  
+  for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+
+      dataBarMarcus.labels.push("RAM")
+
+      dataBarMarcus.datasets[0].data.push(registro.memoria_usada);
+
+  }
+  console.log(registro.ram)
+
+  console.log("AQUI FOOOI")
+
+  var ctx = document.getElementById("memoriaRAM1"); // Plotagem, removendo possível gráfico de outra máquina
+  if (ChartRAM1 != null) {
+      ChartRAM1.destroy();
+  }
+  ChartRAM1 = new Chart(ctx, new barChart2(dataBarMarcus));
+
+  console.log("AQUI TAAAAMBEM FOOOOI")
 }

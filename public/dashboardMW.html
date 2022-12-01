@@ -29,7 +29,7 @@
     <script src="assets/js/main.js"></script>
 </head>
 
-<body id="page-top" >
+<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -356,20 +356,20 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body text-center">
-                                    <div class="imagem-satisfacao satisfaction">
-                                        <i class="fa-regular fa-face-smile cor-sat"></i>
+                                    <div class="imagem-satisfacao satisfaction" id="div_sat">
+
                                     </div>
                                     <span class="mr-2" >Os clientes podem estar:</span> 
-                                    <span class="font-weight-bold p-0 mr-0">SATISFEITOS</span>
+                                    <span class="font-weight-bold p-0 mr-0" id="span_sat"></span>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- <i class="fa-regular fa-face-angry cor-insat"></i> Insatisfeitos
-                        <i class="fa-regular fa-face-frown cor-desc"></i> Descontentes
-                        <i class="fa-regular fa-face-meh cor-qm"></i> Querendo mudanças
-                        <i class="fa-regular fa-face-smile cor-sat"></i> Satisfeitos
-                        <i class="fa-regular fa-face-laugh cor-msat"></i> Muito satisfeitos -->
+                        <!-- style="--fa-animation-duration: 0.5s; --fa-beat-scale: 10.0;" -->
+                        <!-- <i class="fa-regular fa-face-angry cor-insat fa-beat" style="--fa-animation-duration: 1.0s; --fa-beat-scale: 1.1;"></i> Insatisfeitos
+                        <i class="fa-regular fa-face-frown cor-desc fa-beat" style="--fa-animation-duration: 1.5s; --fa-beat-scale: 1.1;"></i> Descontentes
+                        <i class="fa-regular fa-face-meh cor-qm fa-beat" style="--fa-animation-duration: 2.0s; --fa-beat-scale: 1.1;"></i> Querendo mudanças
+                        <i class="fa-regular fa-face-smile cor-sat fa-beat" style="--fa-animation-duration: 3.5s; --fa-beat-scale: 1.1;"></i> Satisfeitos
+                        <i class="fa-regular fa-face-laugh cor-msat fa-beat" style="--fa-animation-duration: 5.0s; --fa-beat-scale: 1.1;"></i> Muito satisfeitos -->
                     </div>
                 
                 </div>
@@ -444,4 +444,29 @@
     
     obterDadosGraficoMu(sessionStorage.ID_USUARIO)
 
+
+    function emoji(cliente_sat) {
+        console.log("carinha")
+        let carinha = div_sat
+        let titulo = span_sat
+        if (cliente_sat == 5) {
+            carinha.innerHTML += `<i class="fa-regular fa-face-angry cor-insat fa-beat" style="--fa-animation-duration: 1.0s; --fa-beat-scale: 1.1;"></i>`
+            titulo.innerHTML += 'INSATISFEITOS'
+        } else if (cliente_sat == 4) {
+            carinha.innerHTML += `<i class="fa-regular fa-face-frown cor-desc fa-beat" style="--fa-animation-duration: 1.5s; --fa-beat-scale: 1.1;"></i>`
+            titulo.innerHTML += 'DESCONTENTES'
+        } else if (cliente_sat == 3) {
+            carinha.innerHTML += `<i class="fa-regular fa-face-meh cor-qm fa-beat" style="--fa-animation-duration: 2.0s; --fa-beat-scale: 1.1;"></i>`
+            titulo.innerHTML += 'QUERENDO MUDANÇAS'
+        } else if (cliente_sat == 2) {
+            carinha.innerHTML += `<i class="fa-regular fa-face-smile cor-sat fa-beat" style="--fa-animation-duration: 3.5s; --fa-beat-scale: 1.1;"></i>`
+            titulo.innerHTML += 'SATISFEITOS'
+        } else if (cliente_sat == 1) {
+            carinha.innerHTML += `<i class="fa-regular fa-face-laugh cor-msat fa-beat" style="--fa-animation-duration: 5.0s; --fa-beat-scale: 1.1;"></i>`
+            titulo.innerHTML += 'MUITO SATISFEITOS'
+        }
+
+
+    }
+    emoji(4)
 </script>
