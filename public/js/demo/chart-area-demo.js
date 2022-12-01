@@ -72,7 +72,6 @@ let ChartCPU
 let ChartMem
 let ChartDisk
 let ChartSaude
-let ChartSaude
 let ChartComponente
 let ChartSatisfacaoSemana
 let nomeEmp
@@ -556,7 +555,6 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
-  let dataSaude = new baseDataPie2("Porcentagem de Saúde")
   let dataSaude = new baseDataPie2("Porcentagem de Saúde")
 
 
