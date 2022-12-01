@@ -76,6 +76,7 @@ let ChartComponente
 let ChartSatisfacaoSemana
 let nomeEmp
 let idEmp
+let ChartRAM1
 
 function baseDataLinha(dtsetlabel) {
   this.labels = []                       //HORARIO DA COLETA AQUI
@@ -328,6 +329,74 @@ function barChart(dado) {
       },
     }
 }
+
+// GRÁFICO MARCUS
+
+function barChart2(dado) {
+  this.type = 'bar',
+    this.data = dado,
+    this.options = {
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 25,
+          top: 25,
+          bottom: 0
+        }
+      },
+      scales: {
+        xAxes: [{
+          time: {
+            unit: 'date'
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+          ticks: {
+            maxTicksLimit: 6
+          },
+          maxBarThickness: 25,
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: 8,
+            maxTicksLimit: 6,
+            padding: 2,
+            stepSize: 2,
+          },
+          gridLines: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(234, 236, 244)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2]
+          }
+        }],
+      },
+      legend: {
+        display: false
+      },
+      tooltips: {
+        titleMarginBottom: 10,
+        titleFontColor: '#6e707e',
+        titleFontSize: 14,
+        backgroundColor: "rgb(255,255,255)",
+        bodyFontColor: "#858796",
+        borderColor: '#dddfeb',
+        borderWidth: 1,
+        xPadding: 15,
+        yPadding: 15,
+        displayColors: false,
+        caretPadding: 10,
+        callbacks: {
+        }
+      },
+    }
+}
+
 // GRÁFICO BRUNA
 
 // var ctx = document.getElementById("myChartComponente");
@@ -420,6 +489,7 @@ function obterDadosEst(resposta, idComputador) {
     });
 
     
+    
 }
 
 function plotarGrafico(resposta, idComputador, resposta2) {
@@ -497,6 +567,7 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
   dataGeneral.push(dataSaude)
+  dataGeneral.push(dataSaude)
 
   var ctx = document.getElementById("chartDisk1");
   if (ChartDisk != null) {
@@ -542,19 +613,12 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         while (segundos.length < 2) { segundos = "0" + segundos; }
         let horario = `${horas}:${minutos}:${segundos}`
 
-        // dados.forEach(function (dado) {
-        //   dado.labels.shift();
-        //   dado.labels.push(horario);
-        //   dado.datasets[0].data.shift();
-        // })
-        
-        dados[0].labels.shift();
-        dados[0].labels.push(horario);
-        dados[0].datasets[0].data.shift();
-        dados[1].labels.shift();
-        dados[1].labels.push(horario);
-        dados[1].datasets[0].data.shift();
-        
+        dados.forEach(function (dado) {
+          dado.labels.shift();
+          dado.labels.push(horario);
+          dado.datasets[0].data.shift();
+        })
+
         dados[0].datasets[0].data.push(novoRegistro[0].cpu_porcentagem);
         dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
         
@@ -1366,6 +1430,7 @@ function plotarGraficoBrumu(resposta) {
 
   // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
+
 }
 
 
@@ -1479,3 +1544,60 @@ function plotarGraficoBruna(resposta) {
 // débora
 
 
+
+
+// débora
+
+// Marcus
+// nome do grafico memoriaRAM1
+
+function obterDadosGraficoMarcus(idComputador) {
+
+  fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) { //setado a rota para coleta de dados e definição do parametro
+    if (response.ok) {
+        response.json().then(function (resposta) {
+            console.log("AAAAAAAAAAAAAAAAAAA")
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
+
+            plotarGraficoMarcus(resposta)
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+    }
+})
+    .catch(function (error) {
+        console.error(`Erro na +obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+
+};
+
+function plotarGraficoMarcus(resposta) {
+
+  console.log("INICIOU PELO MENOS")
+    
+  // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
+
+  let dataBarMarcus = new baseDataBar("RAM1")
+
+  
+  for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+
+      dataBarMarcus.labels.push("RAM")
+
+      dataBarMarcus.datasets[0].data.push(registro.memoria_usada);
+
+  }
+  console.log(registro.ram)
+
+  console.log("AQUI FOOOI")
+
+  var ctx = document.getElementById("memoriaRAM1"); // Plotagem, removendo possível gráfico de outra máquina
+  if (ChartRAM1 != null) {
+      ChartRAM1.destroy();
+  }
+  ChartRAM1 = new Chart(ctx, new barChart2(dataBarMarcus));
+
+  console.log("AQUI TAAAAMBEM FOOOOI")
+}
