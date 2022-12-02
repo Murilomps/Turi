@@ -1,6 +1,5 @@
-"sweetalert2.all.min.js"
-"//cdn.jsdelivr.net/npm/sweetalert2@11"
-"https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"
+
+
 
 
 // Set new default font family and font color to mimic Bootstrap's default styling
@@ -661,31 +660,32 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
 
 }
 
-function verificar(idComputador, cpu, ram, disco, id_leitura, totalDisco, totalRAM) {
+function verificar(idComputador, cpu, ram, disco, id_leitura) {
+  console.log("Entrei na função verificar.")
   let cpuAlerta = [cpu, false, 'CPU']
   let ramAlerta = [ram, false, 'RAM']
   let discoAlerta = [disco, false, 'Disco']
 
   if (disco > 70) {
     if (disco >= 95) {
-      Swal.fire(
+      alert(
         "ALERTA: PERIGO! O disco está quase em seu limite. Faça algo!"
       )
     } else {
-      Swal.fire(
+      alert(
         "CUIDADO, o disco está ficando muito cheio."
       )
     }
     discoAlerta[1] = true
   }
 
-  if (cpu > 50) {
+  if (cpu > 60) {
     if (cpu >= 90) {
-      Swal.fire(
+      alert(
         "ALERTA: PERIGO! A CPU está muito sobrecarregada."
       )
     } else {
-      Swal.fire(
+      alert(
         "CUIDADO, a porcentagem de uso da CPU está alta."
       )
     }
@@ -694,11 +694,11 @@ function verificar(idComputador, cpu, ram, disco, id_leitura, totalDisco, totalR
 
   if (ram > 70) {
     if (ram >= 90) {
-      Swal.fire(
+      alert(
         "ALERTA: PERIGO! A RAM está muito cheia."
       )
     } else {
-      Swal.fire(
+      alert(
         "CUIDADO, a RAM está ficando cheia."
       )
     }
@@ -712,6 +712,7 @@ function verificar(idComputador, cpu, ram, disco, id_leitura, totalDisco, totalR
 }
 
 function alertar(nomeEmp, idComputador, alertas, id_leitura) {
+  console.log("Entrei na função alertar.")
   let card = {
     query: ``
   }
@@ -745,7 +746,9 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
       .then(response => console.log(response))
       .catch(err => console.error(err));
 
-    fetch("/inserirAlerta", {
+    console.log("Passei do fetch do pipefy.")
+
+    fetch("/alertas/inserirAlerta", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -1541,12 +1544,31 @@ function plotarGraficoBruna(resposta) {
 
 }
 
-// débora
+// débora - chamados
+function obterDadosDeb(idComputador) { 
 
+  alterarTitulo(idComputador)
 
+  // if (proximaAtualizacao != undefined) {
+  //   clearTimeout(proximaAtualizacao);
+  // }
 
+  fetch(`/alertas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) { // Fazer rotas, controller e model, o qual possuirá o código SQL passado no whatsapp
+      if (response.ok) {
+          response.json().then(function (resposta) {
+              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+              // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
 
-// débora
+              plotarGraficoBruna(resposta)
+          });
+      } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+      }
+  })
+      .catch(function (error) {
+          console.error(`Erro na +obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+}
 
 // Marcus
 // nome do grafico memoriaRAM1
