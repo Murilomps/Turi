@@ -1486,7 +1486,6 @@ function plotarGraficoMu(resposta) {
 
   }
 
-
   var ctx = document.getElementById("graphMurilo"); // murilo plotagem
   ChartSatisfacaoSemana = new Chart(ctx, new barChart(dataBarMurilo));
 
