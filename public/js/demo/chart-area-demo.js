@@ -643,7 +643,7 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         ChartMem.update();
         // ChartSaude.update()
 
-        verificar(idComputador, cpu, ram, disco, novoRegistro[0].id, totalDisco, totalRAM)
+        verificar(idComputador, cpu, ram, disco, novoRegistro[0].id)
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
@@ -707,8 +707,11 @@ function verificar(idComputador, cpu, ram, disco, id_leitura) {
 
   let alertas = [cpuAlerta, ramAlerta, discoAlerta]
   nomeEmp = sessionStorage.NOME_USUARIO;
-  alertar(nomeEmp, idComputador, alertas, id_leitura)
-
+  for (let i = 0; i < alertas.length; i++) {
+    if (alertas[i][1]) {
+      alertar(nomeEmp, idComputador, alertas[i], id_leitura)
+    }
+  }
 }
 
 function alertar(nomeEmp, idComputador, alertas, id_leitura) {
@@ -723,58 +726,70 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
       Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIxNjcyNjYsImVtYWlsIjoidHVyaV9Ab3V0bG9vay5jb20uYnIiLCJhcHBsaWNhdGlvbiI6MzAwMjA1NzM5fX0.o_bj1L7j2n9rRELXyrKY2kz_P9ga6nyAkAy_5chbb3hPnknWCHaDbFhMtASg9zXuawa2DjXghQ4dQ1QyxLcj2A',
       'content-type': 'application/json'
     },
-    body: JSON.stringify(card)
+    body: JSON.stringify(card.query = `
+      mutation{createCard(
+        input:{
+          pipe_id:"302754046,
+          title: "Card",
+          fields_attributes:[
+            {field_id: "empresa", field_value:"${nomeEmp}"},
+            {field_id: "id_computador", field_value:"${idComputador}"},
+            {field_id: "componente", field_value:"${alertas[2]}"},
+            {field_id:"mais_informa_es", field_value:"O ${componente} passou de ${alertas[0]}% de sua capacidade."}
+          ],
+        }){card {title}}}"}`
+    ) // NOTA: pela minha contagem de chaves, parentêses e aspas abertas e fechadas, os dois últimos caracteres não deveriam existir
   }
-  for (let i = 0; i < alertas.length; i++) {
-    if (alertas[i][1]) {
-      card.query = `mutation { createCard
-        (input:{ pipe_id:"302754046,
-        title: "Card",
-        fields_attributes:
-        [{field_id: "empresa", 
-        field_value:"${nomeEmp}"},
-        {field_id: "id_computador", 
-        field_value:"${idComputador}"},
-        {field_id: "componente", 
-        field_value:"${alertas[i][2]}"},
-        {field_id:"mais_informa_es", 
-        field_value:"O ${componente} passou de ${alertas[i][0]}% de sua capacidade."}
-      ],}){card {title}}}"}`
-    };
-    fetch('https://api.pipefy.com/graphql', options)
-      .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
+  
+  // card.query = `mutation { createCard
+  //   (input:{ pipe_id:"302754046,
+  //   title: "Card",
+  //   fields_attributes:
+  //   [{field_id: "empresa", 
+  //   field_value:"${nomeEmp}"},
+  //   {field_id: "id_computador", 
+  //   field_value:"${idComputador}"},
+  //   {field_id: "componente", 
+  //   field_value:"${alertas[2]}"},
+  //   {field_id:"mais_informa_es", 
+  //   field_value:"O ${componente} passou de ${alertas[0]}% de sua capacidade."}
+  // ],}){card {title}}}"}` 
 
-    console.log("Passei do fetch do pipefy.")
+  options.body = JSON.stringify(card)
+  fetch('https://api.pipefy.com/graphql', options)
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .catch(err => console.error(err));
 
-    fetch("/alertas/inserirAlerta", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        idServer: id_leitura,
-        componenteServer: alertas[i][2],
+  console.log("Passei do fetch do pipefy.")
 
-      })
-    }).then(function (resposta) {
-      if (resposta.ok) {
+  fetch("/alertas/inserirAlerta", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      // crie um atributo que recebe o valor recuperado aqui
+      // Agora vá para o arquivo routes/usuario.js
+      idServer: id_leitura,
+      componenteServer: alertas[2],
 
-        console.log(`Enviados para o banco com sucesso!`)
+    })
+  }).then(function (resposta) {
+    if (resposta.ok) {
 
-      } else {
+      console.log(`Enviados para o banco com sucesso!`)
 
-        console.log(`Falha ao enviar para o banco!`)
-      }
-    }).catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
-    });
+    } else {
 
-    return false;
-  }
+      console.log(`Falha ao enviar para o banco!`)
+    }
+  }).catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+  });
+
+  return false;
+  
 }
 
 // function temperatureRandom() {
