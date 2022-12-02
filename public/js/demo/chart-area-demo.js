@@ -1,5 +1,6 @@
-src = "sweetalert2.all.min.js"
-src = "//cdn.jsdelivr.net/npm/sweetalert2@11"
+"sweetalert2.all.min.js"
+"//cdn.jsdelivr.net/npm/sweetalert2@11"
+"https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"
 
 
 // Set new default font family and font color to mimic Bootstrap's default styling
@@ -499,7 +500,7 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
-  let dataSaude = new baseDataPieCores(["Saúde Máquina", ""]) // *DÉBORA* nomes que vão aparecer em cada setor do gráfico de rosca
+  let dataSaude = new baseDataPieCores(["Saúde da Máquina", "Distância do ideal"]) // *DÉBORA* nomes que vão aparecer em cada setor do gráfico de rosca
 
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
@@ -530,7 +531,7 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   let disco = registro.disco_usado
 
   dataDisk.datasets[0].data.push(disco)
-  dataDisk.datasets[0].data.push(totalDisco - disco)
+  dataDisk.datasets[0].data.push(parseInt(totalDisco - disco))
     
   console.log(`cpu: ${cpu}`)
 
@@ -553,16 +554,16 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   dataSaude.datasets[0].data.push(100 - saudeTotal)
 
   dataSaude.datasets[0].backgroundColor.push(corDado(saudeTotal, cores, parametros)) // *DÉBORA* definição das cores, baseado na função corDado(), e o #DDDDDD é só um cinza que você pode alterar para a cor que achar mais bonita
-  dataSaude.datasets[0].backgroundColor.push("#DDDDDD")
+  dataSaude.datasets[0].backgroundColor.push("#F8F8FF")
   dataSaude.datasets[0].hoverBackgroundColor.push(corDado(saudeTotal, cores, parametros))
-  dataSaude.datasets[0].hoverBackgroundColor.push("#DDDDDD")
+  dataSaude.datasets[0].hoverBackgroundColor.push("#F8F8FF")
   
 
   var ctx = document.getElementById("chartSaude"); // *DÉBORA* Criação do chart (não alterei essa parte praticamente, apenas exclui o pieChart2 que me pareceu desnecessário)
   if (ChartSaude != null) {
     ChartSaude.destroy();
   }
-  ChartSaude = new Chart(ctx, new pieChart(dataSaude));
+  ChartSaude = new Chart(ctx, new pieChart(dataSaude,'%'));
 
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
@@ -621,14 +622,14 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         dados[0].datasets[0].data.push(novoRegistro[0].cpu_porcentagem);
         dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
         
-        // let cpu = novoRegistro[0].cpu_porcentagem
-        // let ram = novoRegistro[0].memoria_usada
-        // let disco = novoRegistro[0].disco_usado
+        let cpu = novoRegistro[0].cpu_porcentagem
+        let ram = novoRegistro[0].memoria_usada
+        let disco = novoRegistro[0].disco_usado
         
-        // // transformando em porcentagem (para alertas e individual Débora)
+        // transformando em porcentagem (para alertas e individual Débora)
         
-        // disco = (disco * 100) / totalDisco 
-        // ram = (ram * 100) / totalRAM
+        disco = (disco * 100) / totalDisco 
+        ram = (ram * 100) / totalRAM
       
         // let saudeDisco = parseInt(disco * 0.333)
         // let saudeRam = parseInt(ram * 0.333)
@@ -643,7 +644,7 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         ChartMem.update();
         // ChartSaude.update()
 
-        // verificar(idComputador, cpu, ram, disco, novoRegistro[0].id, totalDisco, totalRAM)
+        verificar(idComputador, cpu, ram, disco, novoRegistro[0].id, totalDisco, totalRAM)
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
