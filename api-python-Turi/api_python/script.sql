@@ -49,7 +49,7 @@ CREATE TABLE leitura (
 CREATE TABLE alerta (
     id int primary key auto_increment,
     fk_leitura int not null,
-    foreign key (fk_computador) references computador(id),
+    foreign key (fk_leitura) references leitura(id),
     componente varchar(50)
 );
 
