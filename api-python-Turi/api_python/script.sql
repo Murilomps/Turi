@@ -46,20 +46,15 @@ CREATE TABLE leitura (
     memoria_disponivel FLOAT
 );
 
-
-
 CREATE TABLE alerta (
     id int primary key auto_increment,
     fk_computador int not null,
     foreign key (fk_computador) references computador(id),
-    data_hora datetime,
-    componente varchar(50),
-    descricao varchar(100)
+    componente varchar(50)
 );
 
 // AZURE
 
-/* MYSQL */
 CREATE TABLE empresa (
     id int primary key IDENTITY,
 	nome VARCHAR(45) NOT NULL,
