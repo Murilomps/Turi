@@ -717,9 +717,6 @@ function verificar(idComputador, cpu, ram, disco, id_leitura) {
 
 function alertar(nomeEmp, idComputador, alertas, id_leitura) {
   console.log("Entrei na função alertar.")
-  let card = {
-    query: ``
-  }
   const options = {
     method: 'POST',
     headers: {
@@ -727,36 +724,22 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
       Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIxNjcyNjYsImVtYWlsIjoidHVyaV9Ab3V0bG9vay5jb20uYnIiLCJhcHBsaWNhdGlvbiI6MzAwMjA1NzM5fX0.o_bj1L7j2n9rRELXyrKY2kz_P9ga6nyAkAy_5chbb3hPnknWCHaDbFhMtASg9zXuawa2DjXghQ4dQ1QyxLcj2A',
       'content-type': 'application/json'
     },
-    body: JSON.stringify(card.query = `
-      mutation{createCard(
-        input:{
+    body: JSON.stringify({
+      query: `mutation {
+        createCard (input:{
           pipe_id:"302754046,
           title: "Card",
           fields_attributes:[
             {field_id: "empresa", field_value:"${nomeEmp}"},
             {field_id: "id_computador", field_value:"${idComputador}"},
             {field_id: "componente", field_value:"${alertas[2]}"},
-            {field_id:"mais_informa_es", field_value:"O ${componente} passou de ${alertas[0]}% de sua capacidade."}
+            {field_id:"mais_informa_es", field_value:"O ${alertas[2]} passou de ${alertas[0]}% de sua capacidade."}
           ],
-        }){card {title}}}"}`
-    ) // NOTA: pela minha contagem de chaves, parentêses e aspas abertas e fechadas, os dois últimos caracteres não deveriam existir
+        }){card {title}}
+      }`
+    })
   }
-  
-  // card.query = `mutation { createCard
-  //   (input:{ pipe_id:"302754046,
-  //   title: "Card",
-  //   fields_attributes:
-  //   [{field_id: "empresa", 
-  //   field_value:"${nomeEmp}"},
-  //   {field_id: "id_computador", 
-  //   field_value:"${idComputador}"},
-  //   {field_id: "componente", 
-  //   field_value:"${alertas[2]}"},
-  //   {field_id:"mais_informa_es", 
-  //   field_value:"O ${componente} passou de ${alertas[0]}% de sua capacidade."}
-  // ],}){card {title}}}"}` 
 
-  options.body = JSON.stringify(card)
   fetch('https://api.pipefy.com/graphql', options)
     .then(response => response.json())
     .then(response => console.log(response))
