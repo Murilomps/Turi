@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Turi. | Dashboard Técnica</title>
+    <title>Turi. | Forecast</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #252525;">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboardTec.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
                 <div class="sidebar-brand-icon">
                     <img src="assets/img/logo.png" style="display: flex ;height:100%" alt="" class="img-fluid">
                 </div>
@@ -70,6 +70,8 @@
                     <span>Forecast</span></a>
             </li>
 
+
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -86,7 +88,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-3 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -181,7 +183,7 @@
                                         Ei, o disco da máquina 2 está muito cheio!
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Mostrar todos</a>
                             </div>
                         </li>
 
@@ -229,7 +231,7 @@
                                     </div>
                                     <div>
                                         <div class="text-truncate">O relatório do mês passado parece ótimo, estou muito feliz com
-                                        o progresso até agora, mantenha o bom trabalho!</div>
+                                            o progresso até agora, mantenha o bom trabalho!</div>
                                         <div class="small text-gray-500">Morgan Alvarez · 2d</div>
                                     </div>
                                 </a>
@@ -292,155 +294,13 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <select name="selMachine" id="selMachine" onchange="selMachineCorreto()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="margin-left: 63%;">
-                            <option value=1>Máquina 1</option>
-                            <option value=2>Máquina 2</option>
-                            <option value=3>Máquina 3</option>
-                            <option value=4>Máquina 4</option>
-                            <option value=5>Máquina 5</option>
-                        </select>
-                    </div>
-
-                    <!-- Content Row Métricas -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-4 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                CPU</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">60%</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-laptop fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-4 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Memória RAM</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">70%</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-memory fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-4 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Disco Rígido
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">70%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 70%" aria-valuenow="0" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-hdd fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        
-                    </div>
-
-                    <!-- MÁQUINAS -->
-
-                    <div class="col-xl-8 col-lg-7" style="display: contents;" id="Maq1"> <!--DivControle 1-->
-                        <!-- Pie Chart Disk Machine 1  -->
-                        <div style="display: flex;"> <!--opa salve-->
-                        <div class="col-xl-6 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Disco rígido (HD) - Máquina <span class="numMac"></span></h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="chartDisk1"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Livre
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Em uso
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-6 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Porcentagem de Uso (CPU) - Máquina <span class="numMac"></span> </h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart3"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                        <!-- Area Chart Frequency of CPU-->
+                    <div class="col-xl-8 col-lg-7" style="display: contents;"> <!--DivControle 1-->
+                        <!-- Biling-->
                         <div style="display: flex;">
-                            <div class="col-xl-6 col-lg-5">
+                            <div class="col-xl-7 col-lg-6">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">Memória - Máquina <span class="numMac"></span> </h6>
+                                        <h6 class="m-0 font-weight-bold text-primary">Previsão de gastos da AWS <span class="numMac"></span> </h6>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -451,18 +311,15 @@
                                     <!-- Card Body -->
                                     <div class="card-body">
                                         <div class="chart-area">
-                                            <canvas id="myAreaChart9"></canvas>
+                                            <canvas id="chartBiling"></canvas>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            
             </div>
-        
         </div>
 
     </div>
@@ -518,85 +375,9 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <!-- <script src="js/demo/chart-pie-demo.js"></script> -->
 
 </body>
 
 </html>
 
-<script>
-
-function selMachineCorreto() {
-    obterDadosGrafico(document.getElementById("selMachine").value)
-}
-
-    // let proximaAtualizacao;
-
-    // window.onload = atualizarDados();
-
-    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-    window.onload = obterDadosGrafico(1);
-
-// function verificar(metrica, componente) {
-//   const fkTotem = 50000
-  
-  
-//   var empresa = sessionStorage.FK_EMPRESA
-//   var nome = sessionStorage.NOME_EMPRESA
-//             var frase = ""
-          
-            
-//             // incluir uma nova medida de temperatura 
-//             if(metrica >=70){
-//               if (metrica >= 70 && metrica < 80) {
-//                 Swal.fire("CUIDADO", `${componente} está ficando sobrecarregada!`, "warning");
-//                 frase = `Alerta: O ${componente} do totem ${fkTotem}está ficando sobrecarregado! Porcentagem de uso: `
-//                 console.log('Cheguei aqui')
-                
-//               } else if (metrica >= 80) {
-//                 Swal.fire("ALERTA", `${componente} está sobrecarregada!`, "danger");
-//                 frase = `Perigo: O ${componente} do totem ${fkTotem} está sobrecarregado! Porcentagem de uso:`
-//               }
-//               alertas(nome,componente,metrica,frase);
-        
-//             console.log("INICIANDO O FETCH");
-            
-// 			// Enviando o valor da nova input
-//         fetch("/medidas/alertas", {
-// 				method: "POST",
-// 				headers: {
-//           "Content-Type": "application/json"
-// 				},
-// 				body: JSON.stringify({
-//           // crie um atributo que recebe o valor recuperado aqui
-// 					// Agora vá para o arquivo routes/usuario.js
-// 					metricaServer: metrica,
-// 					fraseServer: frase,
-//           componenteServer: componente,
-//           fkTotemServer: fkTotem,
-//           empresaServer: empresa
-					
-// 				})
-// 			}).then(function (resposta) {
-// 				console.log("entrei no fetch");
-// 				console.log("resposta: ", resposta);
-        
-// 				if (resposta.ok) {
-//                 console.log("Inserts feitos com sucesso");
-                
-//               } else {
-//                 console.log("Erro nos inserts");
-// 				}
-// 			}).catch(function (resposta) {
-//         console.log(`#ERRO: ${resposta}`);
-
-// 			});
-    
-//       return false;
-      
-//     }
-
-//   }
-
-</script>
