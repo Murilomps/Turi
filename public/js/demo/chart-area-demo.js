@@ -1567,13 +1567,12 @@ function obterDadosDeb(idComputador) {
   //   clearTimeout(proximaAtualizacao);
   // }
 
-  fetch(`/alertas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) { // Fazer rotas, controller e model, o qual possuirá o código SQL passado no whatsapp
+  fetch(`/alertas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) { 
       if (response.ok) {
           response.json().then(function (resposta) {
               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-              // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
 
-              plotarGraficoBruna(resposta)
+              plotarGraficoDeb(resposta)
           });
       } else {
           console.error('Nenhum dado encontrado ou erro na API');
@@ -1583,6 +1582,8 @@ function obterDadosDeb(idComputador) {
           console.error(`Erro na +obtenção dos dados p/ gráfico: ${error.message}`);
       });
 }
+
+
 
 // Marcus
 // nome do grafico memoriaRAM1
