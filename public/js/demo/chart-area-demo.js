@@ -557,12 +557,13 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   dataSaude.datasets[0].hoverBackgroundColor.push(corDado(saudeTotal, cores, parametros))
   dataSaude.datasets[0].hoverBackgroundColor.push("#F8F8FF")
   
-
-  var ctx = document.getElementById("chartSaude"); // *DÉBORA* Criação do chart (não alterei essa parte praticamente, apenas exclui o pieChart2 que me pareceu desnecessário)
-  if (ChartSaude != null) {
-    ChartSaude.destroy();
+  if(document.getElementById("chartSaude")) {
+    var ctx = document.getElementById("chartSaude"); // *DÉBORA* Criação do chart (não alterei essa parte praticamente, apenas exclui o pieChart2 que me pareceu desnecessário)
+    if (ChartSaude != null) {
+      ChartSaude.destroy();
+    }
+    ChartSaude = new Chart(ctx, new pieChart(dataSaude,'%'));
   }
-  ChartSaude = new Chart(ctx, new pieChart(dataSaude,'%'));
 
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
@@ -1058,49 +1059,49 @@ function plotarGraficoMarcus(resposta) {
 
 
 // gráfico biling
-
-var ctx = document.getElementById("chartBiling");
-var myBilingChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ["Julho", "Agosto", "Setembro","Outubro","Novembro", "Janeiro","Fevereiro","Março","Abril","Maio"],
-    datasets: [{
-      label: "Gasto na AWS ($)",
-      data: [6.2, 7,5.5,6.7,9,8.4,9,7.9,8.8,10.6],
-      backgroundColor: ['#6A5ACD', '#6A5ACD','#6A5ACD', '#6A5ACD','#6A5ACD', '#6A5ACD','#6A5ACD', '#6A5ACD','#6A5ACD', '#6A5ACD'],
-    //   hoverBackgroundColor: ['#2e59d9', '#17a673'],
-    //   hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-    // yAxes: [{
-    //   ticks: {
-    //     maxTicksLimit: 5,
-    //     padding: 10,
-    //     beginAtZero: true,
-    //     max: 100,
-    //     min: 0,
-    //     callback: function (value, index, values) {
-    //       return number_format(value) + '$';
-    //     }
-    //   }
-    //   }],
-  },
-  // options: {
-  // //   maintainAspectRatio: false,
-  // //   tooltips: {
-  // //     backgroundColor: "rgb(255,255,255)",
-  // //     bodyFontColor: "#858796",
-  // //     borderColor: '#dddfeb',
-  // //     borderWidth: 1,
-  // //     xPadding: 15,
-  // //     yPadding: 15,
-  // //     displayColors: false,
-  // //     caretPadding: 10,
-  // //   },
-  // //   legend: {
-  // //     display: false
-  // //   },
-  // //   cutoutPercentage: 80,
-  // },
-});
-
+if(document.getElementById("chartBiling")) {
+  var ctx = document.getElementById("chartBiling");
+  var myBilingChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio"],
+      datasets: [{
+        label: "Gasto na AWS ($)",
+        data: [6.2, 7, 5.5, 6.7, 9, 8.4, 9, 7.9, 8.8, 10.6],
+        backgroundColor: ['#6A5ACD', '#6A5ACD', '#6A5ACD', '#6A5ACD', '#6A5ACD', '#6A5ACD', '#6A5ACD', '#6A5ACD', '#6A5ACD', '#6A5ACD'],
+      //   hoverBackgroundColor: ['#2e59d9', '#17a673'],
+      //   hoverBorderColor: "rgba(234, 236, 244, 1)",
+      }],
+      // yAxes: [{
+      //   ticks: {
+      //     maxTicksLimit: 5,
+      //     padding: 10,
+      //     beginAtZero: true,
+      //     max: 100,
+      //     min: 0,
+      //     callback: function (value, index, values) {
+      //       return number_format(value) + '$';
+      //     }
+      //   }
+      //   }],
+    },
+    // options: {
+    // //   maintainAspectRatio: false,
+    // //   tooltips: {
+    // //     backgroundColor: "rgb(255,255,255)",
+    // //     bodyFontColor: "#858796",
+    // //     borderColor: '#dddfeb',
+    // //     borderWidth: 1,
+    // //     xPadding: 15,
+    // //     yPadding: 15,
+    // //     displayColors: false,
+    // //     caretPadding: 10,
+    // //   },
+    // //   legend: {
+    // //     display: false
+    // //   },
+    // //   cutoutPercentage: 80,
+    // },
+  });
+}
 
