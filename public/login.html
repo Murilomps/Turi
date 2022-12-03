@@ -384,7 +384,13 @@
     var senhaVar = in_senhaLogin.value;
 
     if (usuarioVar == "" || senhaVar == "") {
-      alert("valores vazios")
+      Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Valores vazios!',
+            showConfirmButton: false,
+            timer: 1000}
+          )
       return false;
     }
 
@@ -423,6 +429,14 @@
           });
 
         } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Seu email ou senha estão errados!',
+            showConfirmButton: false,
+            timer: 1000}
+          )
+          return false;
 
           console.log("Houve um erro ao tentar realizar o login!");
 
@@ -465,6 +479,14 @@
           });
 
         } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Seu CNPJ ou senha estão errados!',
+            showConfirmButton: false,
+            timer: 1000}
+          )
+          return false;
 
           console.log("Houve um erro ao tentar realizar o login!");
 
