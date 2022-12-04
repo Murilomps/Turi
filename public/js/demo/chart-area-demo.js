@@ -78,6 +78,7 @@ let nomeEmp
 let idEmp
 let ChartRAM1
 
+
 function baseDataLinha(dtsetlabel) {
   this.labels = []                       //HORARIO DA COLETA AQUI
   this.datasets = [{
@@ -545,7 +546,7 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   
   let saudeTotal = (100 - (saudeDisco + saudeRam + saudeCpu)) // *DÉBORA* 3 linhas onde são definidas as cores E o número a partir do qual as cores são usadas
   let cores = ["#FF0000", "#FFA500", "#00FF00"]
-  let parametros = [0, 40, 75]
+  let parametros = [0, 65, 80]
 
   console.log("saude:", saudeTotal)
   
@@ -661,7 +662,6 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
     
   }
   
-let timer = momentoBanco
 
 function verificar(idComputador, cpu, ram, disco, id_leitura,momentoBanco) {
   console.log("Entrei na função verificar.")
@@ -707,20 +707,20 @@ function verificar(idComputador, cpu, ram, disco, id_leitura,momentoBanco) {
     }
     ramAlerta[1] = true
   }
-
+  var newDateObj = new Date(momentoBanco.getTime() - 5*60000); // alertar só é chamada novamente caso já tenha passado 5min
+  
   let alertas = [cpuAlerta, ramAlerta, discoAlerta]
   nomeEmp = sessionStorage.NOME_USUARIO;
   for (let i = 0; i < alertas.length; i++) {
     if (alertas[i][1]) {
-      alertar(nomeEmp, idComputador, alertas[i], id_leitura)
+      if (typeof timer === 'undefined' || newDateObj > timer) {
+        alertar(nomeEmp, idComputador, alertas[i], id_leitura)
+        timer = new Date(momentoBanco)
+      } 
     }
   }
 }
 function alertar(nomeEmp, idComputador, alertas, id_leitura) {
-  let horarioAtual = new Date()
-  if(horarioAtual )
-
-  
   console.log("Entrei na função alertar.")
   const options = {
     method: 'POST',
