@@ -428,9 +428,7 @@
                                         <!-- Card Header - Dropdown -->
                                         <div
                                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <h6 class="m-0 font-weight-bold text-primary">Chamados Abertos - por Componente
-                                            </h6>
-
+                                            <h6 class="m-0 font-weight-bold text-primary">Chamados Abertos por Componente - Máquina <span class="numMac"></span> </h6>
                                         </div>
                                         <!-- Card Body -->
                                         <div class="card-body">
@@ -511,8 +509,8 @@
 <script>
     
 function selMachineCorreto() {
-        obterDadosGrafico(document.getElementById("selMachine").value)
-        obterDadosGraficoBruna(documentGetElementById("selMachine").value)
+        obterDadosGraficoBruna(document.getElementById("selMachine").value)
+        // obterDadosGraficoBruna(documentGetElementById("selMachine").value)
     }
 
     // let proximaAtualizacao;
