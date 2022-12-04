@@ -77,7 +77,7 @@ let ChartSatisfacaoSemana
 let nomeEmp
 let idEmp
 let ChartRAM1
-
+let timer
 
 function baseDataLinha(dtsetlabel) {
   this.labels = []                       //HORARIO DA COLETA AQUI
