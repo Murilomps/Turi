@@ -644,7 +644,7 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         ChartMem.update();
         // ChartSaude.update()
 
-        verificar(idComputador, cpu, ram, disco, novoRegistro[0].id)
+        verificar(idComputador, cpu, ram, disco, novoRegistro[0].id,momentoBanco)
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
@@ -658,10 +658,11 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
     .catch(function (error) {
       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
-
-}
-
-function verificar(idComputador, cpu, ram, disco, id_leitura) {
+    
+  }
+  
+let timer = momentoBanco
+function verificar(idComputador, cpu, ram, disco, id_leitura,momentoBanco) {
   console.log("Entrei na função verificar.")
   let cpuAlerta = [cpu, false, 'CPU']
   let ramAlerta = [ram, false, 'RAM']
@@ -714,14 +715,17 @@ function verificar(idComputador, cpu, ram, disco, id_leitura) {
     }
   }
 }
-
 function alertar(nomeEmp, idComputador, alertas, id_leitura) {
+  let horarioAtual = new Date()
+  if(horarioAtual )
+
+  
   console.log("Entrei na função alertar.")
   const options = {
     method: 'POST',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIxNjcyNjYsImVtYWlsIjoidHVyaV9Ab3V0bG9vay5jb20uYnIiLCJhcHBsaWNhdGlvbiI6MzAwMjA1NzM5fX0.o_bj1L7j2n9rRELXyrKY2kz_P9ga6nyAkAy_5chbb3hPnknWCHaDbFhMtASg9zXuawa2DjXghQ4dQ1QyxLcj2A',
+      Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIxNjcyNjYsImVtYWlsIjoidHVyaV9Ab3V0bG9vay5jb20uYnIiLCJhcHBsaWNhdGlvbiI6MzAwMjE2NTkyfX0.Hi5p33bNKbl6MNgaw4l_2WHUl7JHRkUyYIJBn-GT48gCrn9musp-_ed2vlguM6vFnruFOCqDT3hh23aE2vDg5g',
       'content-type': 'application/json'
     },
     body: JSON.stringify({
@@ -962,8 +966,7 @@ function plotarGraficoBruna(resposta) {
 // débora - chamados
 function obterDadosDeb(idComputador) { 
 
-  alterarTitulo(idComputador)
-
+  // alterarTitulo(idComputador)
   // if (proximaAtualizacao != undefined) {
   //   clearTimeout(proximaAtualizacao);
   // }
@@ -973,7 +976,8 @@ function obterDadosDeb(idComputador) {
           response.json().then(function (resposta) {
               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-              plotarGraficoDeb(resposta)
+
+              number.innerHTML = `${resposta[0].quantidade}`
           });
       } else {
           console.error('Nenhum dado encontrado ou erro na API');
