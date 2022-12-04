@@ -5,11 +5,11 @@ function contarChamados(idComputador) {
     instrucaoSql = '';
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select count(alerta.id) as quantidade, CAST(data_hora AS DATE) as DataDia from Alerta Join leitura on fk_leitura = leitura.id where fk_computador = ${idComputador} and CAST(data_hora AS DATE) = CURRENT_DATE`;
+        instrucaoSql = `select count(alerta.id) as quantidade, CAST( GETDATE() AS Date ) as diaData from Alerta Join leitura on fk_leitura = leitura.id where fk_computador = ${idComputador} and CAST(data_hora as Date) = CAST( GETDATE() AS Date );`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
-        instrucaoSql = `select count(alerta.id) as quantidade, CAST(data_hora AS DATE) as DataDia from Alerta Join leitura on fk_leitura = leitura.id where fk_computador = ${idComputador} and CAST(data_hora AS DATE) = CURRENT_DATE`;
+        instrucaoSql = `select count(alerta.id) as quantidade, CAST( GETDATE() AS Date ) as diaData from Alerta Join leitura on fk_leitura = leitura.id where fk_computador = ${idComputador} and CAST(data_hora as Date) = CAST( GETDATE() AS Date );`;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");

@@ -415,7 +415,7 @@
                                         <!-- Card Body -->
                                         <div class="card-body">
                                             <div class="chart-area" style="display: grid; justify-content: center; align-items: center;">
-                                                <h1>Number</h1>
+                                                <span id="number" style="font-size:150px; color: black;"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -518,9 +518,6 @@ function selMachineCorreto() {
     
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-   
-
-    // saude.datasets[0].data.push(novoRegistro[0].saude)
-
     window.onload = obterDadosGraficoBruna(1);
+    window.onload = obterDadosDeb(1);
 </script>
