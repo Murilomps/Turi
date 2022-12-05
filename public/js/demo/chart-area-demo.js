@@ -77,6 +77,7 @@ let ChartSatisfacaoSemana
 let nomeEmp
 let idEmp
 let ChartRAM1
+let timer
 
 function baseDataLinha(dtsetlabel) {
   this.labels = []                       //HORARIO DA COLETA AQUI
@@ -295,7 +296,6 @@ function barChart(dado) {
         yAxes: [{
           ticks: {
             min: 0,
-            max: 12,
             maxTicksLimit: 6,
             padding: 2,
             stepSize: 4,
@@ -539,13 +539,21 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   ram = (ram * 100) / totalRAM
   
   // saúde
-  let saudeDisco = parseInt(disco/3)
-  let saudeRam = parseInt(ram/3)
-  let saudeCpu = parseInt(cpu/3)
+  let saudeCpu
+  let saudeDisco
+  let saudeRam
+
+  saudeCpu = parseInt(cpu/6) // 16.67
+  saudeDisco = parseInt(disco/3) // 33.33
+  saudeRam = parseInt(ram/2)    //50
+  
+  // if(ram > 70) {
+  //   saudeRam = ram*0.6
+  // }
   
   let saudeTotal = (100 - (saudeDisco + saudeRam + saudeCpu)) // *DÉBORA* 3 linhas onde são definidas as cores E o número a partir do qual as cores são usadas
   let cores = ["#FF0000", "#FFA500", "#00FF00"]
-  let parametros = [0, 40, 75]
+  let parametros = [0, 35, 55]
 
   console.log("saude:", saudeTotal)
   
@@ -661,7 +669,7 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
     
   }
   
-let timer = momentoBanco
+
 function verificar(idComputador, cpu, ram, disco, id_leitura,momentoBanco) {
   console.log("Entrei na função verificar.")
   let cpuAlerta = [cpu, false, 'CPU']
@@ -681,8 +689,8 @@ function verificar(idComputador, cpu, ram, disco, id_leitura,momentoBanco) {
     discoAlerta[1] = true
   }
 
-  if (cpu > 60) {
-    if (cpu >= 90) {
+  if (cpu > 80) {
+    if (cpu >= 95) {
       alert(
         "ALERTA: PERIGO! A CPU está muito sobrecarregada."
       )
@@ -706,20 +714,20 @@ function verificar(idComputador, cpu, ram, disco, id_leitura,momentoBanco) {
     }
     ramAlerta[1] = true
   }
-
+  var newDateObj = new Date(momentoBanco.getTime() - 5*60000); // alertar só é chamada novamente caso já tenha passado 5min
+  
   let alertas = [cpuAlerta, ramAlerta, discoAlerta]
   nomeEmp = sessionStorage.NOME_USUARIO;
   for (let i = 0; i < alertas.length; i++) {
     if (alertas[i][1]) {
-      alertar(nomeEmp, idComputador, alertas[i], id_leitura)
+      if (typeof timer === 'undefined' || newDateObj > timer) {
+        alertar(nomeEmp, idComputador, alertas[i], id_leitura)
+        timer = new Date(momentoBanco)
+      } 
     }
   }
 }
 function alertar(nomeEmp, idComputador, alertas, id_leitura) {
-  let horarioAtual = new Date()
-  if(horarioAtual )
-
-  
   console.log("Entrei na função alertar.")
   const options = {
     method: 'POST',
@@ -731,13 +739,15 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
     body: JSON.stringify({
       query: `mutation {
         createCard (input:{
-          pipe_id:"302754046,
+          pipe_id:302754046,
           title: "Card",
           fields_attributes:[
+
             {field_id: "empresa", field_value:"${nomeEmp}"},
             {field_id: "id_computador", field_value:"${idComputador}"},
             {field_id: "componente", field_value:"${alertas[2]}"},
-            {field_id:"mais_informa_es", field_value:"O ${alertas[2]} passou de ${alertas[0]}% de sua capacidade."}
+            {field_id:"descri_o_do_alerta", field_value:"O ${alertas[2]} passou de ${alertas[0]}% de sua capacidade."}
+
           ],
         }){card {title}}
       }`
