@@ -259,7 +259,7 @@ function lineChart(dado, simbolo, max_value) {
       callbacks: {
         label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '%';
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + simbolo;
         }
       }
     }
