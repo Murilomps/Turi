@@ -935,18 +935,28 @@ function obterDadosGraficoBruna(idComputador) { // Bruna e murilo, chamem a func
 
   fetch(`/alertas/componente/${idComputador}`, { cache: 'no-store' }).then(function (response) { // Fazer rotas, controller e model, o qual possuirá o código SQL passado no whatsapp
       if (response.ok) {
+        if (response.status != 204) {
+          console.log(response)
           response.json().then(function (resposta) {
               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
               // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
 
               plotarGraficoBruna(resposta)
           });
+        } else {
+
+          if (ChartComponente != null) {
+            ChartComponente.destroy();
+          }
+          
+          alert("Nenhum alerta plotado.")
+        }
       } else {
           console.error('Nenhum dado encontrado ou erro na API');
       }
   })
       .catch(function (error) {
-          console.error(`Erro na +obtenção dos dados p/ gráfico: ${error.message}`);
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
 }
 
