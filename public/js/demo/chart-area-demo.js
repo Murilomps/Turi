@@ -1003,16 +1003,84 @@ function obterDadosDeb(idComputador) {
 // Marcus
 // nome do grafico memoriaRAM1
 
+function atualizarGraficoMarcus(idComputador, dados, totalRAM) {
+
+  fetch(`/obterdados/:idComputador${idComputador}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (novoRegistro) {
+
+        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+        console.log(`Dados atuais do gráfico: ${dados}`);
+
+        // tirando e colocando valores no gráfico
+
+
+        // let momentoBanco = new Date(novoRegistro[0].data_hora)
+
+        // let horas = String(momentoBanco.getUTCHours());
+        // while (horas.length < 2) { horas = "0" + horas; }
+        // let minutos = String(momentoBanco.getUTCMinutes());
+        // while (minutos.length < 2) { minutos = "0" + minutos; }
+        // let segundos = String(momentoBanco.getUTCSeconds());
+        // while (segundos.length < 2) { segundos = "0" + segundos; }
+        // let horario = `${horas}:${minutos}:${segundos}`
+
+        // dados.forEach(function (dado) {
+        //   dado.labels.shift();
+        //   dado.labels.push(horario);
+        //   dado.datasets[0].data.shift();
+        // })
+
+        dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
+
+        let ram = novoRegistro[0].memoria_usada
+        
+        // transformando em porcentagem (para alertas e individual Débora)
+
+        ram = (ram * 100) / totalRAM
+      
+        // let saudeDisco = parseInt(disco * 0.333)
+        // let saudeRam = parseInt(ram * 0.333)
+        // let saudeCpu = parseInt(cpu * 0.333)
+        
+        // let saudeTotal = 100 - (saudeDisco + saudeRam + saudeCpu)
+        // console.log(saudeTotal)
+        
+        // dados[2].datasets[0].data.push(saudeTotal);
+        
+        ChartMem.update();
+        // ChartSaude.update()
+
+        verificar(idComputador, ram, novoRegistro[0].id)
+
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+      // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+      proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+    
+  }
+
+
+
+
 function obterDadosGraficoMarcus(idComputador) {
 
-  fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) { //setado a rota para coleta de dados e definição do parametro
+  fetch(`medidas/obterdados/${idComputador}`, { cache: 'no-store' }).then(function (response) { //setado a rota para coleta de dados e definição do parametro
     if (response.ok) {
         response.json().then(function (resposta) {
             console.log("AAAAAAAAAAAAAAAAAAA")
             console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
             // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
 
-            plotarGraficoMarcus(resposta)
+            plotarGraficoMarcus(idComputador, resposta)
         });
     } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -1024,13 +1092,13 @@ function obterDadosGraficoMarcus(idComputador) {
 
 };
 
-function plotarGraficoMarcus(resposta) {
+function plotarGraficoMarcus(idComputador, resposta) {
 
   console.log("INICIOU PELO MENOS")
     
-  // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
+  let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
 
-  let dataBarMarcus = new baseDataBar("RAM1")
+  let dataBarMarcus = new baseDataBar("RAM")
 
   
   for (i = 0; i < resposta.length; i++) {
@@ -1052,6 +1120,8 @@ function plotarGraficoMarcus(resposta) {
   ChartRAM1 = new Chart(ctx, new barChart2(dataBarMarcus));
 
   console.log("AQUI TAAAAMBEM FOOOOI")
+
+  setTimeout(() => atualizarGraficoMarcus(idComputador, dataGeneral, memoria_usada), 2000);
 }
 
 

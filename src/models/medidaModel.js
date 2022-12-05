@@ -59,8 +59,23 @@ function buscarMedidasEstaticas(idComputador) {
     return database.executar(instrucaoSql);
 }
 
+function BuscarMedidasMarcus(idComputador) {
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT memoria_usada FROM leitura where id = ${idComputador};`;
+
+    }  else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `SELECT memoria_usada FROM computador where id = ${idComputador};`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    buscarMedidasEstaticas
+    buscarMedidasEstaticas,
+    BuscarMedidasMarcus
 }
