@@ -105,3 +105,15 @@ CREATE TABLE alerta (
     componente varchar(50),
     
 );
+
+CREATE TABLE processo (
+    id INT PRIMARY KEY IDENTITY,
+    fk_computador INT NOT NULL,
+    FOREIGN KEY (fk_computador) REFERENCES computador(id),
+    data_hora datetime,
+    pid INT,
+    nome VARCHAR(100),
+    cpu FLOAT,
+	ram FLOAT,
+    disco FLOAT
+)

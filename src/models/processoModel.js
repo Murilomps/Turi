@@ -5,13 +5,11 @@ function buscarUltimosProcessos(idComputador) {
     let instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `SELECT TOP (3) id, fk_computador, data_hora, cpu_porcentagem, disco_usado, memoria_usada, memoria_disponivel FROM Leitura where fk_computador = ${idComputador} order by id desc;`;
+        instrucaoSql = `select pid, nome, cpu, ram, disco from processo where fk_computador = ${idComputador} and CAST(data_hora AS DATE) = CAST(GETDATE() AS DATE) order by pid`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
-        instrucaoSql = `select id, fk_computador, data_hora, cpu_porcentagem, disco_usado,memoria_usada,memoria_disponivel
-        from Leitura
-        where fk_computador = ${idComputador} order by id desc limit 7;`;
+        instrucaoSql = `select pid, nome, cpu, ram, disco from processo where fk_computador = ${idComputador} and CAST(data_hora AS DATE) = CAST(GETDATE() AS DATE) order by pid`;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");

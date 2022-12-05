@@ -10,7 +10,8 @@
     <meta name="author" content="">
 
     <title>Turi. | Processos</title>
-
+    <link href="css/process.css" rel="stylesheet">
+    
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -28,6 +29,8 @@
     <script src="js/app.js"></script>
     <script src="https://kit.fontawesome.com/0552a07945.js" crossorigin="anonymous"></script>
     <script src="assets/js/main.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
 </head>
 
 <body id="page-top" >
@@ -69,6 +72,14 @@
                 <a class="nav-link" href="dashboardMW.html">
                     <i class="fa-solid fa-hand-holding-dollar"></i>
                     <span>Foco no cliente</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" href="tableProcess.html">
+                    <i class="fa-solid fa-gears"></i>
+                    <span>Processos</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -310,7 +321,7 @@
                             <option value=2>Máquina 2</option>
                             <option value=3>Máquina 3</option>
                             <option value=4>Máquina 4</option>
-                            <option value=5>Máquina 5</option>
+                            <option value=6>Máquina 5</option>
                         </select>
                     </div>
 
@@ -318,8 +329,13 @@
 
                     <!-- MÁQUINAS -->
 
+                    <button id="botaoModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" style="display: none;" onclick="gerarWordCloud()">
+                        Abrir modal de demonstração
+                    </button>
                     <div class="col-xl-8 col-lg-7" style="display: contents;" id="Maq1"> <!--DivControle 1-->
- 
+                        <div class="container">
+                            <div id="dynamic-table"></div>
+                        </div>
 
                     </div>
 
@@ -366,6 +382,27 @@
             </div>
         </div>
     </div>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: 80%; margin: auto; max-width: 100%; height: 80%;">
+          <div class="modal-content" style=" height: 100%;">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Título do modal</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style=" height: 100%;">
+                <div id="modalContainerProc" style=" height: 100%;">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -391,7 +428,7 @@
 <script>
 
 function selMachineCorreto() {
-    obterDadosGrafico(document.getElementById("selMachine").value)
+    obterDadosTabela(document.getElementById("selMachine").value)
 }
 
     // let proximaAtualizacao;
@@ -400,6 +437,8 @@ function selMachineCorreto() {
 
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    window.onload = obterDadosGrafico(1);
+    window.onload = obterDadosTabela(6)
+
+    
 
 </script>
