@@ -540,13 +540,21 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   ram = (ram * 100) / totalRAM
   
   // saúde
-  let saudeDisco = parseInt(disco/3)
-  let saudeRam = parseInt(ram/3)
-  let saudeCpu = parseInt(cpu/3)
+  let saudeCpu
+  let saudeDisco
+  let saudeRam
+
+  saudeCpu = parseInt(cpu/6) // 16.67
+  saudeDisco = parseInt(disco/3) // 33.33
+  saudeRam = parseInt(ram/2)    //50
+  
+  // if(ram > 70) {
+  //   saudeRam = ram*0.6
+  // }
   
   let saudeTotal = (100 - (saudeDisco + saudeRam + saudeCpu)) // *DÉBORA* 3 linhas onde são definidas as cores E o número a partir do qual as cores são usadas
   let cores = ["#FF0000", "#FFA500", "#00FF00"]
-  let parametros = [0, 65, 80]
+  let parametros = [0, 35, 55]
 
   console.log("saude:", saudeTotal)
   
