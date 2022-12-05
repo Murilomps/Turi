@@ -27,7 +27,7 @@ cursor = cnxn.cursor()
 
 try:
     con = mysql.connector.connect(
-        host='localhost', user='root', password='', database='Turi') # coloque a senha do seu mysql
+        host='localhost', user='root', password='Zazam@#12', database='Turi') # coloque a senha do seu mysql
                        # o localhost pode ser o ip do seu docker, atenção
     print("Conexão ao banco estabelecida!")
 except mysql.connector.Error as error:
@@ -99,7 +99,7 @@ while True:
 
     try:
         con = mysql.connector.connect(
-            host='localhost', user='root', password='', database='Turi') # coloque a senha do seu mysql
+            host='localhost', user='root', password='Zazam@#12', database='Turi') # coloque a senha do seu mysql
         print("Conexão ao banco estabelecida!")                          # o localhost pode ser o ip do seu docker, atenção
     except mysql.connector.Error as error:
         if error.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:

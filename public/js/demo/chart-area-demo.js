@@ -259,7 +259,7 @@ function lineChart(dado, simbolo, max_value) {
       callbacks: {
         label: function (tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + '%';
+          return datasetLabel + ':' + number_format(tooltipItem.yLabel) + simbolo;
         }
       }
     }
@@ -546,12 +546,8 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   saudeCpu = parseInt(cpu/6) // 16.67
   saudeDisco = parseInt(disco/3) // 33.33
   saudeRam = parseInt(ram/2)    //50
-  
-  // if(ram > 70) {
-  //   saudeRam = ram*0.6
-  // }
-  
-  let saudeTotal = (100 - (saudeDisco + saudeRam + saudeCpu)) // *DÉBORA* 3 linhas onde são definidas as cores E o número a partir do qual as cores são usadas
+ 
+  let saudeTotal = (100 - (saudeDisco + saudeRam + saudeCpu))
   let cores = ["#FF0000", "#FFA500", "#00FF00"]
   let parametros = [0, 35, 55]
 
@@ -935,18 +931,28 @@ function obterDadosGraficoBruna(idComputador) { // Bruna e murilo, chamem a func
 
   fetch(`/alertas/componente/${idComputador}`, { cache: 'no-store' }).then(function (response) { // Fazer rotas, controller e model, o qual possuirá o código SQL passado no whatsapp
       if (response.ok) {
+        if (response.status != 204) {
+          console.log(response)
           response.json().then(function (resposta) {
               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
               // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
 
               plotarGraficoBruna(resposta)
           });
+        } else {
+
+          if (ChartComponente != null) {
+            ChartComponente.destroy();
+          }
+          
+          alert("Nenhum alerta plotado.")
+        }
       } else {
           console.error('Nenhum dado encontrado ou erro na API');
       }
   })
       .catch(function (error) {
-          console.error(`Erro na +obtenção dos dados p/ gráfico: ${error.message}`);
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
 }
 
