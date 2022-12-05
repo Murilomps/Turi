@@ -740,13 +740,15 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
     body: JSON.stringify({
       query: `mutation {
         createCard (input:{
-          pipe_id:"302754046,
+          pipe_id:302754046,
           title: "Card",
           fields_attributes:[
+
             {field_id: "empresa", field_value:"${nomeEmp}"},
             {field_id: "id_computador", field_value:"${idComputador}"},
             {field_id: "componente", field_value:"${alertas[2]}"},
-            {field_id:"mais_informa_es", field_value:"O ${alertas[2]} passou de ${alertas[0]}% de sua capacidade."}
+            {field_id:"descri_o_do_alerta", field_value:"O ${alertas[2]} passou de ${alertas[0]}% de sua capacidade."}
+
           ],
         }){card {title}}
       }`
