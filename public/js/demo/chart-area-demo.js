@@ -689,8 +689,8 @@ function verificar(idComputador, cpu, ram, disco, id_leitura,momentoBanco) {
     discoAlerta[1] = true
   }
 
-  if (cpu > 60) {
-    if (cpu >= 90) {
+  if (cpu > 80) {
+    if (cpu >= 95) {
       alert(
         "ALERTA: PERIGO! A CPU está muito sobrecarregada."
       )
