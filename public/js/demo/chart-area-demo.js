@@ -296,7 +296,6 @@ function barChart(dado) {
         yAxes: [{
           ticks: {
             min: 0,
-            max: 12,
             maxTicksLimit: 6,
             padding: 2,
             stepSize: 4,
