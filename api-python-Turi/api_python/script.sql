@@ -117,3 +117,11 @@ CREATE TABLE processo (
 	ram FLOAT,
     disco FLOAT
 )
+
+CREATE TABLE Satisfacao (
+	id INT PRIMARY KEY IDENTITY,
+	fk_empresa INT,
+	FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
+	carinha CHAR(1),
+	dataDia DATE
+);
