@@ -76,7 +76,7 @@ let ChartComponente
 let ChartSatisfacaoSemana
 let nomeEmp
 let idEmp
-let ChartRAM1
+let ChartRAM
 let timer
 
 function baseDataLinha(dtsetlabel) {
@@ -332,7 +332,7 @@ function barChart(dado) {
 
 // GRÁFICO MARCUS
 
-function barChart2(dado) {
+function barChart2(dado, maximo) {
   this.type = 'bar',
     this.data = dado,
     this.options = {
@@ -362,7 +362,7 @@ function barChart2(dado) {
         yAxes: [{
           ticks: {
             min: 0,
-            max: 8,
+            max: maximo,
             maxTicksLimit: 6,
             padding: 2,
             stepSize: 2,
@@ -1007,74 +1007,6 @@ function obterDadosDeb(idComputador) {
 // Marcus
 // nome do grafico memoriaRAM1
 
-function atualizarGraficoMarcus(idComputador, dados, totalRAM) {
-
-  fetch(`/obterdados/:idComputador${idComputador}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (novoRegistro) {
-
-        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-        console.log(`Dados atuais do gráfico: ${dados}`);
-
-        // tirando e colocando valores no gráfico
-
-
-        // let momentoBanco = new Date(novoRegistro[0].data_hora)
-
-        // let horas = String(momentoBanco.getUTCHours());
-        // while (horas.length < 2) { horas = "0" + horas; }
-        // let minutos = String(momentoBanco.getUTCMinutes());
-        // while (minutos.length < 2) { minutos = "0" + minutos; }
-        // let segundos = String(momentoBanco.getUTCSeconds());
-        // while (segundos.length < 2) { segundos = "0" + segundos; }
-        // let horario = `${horas}:${minutos}:${segundos}`
-
-        // dados.forEach(function (dado) {
-        //   dado.labels.shift();
-        //   dado.labels.push(horario);
-        //   dado.datasets[0].data.shift();
-        // })
-
-        dados[1].datasets[0].data.push(novoRegistro[0].memoria_usada);
-
-        let ram = novoRegistro[0].memoria_usada
-        
-        // transformando em porcentagem (para alertas e individual Débora)
-
-        ram = (ram * 100) / totalRAM
-      
-        // let saudeDisco = parseInt(disco * 0.333)
-        // let saudeRam = parseInt(ram * 0.333)
-        // let saudeCpu = parseInt(cpu * 0.333)
-        
-        // let saudeTotal = 100 - (saudeDisco + saudeRam + saudeCpu)
-        // console.log(saudeTotal)
-        
-        // dados[2].datasets[0].data.push(saudeTotal);
-        
-        ChartMem.update();
-        // ChartSaude.update()
-
-        verificar(idComputador, ram, novoRegistro[0].id)
-
-        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-        proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
-      });
-    } else {
-      console.error('Nenhum dado encontrado ou erro na API');
-      // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-      proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
-    }
-  })
-    .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-    
-  }
-
-
-
-
 function obterDadosGraficoMarcus(idComputador) {
 
   fetch(`medidas/obterdados/${idComputador}`, { cache: 'no-store' }).then(function (response) { //setado a rota para coleta de dados e definição do parametro
@@ -1084,50 +1016,105 @@ function obterDadosGraficoMarcus(idComputador) {
             console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
             // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
 
-            plotarGraficoMarcus(idComputador, resposta)
+            obterDadosEstMarcus(resposta, idComputador)
+            // plotarGraficoMarcus(idComputador, resposta)
         });
     } else {
         console.error('Nenhum dado encontrado ou erro na API');
     }
 })
     .catch(function (error) {
-        console.error(`Erro na +obtenção dos dados p/ gráfico: ${error.message}`);
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
 
 };
 
-function plotarGraficoMarcus(idComputador, resposta) {
+function obterDadosEstMarcus(resposta, idComputador) {
 
-  console.log("INICIOU PELO MENOS")
+  fetch(`/medidas/computador/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (resposta2) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta2)}`);
+
+        plotarGraficoMarcus(resposta, idComputador, resposta2)
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });   
+  }
+  
+  function plotarGraficoMarcus(resposta, idComputador, resposta2) {
     
-  let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
-
+  console.log("INICIOU PELO MENOS")
+  
   let dataBarMarcus = new baseDataBar("RAM")
 
+  let cores = ["#00FF00", "#FFF700" , "#FFA500", "#FF0000"]
+  let parametros = [0, 60, 70, 85]
+  let totalRAM = resposta2[0].memoria_total
+
+  dataBarMarcus.labels = ["RAM"]
   
-  for (i = 0; i < resposta.length; i++) {
-      var registro = resposta[i];
-
-      dataBarMarcus.labels.push("RAM")
-
-      dataBarMarcus.datasets[0].data.push(registro.memoria_usada);
-
-  }
-  console.log(registro.ram)
-
+  dataBarMarcus.datasets[0].data = [resposta[0].memoria_usada]
+  
+  dataBarMarcus.datasets[0].backgroundColor = [corDado((resposta[0].memoria_usada/totalRAM)*100, cores, parametros)]
+  dataBarMarcus.datasets[0].hoverBackgroundColor = [corDado((resposta[0].memoria_usada/totalRAM)*100, cores, parametros)]
   console.log("AQUI FOOOI")
-
+  
+  console.log(`Oi, sou a ram ${totalRAM}`)
+  
   var ctx = document.getElementById("memoriaRAM1"); // Plotagem, removendo possível gráfico de outra máquina
-  if (ChartRAM1 != null) {
-      ChartRAM1.destroy();
+  if (ChartRAM != null) {
+    ChartRAM.destroy();
   }
-  ChartRAM1 = new Chart(ctx, new barChart2(dataBarMarcus));
-
+  ChartRAM = new Chart(ctx, new barChart2(dataBarMarcus, Math.ceil(totalRAM)));
   console.log("AQUI TAAAAMBEM FOOOOI")
-
-  setTimeout(() => atualizarGraficoMarcus(idComputador, dataGeneral, memoria_usada), 2000);
+  
+  let parametrosCores = [totalRAM, cores, parametros]
+  setTimeout(() => atualizarGraficoMarcus(idComputador, dataBarMarcus, parametrosCores), 2000);
 }
 
+
+function atualizarGraficoMarcus(idComputador, dados, parametrosCores) {
+
+  fetch(`medidas/obterdados/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (novoRegistro) {
+
+        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+        console.log(`Dados atuais do gráfico: ${dados}`);
+
+        // tirando e colocando valores no gráfico
+
+        let ram = novoRegistro[0].memoria_usada
+
+        dados.datasets[0].data = [ram];
+
+        dados.datasets[0].backgroundColor = [corDado((ram/parametrosCores[0])*100, parametrosCores[1], parametrosCores[2])]
+        dados.datasets[0].hoverBackgroundColor = [corDado((ram/parametrosCores[0])*100, parametrosCores[1], parametrosCores[2])]
+
+        // transformando em porcentagem (para alertas e individual Débora)
+
+        ChartRAM.update();
+
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGraficoMarcus(idComputador, dados, parametrosCores), 2000);
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+      // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+      proximaAtualizacao = setTimeout(() => atualizarGraficoMarcus(idComputador, dados, parametrosCores), 2000);
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+    
+}
 
 // gráfico biling
 if(document.getElementById("chartBiling")) {
