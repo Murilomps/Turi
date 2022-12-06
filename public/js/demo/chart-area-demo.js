@@ -944,8 +944,6 @@ function obterDadosGraficoBruna(idComputador) { // Bruna e murilo, chamem a func
           if (ChartComponente != null) {
             ChartComponente.destroy();
           }
-          
-          alert("Nenhum alerta plotado.")
         }
       } else {
           console.error('Nenhum dado encontrado ou erro na API');
