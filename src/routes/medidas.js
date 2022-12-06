@@ -15,5 +15,9 @@ router.get("/computador/:idComputador", function (req,res) {
     medidaController.buscarMedidasEstaticas(req, res);
 })
 
+router.get("/obterdados/:idComputador", function (req, res) {
+    medidaController.BuscarMedidasMarcus(req, res);
+})
+
 
 module.exports = router;
