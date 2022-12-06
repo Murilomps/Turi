@@ -1,7 +1,3 @@
-
-
-
-
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
@@ -124,6 +120,18 @@ function baseDataBar(dtsetlabel) {
     label: dtsetlabel,
     backgroundColor: ["#D23434", "#D28034", "#96D234", "#D2C234", "#96D234", "#37D234"],
     hoverBackgroundColor: ["#AD2C2C", "#A86629", "#82B62E", "#AEA129", "#82B62E", "#2FB22D"],
+    borderColor: "#4e73df",
+    data: [],
+  }]
+}
+
+
+function baseDataBarMU(dtsetlabel) {
+  this.labels = []
+  this.datasets = [{
+    label: dtsetlabel,
+    backgroundColor: [],
+    hoverBackgroundColor: [],
     borderColor: "#4e73df",
     data: [],
   }]
@@ -366,6 +374,74 @@ function barChart2(dado) {
             maxTicksLimit: 6,
             padding: 2,
             stepSize: 2,
+          },
+          gridLines: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(234, 236, 244)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2]
+          }
+        }],
+      },
+      legend: {
+        display: false
+      },
+      tooltips: {
+        titleMarginBottom: 10,
+        titleFontColor: '#6e707e',
+        titleFontSize: 14,
+        backgroundColor: "rgb(255,255,255)",
+        bodyFontColor: "#858796",
+        borderColor: '#dddfeb',
+        borderWidth: 1,
+        xPadding: 15,
+        yPadding: 15,
+        displayColors: false,
+        caretPadding: 10,
+        callbacks: {
+        }
+      },
+    }
+}
+
+
+// Graph Murilo 
+
+function barChartMU(dado) {
+  this.type = 'bar',
+    this.data = dado,
+    this.options = {
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          left: 10,
+          right: 25,
+          top: 25,
+          bottom: 0
+        }
+      },
+      scales: {
+        xAxes: [{
+          time: {
+            unit: 'date'
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+          ticks: {
+            maxTicksLimit: 6
+          },
+          maxBarThickness: 25,
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: 100,
+            maxTicksLimit: 6,
+            padding: 2,
+            stepSize: 4,
           },
           gridLines: {
             color: "rgb(234, 236, 244)",
@@ -859,14 +935,12 @@ function plotarGraficoBrumu(resposta) {
   ChartComponente = new Chart(ctx, new barChart(dataBarBruna));
 
   var ctx = document.getElementById("chartDisk1"); // murilo plotagem
-  ChartSatisfacaoSemana = new Chart(ctx, new barChart(dataBarMurilo));
+  ChartSatisfacaoSemana = new Chart(ctx, new barChartMU(dataBarMurilo));
 
   // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
 
 }
-
-
 
 function obterDadosGraficoMu(idEmpresa) { // Bruna e murilo, chamem a funcao no onload da pagina. Caso murilo, passar idEmpresa. Pegue o dado de idEmpresa no sessionStorage
   // alterarTitulo(idComputador) // Para Bruna
@@ -896,10 +970,13 @@ function plotarGraficoMu(resposta) {
 
   // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
 
-  let dataBarMurilo = new baseDataBar("Dias")
+  let dataBarMurilo = new baseDataBarMU("Alertas")
 
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
+
+    let coresmu = [ "#37D234","#D2C234", "#96D234","#D28034", "#D23434"]
+    let parametrosmu = [0, 20, 40, 60, 80]
 
     let momentoBanco = new Date(registro.dataDia) // murilo altere para usar somente os dados de dia e mes (e talvez ano, vai de você)
     let horas = String(momentoBanco.getUTCHours());
@@ -911,13 +988,14 @@ function plotarGraficoMu(resposta) {
     let horario = `${horas}:${minutos}:${segundos}`
 
     dataBarMurilo.labels.push(horario);
-
     dataBarMurilo.datasets[0].data.push(registro.quantidade);
+    dataBarMurilo.datasets[0].backgroundColor.push(corDado(registro.quantidade,coresmu,parametrosmu))
+    dataBarMurilo.datasets[0].hoverBackgroundColor.push("#6959ce")
 
   }
 
   var ctx = document.getElementById("graphMurilo"); // murilo plotagem
-  ChartSatisfacaoSemana = new Chart(ctx, new barChart(dataBarMurilo));
+  ChartSatisfacaoSemana = new Chart(ctx, new barChartMU(dataBarMurilo));
 
   // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
