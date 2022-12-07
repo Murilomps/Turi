@@ -1085,6 +1085,30 @@ function obterDadosDeb(idComputador) {
 // Marcus
 // nome do grafico memoriaRAM1
 
+function obterDadosNumOcio(respostaOcio) { 
+
+  // alterarTitulo(idComputador)
+  // if (proximaAtualizacao != undefined) {
+  //   clearTimeout(proximaAtualizacao);
+  // }
+
+  fetch(`/alertas/contarOciosidade/${respostaOcio}`, { cache: 'no-store' }).then(function (response) { 
+      if (response.ok) {
+          response.json().then(function (resposta) {
+              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+
+              numberOcio.innerHTML = `${resposta[0].quantidadeOcio}`
+          });
+      } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+      }
+  })
+      .catch(function (error) {
+          console.error(`Erro na +obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+}
+
 function obterDadosGraficoMarcus(idComputador) {
 
   fetch(`medidas/obterdados/${idComputador}`, { cache: 'no-store' }).then(function (response) { //setado a rota para coleta de dados e definição do parametro

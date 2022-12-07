@@ -1,5 +1,25 @@
 var database = require("../database/config");
 
+function contarOciosidade(respostaOcio) {
+
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select count(respostaOcio.id) as quantidadeOcio from respostaOcio where resposta = ${respostaOcio};`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+
+        instrucaoSql = `select count(respostaOcio.id) as quantidadeOcio from [dbo].[respostaOcio] where resposta = ${respostaOcio};`;
+
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function contarChamados(idComputador) {
 
     instrucaoSql = '';
@@ -94,5 +114,5 @@ module.exports = {
     contarChamadosEmTempoReal,
     inserirAlerta,
     contarSat,
-    contarComponente
+    contarComponente, contarOciosidade
 }

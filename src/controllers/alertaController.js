@@ -1,5 +1,26 @@
 var alertaModel = require("../models/alertaModel");
 
+function contarOciosidade(req, res) {
+
+    const limite_linhas = 7;
+
+    var ocio = req.params.respostaOcio;
+
+    console.log(`Recuperando os últimos ${limite_linhas} dados de ociosidade.`);
+
+    alertaModel.contarOciosidade(ocio).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os últimos dados de ociosidade.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function contarChamados(req, res) {
 
     const limite_linhas = 7;
@@ -117,5 +138,6 @@ module.exports = {
     contarChamadosEmTempoReal,
     inserirAlerta,
     contarSat,
-    contarComponente
+    contarComponente,
+    contarOciosidade
 }

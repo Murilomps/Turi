@@ -25,4 +25,8 @@ router.get("/contarSat/:idEmpresa",function(req,res) {
     alertaController.contarSat(req,res);
 })
 
+router.get("/contarOciosidade/:respostaOcio",function(req,res) {
+    alertaController.contarOciosidade(req,res);
+})
+
 module.exports = router;
