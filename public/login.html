@@ -37,23 +37,6 @@
           <li><a class="nav-link scrollto" href="#about">Sobre nós</a></li>
           <li><a class="nav-link scrollto" href="#services">Serviços</a></li>
           <li><a class="nav-link scrollto" href="#team">Time</a></li>
-          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li> -->
           <li><a class="nav-link scrollto" href="#contact">Contato</a></li>
           <li><a class="getstarted scrollto" href="./login.html">Cadastre-se</a></li>
         </ul>
@@ -73,12 +56,12 @@
 
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="CNPJ/Email" id="in_usuarioLogin"/>
+              <input type="text" placeholder="CNPJ/Email" id="in_usuarioLogin" />
             </div>
 
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Senha" required minlength="8" id="in_senhaLogin"/>
+              <input type="password" placeholder="Senha" required minlength="8" id="in_senhaLogin" />
             </div>
 
             <input type="button" class="btn-log" value="Entrar" onclick="Entrar()" />
@@ -112,37 +95,37 @@
             <!-- daqui até a linha 145, aparece somente quando o switch está ligado para cadastro empresarial -->
             <div class="input-field" id="nomeEmpresa" style="display:none ;">
               <i class="fa-solid fa-user-group"></i>
-              <input type="text" placeholder="Nome da Empresa" id="in_nomeEmpresa"/>
+              <input type="text" placeholder="Nome da Empresa" id="in_nomeEmpresa" />
             </div>
 
             <div class="input-field" id="codCnpj" style="display:none ;">
               <i class="fa-solid fa-building-user"></i>
-              <input type="text" placeholder="CPNJ" id="in_cnpjEmpresa"/>
+              <input type="text" placeholder="CPNJ" id="in_cnpjEmpresa" />
             </div>
 
             <div class="input-field" id="codRua" style="display:none ;">
               <i class="fa-solid fa-street-view"></i>
-              <input type="text" placeholder="Rua" id="in_ruaEmpresa"/>
+              <input type="text" placeholder="Rua" id="in_ruaEmpresa" />
             </div>
 
             <div class="input-field" id="codBairro" style="display:none ;">
               <i class="fa-solid fa-map-location-dot"></i>
-              <input type="text" placeholder="Bairro" id="in_bairroEmpresa"/>
+              <input type="text" placeholder="Bairro" id="in_bairroEmpresa" />
             </div>
 
             <div class="input-field" id="codNumero" style="display:none ;">
               <i class="fa-solid fa-house-user"></i>
-              <input type="number" placeholder="Número" id="in_numeroEmpresa"/>
+              <input type="number" placeholder="Número" id="in_numeroEmpresa" />
             </div>
 
             <div class="input-field" id="codCidade" style="display:none ;">
               <i class="fa-solid fa-city"></i>
-              <input type="text" placeholder="Cidade" id="in_cidadeEmpresa"/>
+              <input type="text" placeholder="Cidade" id="in_cidadeEmpresa" />
             </div>
 
             <div class="input-field" id="senhaCliente" style="display:none ;">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Senha" required minlength="8" id="in_senhaEmpresa"/>
+              <input type="password" placeholder="Senha" required minlength="8" id="in_senhaEmpresa" />
             </div>
 
             <!--Botão de swicth-->
@@ -186,35 +169,6 @@
     </div>
   </main>
 
-  <!-- <footer>
-    <section class="footer">
-      <div class="ft-social">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-google"></i></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      </div>
-
-      <ul class="list">
-        <li>
-          <a href="#">Início</a>
-        </li>
-        <li>
-          <a href="#">Sobre</a>
-        </li>
-        <li>
-          <a href="#">Projetos</a>
-        </li>
-        <li>
-          <a href="#">Contato</a>
-        </li>
-      </ul>
-      <p class="copyright">
-        © 2022 Turing - Todos direitos reservados
-      </p>
-    </section>
-  </footer> -->
-
   <script src="js/functions.js"></script>
   <script src="js/app.js"></script>
   <script src="https://kit.fontawesome.com/0552a07945.js" crossorigin="anonymous"></script>
@@ -227,7 +181,7 @@
 <script>
   function Cadastrar() {
 
-    if (ipt_switch.checked){
+    if (ipt_switch.checked) {
       var nomeVar = in_nomeEmpresa.value;
       var cnpjVar = in_cnpjEmpresa.value;
       var senhaVar = in_senhaEmpresa.value;
@@ -238,66 +192,70 @@
 
       if (nomeVar == "" || cnpjVar == "" || senhaVar == "" || ruaVar == "" || bairroVar == "" || numeroVar == "" || cidadeVar == "") {
         Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Valores vazios!',
-            showConfirmButton: false,
-            timer: 1000}
-          )
+          position: 'center',
+          icon: 'error',
+          title: 'Valores vazios!',
+          showConfirmButton: false,
+          timer: 1000
+        }
+        )
       } else if (cnpjVar.length < 14 || cnpjVar.length > 14) {
         Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Seu CNPJ está fora do padrão!',
-            showConfirmButton: false,
-            timer: 1000}
-          )
+          position: 'center',
+          icon: 'error',
+          title: 'Seu CNPJ está fora do padrão!',
+          showConfirmButton: false,
+          timer: 1000
+        }
+        )
       } else if (senhaVar.length < 8) {
         Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Senha muito curta. <br> A senha deve ter no mínimo 8 caracteres.',
-            showConfirmButton: false,
-            timer: 1500}
-          )
-      } else {
-      fetch("/usuarios/cadastrarEmpresa", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          nomeServer: nomeVar,
-          cnpjServer: cnpjVar,
-          ruaServer: ruaVar,
-          bairroServer: bairroVar,
-          numeroServer: numeroVar,
-          senhaServer: senhaVar,
-          cidadeServer: cidadeVar
-        })
-      }).then(function (resposta) {
-
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Seu cadastro foi realizado!',
-            showConfirmButton: false,
-            timer: 1500}
-          )
-            setTimeout(() => {
-            window.location = "login.html";
-          }, "2000")
-
-        } else {
-          throw ("Houve um erro ao tentar realizar o cadastro!");
+          position: 'center',
+          icon: 'error',
+          title: 'Senha muito curta. <br> A senha deve ter no mínimo 8 caracteres.',
+          showConfirmButton: false,
+          timer: 1500
         }
-      }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-    }
+        )
+      } else {
+        fetch("/usuarios/cadastrarEmpresa", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nomeServer: nomeVar,
+            cnpjServer: cnpjVar,
+            ruaServer: ruaVar,
+            bairroServer: bairroVar,
+            numeroServer: numeroVar,
+            senhaServer: senhaVar,
+            cidadeServer: cidadeVar
+          })
+        }).then(function (resposta) {
+
+          console.log("resposta: ", resposta);
+
+          if (resposta.ok) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Seu cadastro foi realizado!',
+              showConfirmButton: false,
+              timer: 1500
+            }
+            )
+            setTimeout(() => {
+              window.location = "login.html";
+            }, "2000")
+
+          } else {
+            throw ("Houve um erro ao tentar realizar o cadastro!");
+          }
+        }).catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+      }
     } else {
       var nomeVar = in_nomeTuri.value;
       var emailVar = in_emailTuri.value;
@@ -306,77 +264,82 @@
 
       if (nomeVar == "" || emailVar == "" || senhaVar == "" || codVar == "") {
         Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Valores vazios!',
-            showConfirmButton: false,
-            timer: 1000}
-          )
+          position: 'center',
+          icon: 'error',
+          title: 'Valores vazios!',
+          showConfirmButton: false,
+          timer: 1000
+        }
+        )
       } else if (emailVar.indexOf('@') == -1) {
         Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Seu e-mail está fora do padrão!',
-            showConfirmButton: false,
-            timer: 1000}
-          )
-      } else if(codVar != 1050) {
+          position: 'center',
+          icon: 'error',
+          title: 'Seu e-mail está fora do padrão!',
+          showConfirmButton: false,
+          timer: 1000
+        }
+        )
+      } else if (codVar != 1050) {
         Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Código não localizado.',
-            showConfirmButton: false,
-            timer: 1000}
-          )
+          position: 'center',
+          icon: 'error',
+          title: 'Código não localizado.',
+          showConfirmButton: false,
+          timer: 1000
+        }
+        )
       } else if (senhaVar.length < 8) {
         Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Senha muito curta. <br> A senha deve ter 8 caracteres.',
-            showConfirmButton: false,
-            timer: 1500}
-          )
+          position: 'center',
+          icon: 'error',
+          title: 'Senha muito curta. <br> A senha deve ter 8 caracteres.',
+          showConfirmButton: false,
+          timer: 1500
+        }
+        )
       } else {
         fetch("/usuarios/cadastrarUsuario", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          nomeServer: nomeVar,
-          emailServer: emailVar,
-          senhaServer: senhaVar,
-        })
-      }).then(function (resposta) {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nomeServer: nomeVar,
+            emailServer: emailVar,
+            senhaServer: senhaVar,
+          })
+        }).then(function (resposta) {
 
-        console.log("resposta: ", resposta);
+          console.log("resposta: ", resposta);
 
-        if (resposta.ok) {
-          Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Seu cadastro foi realizado!',
-          showConfirmButton: false,
-          timer: 2000}
-          )
-          
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "3000")
+          if (resposta.ok) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Seu cadastro foi realizado!',
+              showConfirmButton: false,
+              timer: 2000
+            }
+            )
 
-        } else {
-          throw ("Houve um erro ao tentar realizar o cadastro!");
-        }
-      }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
+            setTimeout(() => {
+              window.location = "login.html";
+            }, "3000")
+
+          } else {
+            throw ("Houve um erro ao tentar realizar o cadastro!");
+          }
+        }).catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+      }
     }
-  }
-    
+
     return false;
-    
+
   }
-  
+
 
   function Entrar() {
 
@@ -385,12 +348,13 @@
 
     if (usuarioVar == "" || senhaVar == "") {
       Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Valores vazios!',
-            showConfirmButton: false,
-            timer: 1000}
-          )
+        position: 'center',
+        icon: 'error',
+        title: 'Valores vazios!',
+        showConfirmButton: false,
+        timer: 1000
+      }
+      )
       return false;
     }
 
@@ -434,7 +398,8 @@
             icon: 'error',
             title: 'Seu email ou senha estão errados!',
             showConfirmButton: false,
-            timer: 1000}
+            timer: 1000
+          }
           )
           return false;
 
@@ -484,7 +449,8 @@
             icon: 'error',
             title: 'Seu CNPJ ou senha estão errados!',
             showConfirmButton: false,
-            timer: 1000}
+            timer: 1000
+          }
           )
           return false;
 

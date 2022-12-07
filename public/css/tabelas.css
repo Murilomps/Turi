@@ -7,32 +7,53 @@
     font-family: "Poppins";
 }
 
-/* body {
-    padding: 0.5rem;
-    display: flex;
-    justify-content: center;
-} */
-
 table {
-    width: 100%;
+    width: 96%;
     outline: 0px;
-    border: 1px solid #252525;
+    border: 1px solid #c4c4c4;
     text-align: center;
     justify-content: space-between;
 }
 
 th {
     text-align: center;
-    font-weight: 500;
+    font-weight: 400;
+    color: #353535;
     padding: 1rem;
-    border: 1px solid #252525;
+    border: 1px solid #c4c4c4;
 }
 
 td {
-    border: 1px solid #252525;
+    border: 1px solid #c4c4c4;
+    font-weight: 600;
+    color: #252525;
 }
 
 .titulo_tabela {
     margin-left: 4rem;
     margin-bottom: 2rem;
+}
+
+.tabela {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-wil {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    padding: 8px 30px 9px 30px;
+    transition: 0.5s;
+    border-radius: 48px;
+    border: 3px solid #6959CE;
+    color: #6959CE;
+}
+
+.btn-wil:hover {
+    background: #6610f2;
+    border: 3px solid #6610f2;
+    text-decoration: none;
+    color: #fff;
 }

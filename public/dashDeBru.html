@@ -69,7 +69,7 @@
                     <i class="fa-solid fa-hand-holding-dollar"></i>
                     <span>Foco no cliente</span></a>
             </li>
-            
+
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
@@ -242,23 +242,13 @@
                                     <div class="status-indicator bg-warning"></div>
                                 </div>
                                 <div>
-                                    <div class="text-truncate">O relatório do mês passado parece ótimo, estou muito feliz com
+                                    <div class="text-truncate">O relatório do mês passado parece ótimo, estou muito
+                                        feliz com
                                         o progresso até agora, mantenha o bom trabalho!</div>
                                     <div class="small text-gray-500">Morgan Alvarez · 2d</div>
                                 </div>
                                 </a>
-                                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a> -->
+
                                 <a class="dropdown-item text-center small text-gray-500" href="#">
                                     Ler mais
                                 </a>
@@ -364,7 +354,8 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Disco Rígido
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Disco
+                                                Rígido
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -403,50 +394,52 @@
                                 </div>
                             </div>
                         </div>
-                        
 
-                       
+
+
                     </div>
 
                     <!-- MÁQUINAS -->
-                        <div class="row" id="Maq1">
-                            <!--DivControle 1-->
+                    <div class="row" id="Maq1">
+                        <!--DivControle 1-->
 
-                                <div class="col-xl-6 col-lg-3">
-                                    <div class="card shadow mb-4">
+                        <div class="col-xl-6 col-lg-3">
+                            <div class="card shadow mb-4">
 
-                                        <!-- Card Header - Dropdown -->
-                                        <div
-                                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <h6 class="m-0 font-weight-bold text-primary">Chamados Abertos - Geral</h6>
-                                        </div>
-                                        <!-- Card Body -->
-                                        <div class="card-body">
-                                            <div class="chart-area" style="display: grid; justify-content: center; align-items: center;">
-                                                <span id="number" style="font-size:150px; color: black;"></span>
-                                            </div>
-                                        </div>
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chamados Abertos - Geral</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area"
+                                        style="display: grid; justify-content: center; align-items: center;">
+                                        <span id="number" style="font-size:150px; color: black;"></span>
                                     </div>
                                 </div>
-
-                                <!-- bruna -->
-
-                                <div class="col-xl-6 col-lg-5">
-                                    <div class="card shadow mb-4">
-                                        <!-- Card Header - Dropdown -->
-                                        <div
-                                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <h6 class="m-0 font-weight-bold text-primary">Chamados Abertos por Componente - Máquina <span class="numMac"></span> </h6>
-                                        </div>
-                                        <!-- Card Body -->
-                                        <div class="card-body">
-                                            <div class="chart-area">
-                                                <canvas id="myChartComponente"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            </div>
                         </div>
+
+                        <!-- bruna -->
+
+                        <div class="col-xl-6 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chamados Abertos por Componente -
+                                        Máquina <span class="numMac"></span> </h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myChartComponente"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -515,15 +508,15 @@
 </html>
 
 <script>
-    
-function selMachineCorreto() {
+
+    function selMachineCorreto() {
         obterDadosGraficoBruna(document.getElementById("selMachine").value)
         // obterDadosGraficoBruna(documentGetElementById("selMachine").value)
     }
 
     // let proximaAtualizacao;
     // window.onload = obterDadosGrafico(1);
-    
+
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     window.onload = obterDadosGraficoBruna(1);
