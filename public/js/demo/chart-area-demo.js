@@ -27,42 +27,6 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
-// function obterDadosGrafico(idComputador) {
-
-//   // if (proximaAtualizacao != undefined) {
-//   //     clearTimeout(proximaAtualizacao);
-//   // }
-
-//   fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) {
-//       if (response.ok) {
-//           response.json().then(function (resposta) {
-//               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-//               resposta.reverse();
-
-//               // inserirDados(resposta, idComputador);
-//           });
-//       } else {
-//           console.error('Nenhum dado encontrado ou erro na API');
-//       }
-//   })
-//       .catch(function (error) {
-//           console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-//       });
-// }
-
-// function inserirDados(resposta, idComputador) {
-//   console.log('iniciando plotagem do gráfico...');
-
-//   for (i = 0; i < resposta.length; i++) {
-//       var registro = resposta[i];
-//       dados.labels.push(registro.momento_grafico);
-
-//       dados.datasets[0].data.push(registro.umidade);
-//       dados.datasets[1].data.push(registro.temperatura);
-
-//   }
-// }
-
 let proximaAtualizacao
 let ChartCPU
 let ChartMem
@@ -125,7 +89,6 @@ function baseDataBar(dtsetlabel) {
   }]
 }
 
-
 function baseDataBarMU(dtsetlabel) {
   this.labels = []
   this.datasets = [{
@@ -136,16 +99,6 @@ function baseDataBarMU(dtsetlabel) {
     data: [],
   }]
 }
-
-// function baseDataPie (labelsDados) {
-//   this.labels = ["Em uso", "Livre"],
-//   this.datasets = [{
-//     data: [44, 56],
-//     backgroundColor: ['#4e73df', '#1cc88a'],
-//     hoverBackgroundColor: ['#2e59d9', '#17a673'],
-//     hoverBorderColor: "rgba(234, 236, 244, 1)",
-//   }]
-// }
 
 function pieChart(dado) {
   this.type = 'doughnut'
@@ -405,7 +358,6 @@ function barChart2(dado, maximo) {
     }
 }
 
-
 // Graph Murilo 
 
 function barChartMU(dado) {
@@ -472,39 +424,6 @@ function barChartMU(dado) {
       },
     }
 }
-
-// GRÁFICO BRUNA
-
-// var ctx = document.getElementById("myChartComponente");
-// var myPieChart = new Chart(ctx, {
-//   type: 'bar',
-//   data: {
-//     labels: ["RAM", "Disco", "Porcentagem CPU", "Outros"],
-//     datasets: [{
-//       data: [44, 56,44,20,10],
-//       backgroundColor: ['#ADA9A9', '#6959CE','#ADA9A9','#6959CE'],
-//       hoverBackgroundColor: ['#6959CE', '#ADA9A9','#6959CE','#ADA9A9'],
-//       hoverBorderColor: "rgba(234, 236, 244, 1)",
-//     }],
-//   },
-//   options: {
-//     maintainAspectRatio: false,
-//     tooltips: {
-//       backgroundColor: "rgb(255,255,255)",
-//       bodyFontColor: "#858796",
-//       borderColor: '#dddfeb',
-//       borderWidth: 1,
-//       xPadding: 15,
-//       yPadding: 15,
-//       displayColors: false,
-//       caretPadding: 10,
-//     },
-//     legend: {
-//       display: false
-//     },
-//     cutoutPercentage: 80,
-//   },
-// });
 
 function corDado(dado, cores, parametros) { // *DÉBORA* função que define a cor, baseado em um dado único, nas cores passadas(array) e nos parametros(array) que correspondem ao valor mínimo para uso daquela cor
   let i
@@ -739,9 +658,8 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
     
-  }
+}
   
-
 function verificar(idComputador, cpu, ram, disco, id_leitura,momentoBanco) {
   console.log("Entrei na função verificar.")
   let cpuAlerta = [cpu, false, 'CPU']
@@ -799,6 +717,7 @@ function verificar(idComputador, cpu, ram, disco, id_leitura,momentoBanco) {
     }
   }
 }
+
 function alertar(nomeEmp, idComputador, alertas, id_leitura) {
   console.log("Entrei na função alertar.")
   const options = {
@@ -861,16 +780,6 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
   return false;
   
 }
-
-// function temperatureRandom() {
-//   let result = [];
-
-//   for (i = 0; i < 5; i++) {
-//     result[i] = Math.floor(Math.random() * 11) + 40;
-//   }
-//   return result
-// }
-
 
 
 function obterDadosGraficoBrumu(idComputador) { // Bruna e murilo, chamem a funcao no onload da pagina. Caso murilo, passar idEmpresa. Pegue o dado de idEmpresa no sessionStorage
@@ -1080,8 +989,6 @@ function obterDadosDeb(idComputador) {
       });
 }
 
-
-
 // Marcus
 // nome do grafico memoriaRAM1
 
@@ -1147,7 +1054,7 @@ function obterDadosEstMarcus(resposta, idComputador) {
     .catch(function (error) {
       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });   
-  }
+}
   
   function plotarGraficoMarcus(resposta, idComputador, resposta2) {
     
@@ -1179,7 +1086,6 @@ function obterDadosEstMarcus(resposta, idComputador) {
   let parametrosCores = [totalRAM, cores, parametros]
   setTimeout(() => atualizarGraficoMarcus(idComputador, dataBarMarcus, parametrosCores), 2000);
 }
-
 
 function atualizarGraficoMarcus(idComputador, dados, parametrosCores) {
 
