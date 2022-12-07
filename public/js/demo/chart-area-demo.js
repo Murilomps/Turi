@@ -897,6 +897,8 @@ function plotarGraficoMu(resposta, idEmpresa) {
     console.log(horario2)
     
     let zeroData = true
+    dataBarMurilo.labels.push(horario2);
+    dataBarMurilo.datasets[0].hoverBackgroundColor.push("#6959ce")
 
     for (i = 0; i < resposta.length; i++) {
       var registro = resposta[i];
@@ -910,8 +912,6 @@ function plotarGraficoMu(resposta, idEmpresa) {
       while (ano.length < 2) { ano = "0" + ano; }
       let horario = `${dia}/${mes}/${ano}`
       
-      dataBarMurilo.labels.push(horario2);
-      dataBarMurilo.datasets[0].hoverBackgroundColor.push("#6959ce")
 
       if (horario2 == horario) {
         zeroData = false
