@@ -133,11 +133,31 @@ function inserirAlerta(req, res) {
         });
     }
 
+    function carinhaSat(req, res) {
+
+        var idEmpresa = req.params.idEmpresa;
+    
+        console.log(`Recuperando chamados em tempo real`);
+    
+        alertaModel.carinhaSat(idEmpresa).then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os últimos chamados.", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
+
 module.exports = {
     contarChamados,
     contarChamadosEmTempoReal,
     inserirAlerta,
     contarSat,
     contarComponente,
-    contarOciosidade
+    contarOciosidade,
+    carinhaSat
 }

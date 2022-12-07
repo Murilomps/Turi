@@ -871,39 +871,128 @@ function obterDadosGraficoMu(idEmpresa) { // Bruna e murilo, chamem a funcao no 
     });
 }
 
-function plotarGraficoMu(resposta) {
+function plotarGraficoMu(resposta, idEmpresa) {
 
   // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
 
   let dataBarMurilo = new baseDataBarMU("Alertas")
 
-  for (i = 0; i < resposta.length; i++) {
-    var registro = resposta[i];
+  let coresmu = ["#37D234", "#D2C234", "#96D234", "#D28034", "#D23434"]
+  let parametrosmu = [0, 20, 40, 60, 80]
 
-    let coresmu = [ "#37D234","#D2C234", "#96D234","#D28034", "#D23434"]
-    let parametrosmu = [0, 20, 40, 60, 80]
+  let dataHoje = new Date(Date.now())
+  let diaHoje = dataHoje.getDate()
+  
+  
+  for (index = 0; index < 7; index++) {
 
-    let momentoBanco = new Date(registro.dataDia) // murilo altere para usar somente os dados de dia e mes (e talvez ano, vai de você)
-    let horas = String(momentoBanco.getUTCHours());
-    while (horas.length < 2) { horas = "0" + horas; }
-    let minutos = String(momentoBanco.getUTCMinutes());
-    while (minutos.length < 2) { minutos = "0" + minutos; }
-    let segundos = String(momentoBanco.getUTCSeconds());
-    while (segundos.length < 2) { segundos = "0" + segundos; }
-    let horario = `${horas}:${minutos}:${segundos}`
+    dataHoje.setDate(diaHoje-(6-index))
+    let dia = String(dataHoje.getUTCDate());
+    while (dia.length < 2) { dia = "0" + dia; }
+    let mes = String(dataHoje.getUTCMonth()+1);
+    while (mes.length < 2) { mes = "0" + mes; }
+    let ano = String(dataHoje.getUTCFullYear());
+    while (ano.length < 2) { ano = "0" + ano; }
+    let horario2 = `${dia}/${mes}/${ano}`
+    console.log(horario2)
+    
+    let zeroData = true
 
-    dataBarMurilo.labels.push(horario);
-    dataBarMurilo.datasets[0].data.push(registro.quantidade);
-    dataBarMurilo.datasets[0].backgroundColor.push(corDado(registro.quantidade,coresmu,parametrosmu))
-    dataBarMurilo.datasets[0].hoverBackgroundColor.push("#6959ce")
+    for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      
+      let momentoBanco = new Date(registro.DataDia) // murilo altere para usar somente os dados de dia e mes (e talvez ano, vai de você)
+      let dia = String(momentoBanco.getUTCDate());
+      while (dia.length < 2) { dia = "0" + dia; }
+      let mes = String(momentoBanco.getUTCMonth()+1);
+      while (mes.length < 2) { mes = "0" + mes; }
+      let ano = String(momentoBanco.getUTCFullYear());
+      while (ano.length < 2) { ano = "0" + ano; }
+      let horario = `${dia}/${mes}/${ano}`
+      
+      dataBarMurilo.labels.push(horario2);
+      dataBarMurilo.datasets[0].hoverBackgroundColor.push("#6959ce")
 
+      if (horario2 == horario) {
+        zeroData = false
+        dataBarMurilo.datasets[0].data.push(registro.quantidade);
+        dataBarMurilo.datasets[0].backgroundColor.push(corDado(registro.quantidade,coresmu,parametrosmu))
+        break
+      }
+  
+    }
+
+    if (zeroData) {
+      dataBarMurilo.datasets[0].data.push(0);
+      dataBarMurilo.datasets[0].backgroundColor.push(coresmu[0])
+    }
   }
+
 
   var ctx = document.getElementById("graphMurilo"); // murilo plotagem
   ChartSatisfacaoSemana = new Chart(ctx, new barChartMU(dataBarMurilo));
 
   // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
 
+  obterDadosSatisfacao(idEmpresa)
+
+}
+
+function obterDadosSatisfacao(idEmpresa) {
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao);
+  }
+
+  fetch(`/alertas/satisfacao/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      if (response.status != 204) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+          emoji(resposta[0].carinha)
+          
+          proximaAtualizacao = setTimeout(() => obterDadosSatisfacao(idEmpresa), 2000);
+        })
+      } else {
+        emoji(1)
+
+        proximaAtualizacao = setTimeout(() => obterDadosSatisfacao(idEmpresa), 2000);
+      }
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+      proximaAtualizacao = setTimeout(() => obterDadosSatisfacao(idEmpresa), 2000);
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+}
+
+function emoji(cliente_sat) {
+  let carinha = document.getElementById("div_sat")
+  let titulo = document.getElementById("span_sat")
+  let carinhaHolder
+  let tituloHolder
+  if (cliente_sat == 5) {
+      carinhaHolder = `<i class="fa-regular fa-face-angry cor-insat fa-beat" style="--fa-animation-duration: 1.0s; --fa-beat-scale: 1.1;"></i>`
+      tituloHolder = 'INSATISFEITOS'
+  } else if (cliente_sat == 4) {
+      carinhaHolder = `<i class="fa-regular fa-face-frown cor-desc fa-beat" style="--fa-animation-duration: 1.5s; --fa-beat-scale: 1.1;"></i>`
+      tituloHolder = 'DESCONTENTES'
+  } else if (cliente_sat == 3) {
+      carinhaHolder = `<i class="fa-regular fa-face-meh cor-qm fa-beat" style="--fa-animation-duration: 2.0s; --fa-beat-scale: 1.1;"></i>`
+      tituloHolder = 'QUERENDO MUDANÇAS'
+  } else if (cliente_sat == 2) {
+      carinhaHolder = `<i class="fa-regular fa-face-smile cor-sat fa-beat" style="--fa-animation-duration: 3.5s; --fa-beat-scale: 1.1;"></i>`
+      tituloHolder = 'SATISFEITOS'
+  } else if (cliente_sat == 1) {
+      carinhaHolder = `<i class="fa-regular fa-face-laugh cor-msat fa-beat" style="--fa-animation-duration: 5.0s; --fa-beat-scale: 1.1;"></i>`
+      tituloHolder = 'MUITO SATISFEITOS'
+  }
+  if (titulo.innerHTML != tituloHolder) {
+    carinha.innerHTML = carinhaHolder
+    titulo.innerHTML = tituloHolder
+  }
 }
 
   // FUNÇÕES BRUNA

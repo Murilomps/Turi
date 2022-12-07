@@ -29,4 +29,8 @@ router.get("/contarOciosidade/:respostaOcio",function(req,res) {
     alertaController.contarOciosidade(req,res);
 })
 
+router.get("/satisfacao/:idEmpresa", function (req, res) {
+    alertaController.carinhaSat(req, res);
+});
+
 module.exports = router;

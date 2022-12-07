@@ -109,10 +109,32 @@ function contarSat(idEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+function carinhaSat(idEmpresa) {
+
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT carinha FROM Satisfacao where fk_empresa = ${idEmpresa} and dataDia = CAST(GETDATE() as DATE)`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+
+        instrucaoSql = `SELECT count(alerta.id) as quantidade, CAST(data_hora AS DATE) as DataDia FROM alerta join leitura on fk_leitura = leitura.id join computador on fk_computador = computador.id where fk_empresa = ${idEmpresa} group by CAST(data_hora AS DATE) order by CAST(data_hora AS DATE)`;
+
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     contarChamados,
     contarChamadosEmTempoReal,
     inserirAlerta,
     contarSat,
-    contarComponente, contarOciosidade
+    contarComponente,
+    contarOciosidade,
+    carinhaSat
 }
