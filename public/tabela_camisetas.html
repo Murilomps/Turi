@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Turi. | Tabela - Camisetas de algodão</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="css/tabelas.css">
+
+    <script src="./dash.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/app.js"></script>
+    <script src="https://kit.fontawesome.com/0552a07945.js" crossorigin="anonymous"></script>
+    <script src="assets/js/main.js"></script>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #252525;">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+                <div class="sidebar-brand-icon">
+                    <img src="assets/img/logo.png" style="display: flex ;height:100%" alt="" class="img-fluid">
+                </div>
+                <div class="sidebar-brand-text mx-3"><sup></sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" href="dashDeBru.html">
+                    <i class="fa-solid fa-warning"></i>
+                    <span>Chamados</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" href="dashboardMW.html">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    <span>Foco no cliente</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" href="tableProcess.html">
+                    <i class="fa-solid fa-gears"></i>
+                    <span>Processos</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="suporte.html">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>Suporte</span></a>
+            </li>
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Pesquise..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Alerts -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw fa-shake"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Central de Alertas
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">8 Setembro, 2022</div>
+                                        <span class="font-weight-bold">Sua CPU está em alta frequência. A Turi está atenta para te ajudar.</span>
+                                    </div>
+                                </a>
+                                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-success">
+                                            <i class="fas fa-donate text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 7, 2019</div>
+                                        $290.29 has been deposited into your account!
+                                    </div>
+                                </a> -->
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-exclamation-triangle text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">20 Setembro, 2022</div>
+                                        Atenção: a memória RAM está muito cheia.
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Mostrar todos</a>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                   Central de Mensagens
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="css/images/undraw_profile_1.svg"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">Olá! Sou técnico da Turi, estou acompanhando suas máquinas também.</div>
+                                        <div class="small text-gray-500"> Abigail Nunes</div>
+                                    </div>
+                                </a>
+                                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="css/images/undraw_profile_2.svg"
+                                            alt="...">
+                                        <div class="status-indicator"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">I have the photos that you ordered last month, how
+                                            would you like them sent to you?</div>
+                                        <div class="small text-gray-500">Jae Chun · 1d</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="css/images/undraw_profile_3.svg"
+                                            alt="...">
+                                        <div class="status-indicator bg-warning"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">Last month's report looks great, I am very happy with
+                                            the progress so far, keep up the good work!</div>
+                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                                    </div>
+                                </a> -->
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="css/images/undraw_profile_1.svg"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">Nosso técnico está a caminho da sua loja para resolver seu problema.</div>
+                                        <div class="small text-gray-500">Caio de Castro</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="nome_usuario">Nome Usuario</span>
+                                <img class="img-profile rounded-circle"
+                                    src="css/images/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Configurações
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Atividade
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Sair
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+<body>
+  <h5 class="titulo_tabela">Tabela - Camisetas de algodão</h5>
+  <table class="dataframe">
+    <thead>
+      <tr style="text-align: right;">
+        <th></th>
+        <th>Marca</th>
+        <th>Preço</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>0</th>
+        <td>Mercado Livre</td>
+        <td>R$ 240,14</td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>Shopee</td>
+        <td>R$ 59,90</td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>Decathlon</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>3</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>4</th>
+        <td>Mercado Livre</td>
+        <td>R$ 119,90</td>
+      </tr>
+      <tr>
+        <th>5</th>
+        <td>C&amp;A</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>6</th>
+        <td>Mercado Livre</td>
+        <td>R$ 134,63</td>
+      </tr>
+      <tr>
+        <th>7</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 250,80</td>
+      </tr>
+      <tr>
+        <th>8</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>9</th>
+        <td>Mercado Livre</td>
+        <td>R$ 137,90</td>
+      </tr>
+      <tr>
+        <th>10</th>
+        <td>Kanui</td>
+        <td>R$ 105,00</td>
+      </tr>
+      <tr>
+        <th>11</th>
+        <td>Shopee</td>
+        <td>R$ 102,90</td>
+      </tr>
+      <tr>
+        <th>12</th>
+        <td>Loja Mirante</td>
+        <td>R$ 125,90</td>
+      </tr>
+      <tr>
+        <th>13</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>14</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>15</th>
+        <td>Casas Bahia</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>16</th>
+        <td>Mercado Livre</td>
+        <td>R$ 25,32</td>
+      </tr>
+      <tr>
+        <th>17</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 18,00</td>
+      </tr>
+      <tr>
+        <th>18</th>
+        <td>Havan</td>
+        <td>R$ 19,99</td>
+      </tr>
+      <tr>
+        <th>19</th>
+        <td>Ducam.</td>
+        <td>R$ 15,57</td>
+      </tr>
+      <tr>
+        <th>20</th>
+        <td>Seven Line</td>
+        <td>R$ 33,90</td>
+      </tr>
+      <tr>
+        <th>21</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>22</th>
+        <td>Shopee</td>
+        <td>R$ 79,90</td>
+      </tr>
+      <tr>
+        <th>23</th>
+        <td>Mercado Livre</td>
+        <td>R$ 19,85</td>
+      </tr>
+      <tr>
+        <th>24</th>
+        <td>Uva7</td>
+        <td>R$ 69,21</td>
+      </tr>
+      <tr>
+        <th>25</th>
+        <td>Zattini</td>
+        <td>R$ 119,99</td>
+      </tr>
+      <tr>
+        <th>26</th>
+        <td>Casas Bahia</td>
+        <td>R$ 15,90</td>
+      </tr>
+      <tr>
+        <th>27</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 25,00</td>
+      </tr>
+      <tr>
+        <th>28</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+      <tr>
+        <th>29</th>
+        <td>Dafiti</td>
+        <td>R$ 139,99</td>
+      </tr>
+      <tr>
+        <th>30</th>
+        <td>Mercado Livre</td>
+        <td>R$ 139,90</td>
+      </tr>
+      <tr>
+        <th>31</th>
+        <td>Shopee</td>
+        <td>R$ 169,00</td>
+      </tr>
+      <tr>
+        <th>32</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>33</th>
+        <td>Mega Atacado Brás</td>
+        <td>R$ 87,01</td>
+      </tr>
+      <tr>
+        <th>34</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>35</th>
+        <td>Beleza do Campo</td>
+        <td>R$ 73,97</td>
+      </tr>
+      <tr>
+        <th>36</th>
+        <td>Kanui</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>37</th>
+        <td>Zattini</td>
+        <td>R$ 78,90</td>
+      </tr>
+      <tr>
+        <th>38</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>39</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 289,90</td>
+      </tr>
+      <tr>
+        <th>40</th>
+        <td>Reebok</td>
+        <td>R$ 129,99</td>
+      </tr>
+      <tr>
+        <th>41</th>
+        <td>Vira lata wear</td>
+        <td>R$ 34,90</td>
+      </tr>
+      <tr>
+        <th>42</th>
+        <td>Mercado Livre</td>
+        <td>R$ 225,88</td>
+      </tr>
+      <tr>
+        <th>43</th>
+        <td>Renner</td>
+        <td>R$ 29,90</td>
+      </tr>
+      <tr>
+        <th>44</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>45</th>
+        <td>C&amp;A</td>
+        <td>R$ 69,99</td>
+      </tr>
+      <tr>
+        <th>46</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 802,75</td>
+      </tr>
+      <tr>
+        <th>47</th>
+        <td>Malwee</td>
+        <td>R$ 82,90</td>
+      </tr>
+      <tr>
+        <th>48</th>
+        <td>casajuliana.com.br</td>
+        <td>R$ 47,22</td>
+      </tr>
+      <tr>
+        <th>49</th>
+        <td>Americanas.com</td>
+        <td>R$ 38,50</td>
+      </tr>
+      <tr>
+        <th>50</th>
+        <td>Netshoes</td>
+        <td>R$ 69,90</td>
+      </tr>
+      <tr>
+        <th>51</th>
+        <td>Rodeio Boots - Loja Integrada</td>
+        <td>R$ 47,40</td>
+      </tr>
+      <tr>
+        <th>52</th>
+        <td>Tricae</td>
+        <td>R$ 37,99</td>
+      </tr>
+      <tr>
+        <th>53</th>
+        <td>Loja La Republica</td>
+        <td>R$ 49,90</td>
+      </tr>
+      <tr>
+        <th>54</th>
+        <td>Shopee</td>
+        <td>R$ 136,50</td>
+      </tr>
+      <tr>
+        <th>55</th>
+        <td>Reffine</td>
+        <td>R$ 68,90</td>
+      </tr>
+      <tr>
+        <th>56</th>
+        <td>Yeesco</td>
+        <td>R$ 24,90</td>
+      </tr>
+      <tr>
+        <th>57</th>
+        <td>Que isso camarada</td>
+        <td>R$ 66,99</td>
+      </tr>
+      <tr>
+        <th>58</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 159,00</td>
+      </tr>
+      <tr>
+        <th>59</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+      <tr>
+        <th>60</th>
+        <td>Mercado Livre</td>
+        <td>R$ 240,14</td>
+      </tr>
+      <tr>
+        <th>61</th>
+        <td>Shopee</td>
+        <td>R$ 59,90</td>
+      </tr>
+      <tr>
+        <th>62</th>
+        <td>Decathlon</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>63</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>64</th>
+        <td>Mercado Livre</td>
+        <td>R$ 119,90</td>
+      </tr>
+      <tr>
+        <th>65</th>
+        <td>C&amp;A</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>66</th>
+        <td>Mercado Livre</td>
+        <td>R$ 134,63</td>
+      </tr>
+      <tr>
+        <th>67</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 250,80</td>
+      </tr>
+      <tr>
+        <th>68</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>69</th>
+        <td>Mercado Livre</td>
+        <td>R$ 137,90</td>
+      </tr>
+      <tr>
+        <th>70</th>
+        <td>Kanui</td>
+        <td>R$ 105,00</td>
+      </tr>
+      <tr>
+        <th>71</th>
+        <td>Shopee</td>
+        <td>R$ 102,90</td>
+      </tr>
+      <tr>
+        <th>72</th>
+        <td>Loja Mirante</td>
+        <td>R$ 125,90</td>
+      </tr>
+      <tr>
+        <th>73</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>74</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>75</th>
+        <td>Casas Bahia</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>76</th>
+        <td>Mercado Livre</td>
+        <td>R$ 25,32</td>
+      </tr>
+      <tr>
+        <th>77</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 18,00</td>
+      </tr>
+      <tr>
+        <th>78</th>
+        <td>Havan</td>
+        <td>R$ 19,99</td>
+      </tr>
+      <tr>
+        <th>79</th>
+        <td>Ducam.</td>
+        <td>R$ 15,57</td>
+      </tr>
+      <tr>
+        <th>80</th>
+        <td>Seven Line</td>
+        <td>R$ 33,90</td>
+      </tr>
+      <tr>
+        <th>81</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>82</th>
+        <td>Shopee</td>
+        <td>R$ 79,90</td>
+      </tr>
+      <tr>
+        <th>83</th>
+        <td>Mercado Livre</td>
+        <td>R$ 19,85</td>
+      </tr>
+      <tr>
+        <th>84</th>
+        <td>Uva7</td>
+        <td>R$ 69,21</td>
+      </tr>
+      <tr>
+        <th>85</th>
+        <td>Zattini</td>
+        <td>R$ 119,99</td>
+      </tr>
+      <tr>
+        <th>86</th>
+        <td>Casas Bahia</td>
+        <td>R$ 15,90</td>
+      </tr>
+      <tr>
+        <th>87</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 25,00</td>
+      </tr>
+      <tr>
+        <th>88</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+      <tr>
+        <th>89</th>
+        <td>Dafiti</td>
+        <td>R$ 139,99</td>
+      </tr>
+      <tr>
+        <th>90</th>
+        <td>Mercado Livre</td>
+        <td>R$ 139,90</td>
+      </tr>
+      <tr>
+        <th>91</th>
+        <td>Shopee</td>
+        <td>R$ 169,00</td>
+      </tr>
+      <tr>
+        <th>92</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>93</th>
+        <td>Mega Atacado Brás</td>
+        <td>R$ 87,01</td>
+      </tr>
+      <tr>
+        <th>94</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>95</th>
+        <td>Beleza do Campo</td>
+        <td>R$ 73,97</td>
+      </tr>
+      <tr>
+        <th>96</th>
+        <td>Kanui</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>97</th>
+        <td>Zattini</td>
+        <td>R$ 78,90</td>
+      </tr>
+      <tr>
+        <th>98</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>99</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 289,90</td>
+      </tr>
+      <tr>
+        <th>100</th>
+        <td>Reebok</td>
+        <td>R$ 129,99</td>
+      </tr>
+      <tr>
+        <th>101</th>
+        <td>Vira lata wear</td>
+        <td>R$ 34,90</td>
+      </tr>
+      <tr>
+        <th>102</th>
+        <td>Mercado Livre</td>
+        <td>R$ 225,88</td>
+      </tr>
+      <tr>
+        <th>103</th>
+        <td>Renner</td>
+        <td>R$ 29,90</td>
+      </tr>
+      <tr>
+        <th>104</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>105</th>
+        <td>C&amp;A</td>
+        <td>R$ 69,99</td>
+      </tr>
+      <tr>
+        <th>106</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 802,75</td>
+      </tr>
+      <tr>
+        <th>107</th>
+        <td>Malwee</td>
+        <td>R$ 82,90</td>
+      </tr>
+      <tr>
+        <th>108</th>
+        <td>casajuliana.com.br</td>
+        <td>R$ 47,22</td>
+      </tr>
+      <tr>
+        <th>109</th>
+        <td>Americanas.com</td>
+        <td>R$ 38,50</td>
+      </tr>
+      <tr>
+        <th>110</th>
+        <td>Netshoes</td>
+        <td>R$ 69,90</td>
+      </tr>
+      <tr>
+        <th>111</th>
+        <td>Rodeio Boots - Loja Integrada</td>
+        <td>R$ 47,40</td>
+      </tr>
+      <tr>
+        <th>112</th>
+        <td>Tricae</td>
+        <td>R$ 37,99</td>
+      </tr>
+      <tr>
+        <th>113</th>
+        <td>Loja La Republica</td>
+        <td>R$ 49,90</td>
+      </tr>
+      <tr>
+        <th>114</th>
+        <td>Shopee</td>
+        <td>R$ 136,50</td>
+      </tr>
+      <tr>
+        <th>115</th>
+        <td>Reffine</td>
+        <td>R$ 68,90</td>
+      </tr>
+      <tr>
+        <th>116</th>
+        <td>Yeesco</td>
+        <td>R$ 24,90</td>
+      </tr>
+      <tr>
+        <th>117</th>
+        <td>Que isso camarada</td>
+        <td>R$ 66,99</td>
+      </tr>
+      <tr>
+        <th>118</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 159,00</td>
+      </tr>
+      <tr>
+        <th>119</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+      <tr>
+        <th>120</th>
+        <td>Mercado Livre</td>
+        <td>R$ 240,14</td>
+      </tr>
+      <tr>
+        <th>121</th>
+        <td>Shopee</td>
+        <td>R$ 59,90</td>
+      </tr>
+      <tr>
+        <th>122</th>
+        <td>Decathlon</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>123</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>124</th>
+        <td>Mercado Livre</td>
+        <td>R$ 119,90</td>
+      </tr>
+      <tr>
+        <th>125</th>
+        <td>C&amp;A</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>126</th>
+        <td>Mercado Livre</td>
+        <td>R$ 134,63</td>
+      </tr>
+      <tr>
+        <th>127</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 250,80</td>
+      </tr>
+      <tr>
+        <th>128</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>129</th>
+        <td>Mercado Livre</td>
+        <td>R$ 137,90</td>
+      </tr>
+      <tr>
+        <th>130</th>
+        <td>Kanui</td>
+        <td>R$ 105,00</td>
+      </tr>
+      <tr>
+        <th>131</th>
+        <td>Shopee</td>
+        <td>R$ 102,90</td>
+      </tr>
+      <tr>
+        <th>132</th>
+        <td>Loja Mirante</td>
+        <td>R$ 125,90</td>
+      </tr>
+      <tr>
+        <th>133</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>134</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>135</th>
+        <td>Casas Bahia</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>136</th>
+        <td>Mercado Livre</td>
+        <td>R$ 25,32</td>
+      </tr>
+      <tr>
+        <th>137</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 18,00</td>
+      </tr>
+      <tr>
+        <th>138</th>
+        <td>Havan</td>
+        <td>R$ 19,99</td>
+      </tr>
+      <tr>
+        <th>139</th>
+        <td>Ducam.</td>
+        <td>R$ 15,57</td>
+      </tr>
+      <tr>
+        <th>140</th>
+        <td>Seven Line</td>
+        <td>R$ 33,90</td>
+      </tr>
+      <tr>
+        <th>141</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>142</th>
+        <td>Shopee</td>
+        <td>R$ 79,90</td>
+      </tr>
+      <tr>
+        <th>143</th>
+        <td>Mercado Livre</td>
+        <td>R$ 19,85</td>
+      </tr>
+      <tr>
+        <th>144</th>
+        <td>Uva7</td>
+        <td>R$ 69,21</td>
+      </tr>
+      <tr>
+        <th>145</th>
+        <td>Zattini</td>
+        <td>R$ 119,99</td>
+      </tr>
+      <tr>
+        <th>146</th>
+        <td>Casas Bahia</td>
+        <td>R$ 15,90</td>
+      </tr>
+      <tr>
+        <th>147</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 25,00</td>
+      </tr>
+      <tr>
+        <th>148</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+      <tr>
+        <th>149</th>
+        <td>Dafiti</td>
+        <td>R$ 139,99</td>
+      </tr>
+      <tr>
+        <th>150</th>
+        <td>Mercado Livre</td>
+        <td>R$ 139,90</td>
+      </tr>
+      <tr>
+        <th>151</th>
+        <td>Shopee</td>
+        <td>R$ 169,00</td>
+      </tr>
+      <tr>
+        <th>152</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>153</th>
+        <td>Mega Atacado Brás</td>
+        <td>R$ 87,01</td>
+      </tr>
+      <tr>
+        <th>154</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>155</th>
+        <td>Beleza do Campo</td>
+        <td>R$ 73,97</td>
+      </tr>
+      <tr>
+        <th>156</th>
+        <td>Kanui</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>157</th>
+        <td>Zattini</td>
+        <td>R$ 78,90</td>
+      </tr>
+      <tr>
+        <th>158</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>159</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 289,90</td>
+      </tr>
+      <tr>
+        <th>160</th>
+        <td>Reebok</td>
+        <td>R$ 129,99</td>
+      </tr>
+      <tr>
+        <th>161</th>
+        <td>Vira lata wear</td>
+        <td>R$ 34,90</td>
+      </tr>
+      <tr>
+        <th>162</th>
+        <td>Mercado Livre</td>
+        <td>R$ 225,88</td>
+      </tr>
+      <tr>
+        <th>163</th>
+        <td>Renner</td>
+        <td>R$ 29,90</td>
+      </tr>
+      <tr>
+        <th>164</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>165</th>
+        <td>C&amp;A</td>
+        <td>R$ 69,99</td>
+      </tr>
+      <tr>
+        <th>166</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 802,75</td>
+      </tr>
+      <tr>
+        <th>167</th>
+        <td>Malwee</td>
+        <td>R$ 82,90</td>
+      </tr>
+      <tr>
+        <th>168</th>
+        <td>casajuliana.com.br</td>
+        <td>R$ 47,22</td>
+      </tr>
+      <tr>
+        <th>169</th>
+        <td>Americanas.com</td>
+        <td>R$ 38,50</td>
+      </tr>
+      <tr>
+        <th>170</th>
+        <td>Netshoes</td>
+        <td>R$ 69,90</td>
+      </tr>
+      <tr>
+        <th>171</th>
+        <td>Rodeio Boots - Loja Integrada</td>
+        <td>R$ 47,40</td>
+      </tr>
+      <tr>
+        <th>172</th>
+        <td>Tricae</td>
+        <td>R$ 37,99</td>
+      </tr>
+      <tr>
+        <th>173</th>
+        <td>Loja La Republica</td>
+        <td>R$ 49,90</td>
+      </tr>
+      <tr>
+        <th>174</th>
+        <td>Shopee</td>
+        <td>R$ 136,50</td>
+      </tr>
+      <tr>
+        <th>175</th>
+        <td>Reffine</td>
+        <td>R$ 68,90</td>
+      </tr>
+      <tr>
+        <th>176</th>
+        <td>Yeesco</td>
+        <td>R$ 24,90</td>
+      </tr>
+      <tr>
+        <th>177</th>
+        <td>Que isso camarada</td>
+        <td>R$ 66,99</td>
+      </tr>
+      <tr>
+        <th>178</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 159,00</td>
+      </tr>
+      <tr>
+        <th>179</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+      <tr>
+        <th>180</th>
+        <td>Mercado Livre</td>
+        <td>R$ 240,14</td>
+      </tr>
+      <tr>
+        <th>181</th>
+        <td>Shopee</td>
+        <td>R$ 59,90</td>
+      </tr>
+      <tr>
+        <th>182</th>
+        <td>Decathlon</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>183</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>184</th>
+        <td>Mercado Livre</td>
+        <td>R$ 119,90</td>
+      </tr>
+      <tr>
+        <th>185</th>
+        <td>C&amp;A</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>186</th>
+        <td>Mercado Livre</td>
+        <td>R$ 134,63</td>
+      </tr>
+      <tr>
+        <th>187</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 250,80</td>
+      </tr>
+      <tr>
+        <th>188</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>189</th>
+        <td>Mercado Livre</td>
+        <td>R$ 137,90</td>
+      </tr>
+      <tr>
+        <th>190</th>
+        <td>Kanui</td>
+        <td>R$ 105,00</td>
+      </tr>
+      <tr>
+        <th>191</th>
+        <td>Shopee</td>
+        <td>R$ 102,90</td>
+      </tr>
+      <tr>
+        <th>192</th>
+        <td>Loja Mirante</td>
+        <td>R$ 125,90</td>
+      </tr>
+      <tr>
+        <th>193</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>194</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>195</th>
+        <td>Casas Bahia</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>196</th>
+        <td>Mercado Livre</td>
+        <td>R$ 25,32</td>
+      </tr>
+      <tr>
+        <th>197</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 18,00</td>
+      </tr>
+      <tr>
+        <th>198</th>
+        <td>Havan</td>
+        <td>R$ 19,99</td>
+      </tr>
+      <tr>
+        <th>199</th>
+        <td>Ducam.</td>
+        <td>R$ 15,57</td>
+      </tr>
+      <tr>
+        <th>200</th>
+        <td>Seven Line</td>
+        <td>R$ 33,90</td>
+      </tr>
+      <tr>
+        <th>201</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>202</th>
+        <td>Shopee</td>
+        <td>R$ 79,90</td>
+      </tr>
+      <tr>
+        <th>203</th>
+        <td>Mercado Livre</td>
+        <td>R$ 19,85</td>
+      </tr>
+      <tr>
+        <th>204</th>
+        <td>Uva7</td>
+        <td>R$ 69,21</td>
+      </tr>
+      <tr>
+        <th>205</th>
+        <td>Zattini</td>
+        <td>R$ 119,99</td>
+      </tr>
+      <tr>
+        <th>206</th>
+        <td>Casas Bahia</td>
+        <td>R$ 15,90</td>
+      </tr>
+      <tr>
+        <th>207</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 25,00</td>
+      </tr>
+      <tr>
+        <th>208</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+      <tr>
+        <th>209</th>
+        <td>Dafiti</td>
+        <td>R$ 139,99</td>
+      </tr>
+      <tr>
+        <th>210</th>
+        <td>Mercado Livre</td>
+        <td>R$ 139,90</td>
+      </tr>
+      <tr>
+        <th>211</th>
+        <td>Shopee</td>
+        <td>R$ 169,00</td>
+      </tr>
+      <tr>
+        <th>212</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>213</th>
+        <td>Mega Atacado Brás</td>
+        <td>R$ 87,01</td>
+      </tr>
+      <tr>
+        <th>214</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>215</th>
+        <td>Beleza do Campo</td>
+        <td>R$ 73,97</td>
+      </tr>
+      <tr>
+        <th>216</th>
+        <td>Kanui</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>217</th>
+        <td>Zattini</td>
+        <td>R$ 78,90</td>
+      </tr>
+      <tr>
+        <th>218</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>219</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 289,90</td>
+      </tr>
+      <tr>
+        <th>220</th>
+        <td>Reebok</td>
+        <td>R$ 129,99</td>
+      </tr>
+      <tr>
+        <th>221</th>
+        <td>Vira lata wear</td>
+        <td>R$ 34,90</td>
+      </tr>
+      <tr>
+        <th>222</th>
+        <td>Mercado Livre</td>
+        <td>R$ 225,88</td>
+      </tr>
+      <tr>
+        <th>223</th>
+        <td>Renner</td>
+        <td>R$ 29,90</td>
+      </tr>
+      <tr>
+        <th>224</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>225</th>
+        <td>C&amp;A</td>
+        <td>R$ 69,99</td>
+      </tr>
+      <tr>
+        <th>226</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 802,75</td>
+      </tr>
+      <tr>
+        <th>227</th>
+        <td>Malwee</td>
+        <td>R$ 82,90</td>
+      </tr>
+      <tr>
+        <th>228</th>
+        <td>casajuliana.com.br</td>
+        <td>R$ 47,22</td>
+      </tr>
+      <tr>
+        <th>229</th>
+        <td>Americanas.com</td>
+        <td>R$ 38,50</td>
+      </tr>
+      <tr>
+        <th>230</th>
+        <td>Netshoes</td>
+        <td>R$ 69,90</td>
+      </tr>
+      <tr>
+        <th>231</th>
+        <td>Rodeio Boots - Loja Integrada</td>
+        <td>R$ 47,40</td>
+      </tr>
+      <tr>
+        <th>232</th>
+        <td>Tricae</td>
+        <td>R$ 37,99</td>
+      </tr>
+      <tr>
+        <th>233</th>
+        <td>Loja La Republica</td>
+        <td>R$ 49,90</td>
+      </tr>
+      <tr>
+        <th>234</th>
+        <td>Shopee</td>
+        <td>R$ 136,50</td>
+      </tr>
+      <tr>
+        <th>235</th>
+        <td>Reffine</td>
+        <td>R$ 68,90</td>
+      </tr>
+      <tr>
+        <th>236</th>
+        <td>Yeesco</td>
+        <td>R$ 24,90</td>
+      </tr>
+      <tr>
+        <th>237</th>
+        <td>Que isso camarada</td>
+        <td>R$ 66,99</td>
+      </tr>
+      <tr>
+        <th>238</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 159,00</td>
+      </tr>
+      <tr>
+        <th>239</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+      <tr>
+        <th>240</th>
+        <td>Mercado Livre</td>
+        <td>R$ 240,14</td>
+      </tr>
+      <tr>
+        <th>241</th>
+        <td>Shopee</td>
+        <td>R$ 59,90</td>
+      </tr>
+      <tr>
+        <th>242</th>
+        <td>Decathlon</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>243</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>244</th>
+        <td>Mercado Livre</td>
+        <td>R$ 119,90</td>
+      </tr>
+      <tr>
+        <th>245</th>
+        <td>C&amp;A</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>246</th>
+        <td>Mercado Livre</td>
+        <td>R$ 134,63</td>
+      </tr>
+      <tr>
+        <th>247</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 250,80</td>
+      </tr>
+      <tr>
+        <th>248</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>249</th>
+        <td>Mercado Livre</td>
+        <td>R$ 137,90</td>
+      </tr>
+      <tr>
+        <th>250</th>
+        <td>Kanui</td>
+        <td>R$ 105,00</td>
+      </tr>
+      <tr>
+        <th>251</th>
+        <td>Shopee</td>
+        <td>R$ 102,90</td>
+      </tr>
+      <tr>
+        <th>252</th>
+        <td>Loja Mirante</td>
+        <td>R$ 125,90</td>
+      </tr>
+      <tr>
+        <th>253</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>254</th>
+        <td>Hering</td>
+        <td>R$ 59,99</td>
+      </tr>
+      <tr>
+        <th>255</th>
+        <td>Casas Bahia</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>256</th>
+        <td>Mercado Livre</td>
+        <td>R$ 25,32</td>
+      </tr>
+      <tr>
+        <th>257</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 18,00</td>
+      </tr>
+      <tr>
+        <th>258</th>
+        <td>Havan</td>
+        <td>R$ 19,99</td>
+      </tr>
+      <tr>
+        <th>259</th>
+        <td>Ducam.</td>
+        <td>R$ 15,57</td>
+      </tr>
+      <tr>
+        <th>260</th>
+        <td>Seven Line</td>
+        <td>R$ 33,90</td>
+      </tr>
+      <tr>
+        <th>261</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>262</th>
+        <td>Shopee</td>
+        <td>R$ 79,90</td>
+      </tr>
+      <tr>
+        <th>263</th>
+        <td>Mercado Livre</td>
+        <td>R$ 19,85</td>
+      </tr>
+      <tr>
+        <th>264</th>
+        <td>Uva7</td>
+        <td>R$ 69,21</td>
+      </tr>
+      <tr>
+        <th>265</th>
+        <td>Zattini</td>
+        <td>R$ 119,99</td>
+      </tr>
+      <tr>
+        <th>266</th>
+        <td>Casas Bahia</td>
+        <td>R$ 15,90</td>
+      </tr>
+      <tr>
+        <th>267</th>
+        <td>Consagra Tshirts</td>
+        <td>R$ 25,00</td>
+      </tr>
+      <tr>
+        <th>268</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+      <tr>
+        <th>269</th>
+        <td>Dafiti</td>
+        <td>R$ 139,99</td>
+      </tr>
+      <tr>
+        <th>270</th>
+        <td>Mercado Livre</td>
+        <td>R$ 139,90</td>
+      </tr>
+      <tr>
+        <th>271</th>
+        <td>Shopee</td>
+  
+        <td>R$ 169,00</td>
+      </tr>
+      <tr>
+        <th>272</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>273</th>
+        <td>Mega Atacado Brás</td>
+        <td>R$ 87,01</td>
+      </tr>
+      <tr>
+        <th>274</th>
+        <td>C&amp;A</td>
+        <td>R$ 39,99</td>
+      </tr>
+      <tr>
+        <th>275</th>
+        <td>Beleza do Campo</td>
+        <td>R$ 73,97</td>
+      </tr>
+      <tr>
+        <th>276</th>
+        <td>Kanui</td>
+        <td>R$ 89,90</td>
+      </tr>
+      <tr>
+        <th>277</th>
+        <td>Zattini</td>
+        <td>R$ 78,90</td>
+      </tr>
+      <tr>
+        <th>278</th>
+        <td>Netshoes</td>
+        <td>R$ 16,90</td>
+      </tr>
+      <tr>
+        <th>279</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 289,90</td>
+      </tr>
+      <tr>
+        <th>280</th>
+        <td>Reebok</td>
+        <td>R$ 129,99</td>
+      </tr>
+      <tr>
+        <th>281</th>
+        <td>Vira lata wear</td>
+        <td>R$ 34,90</td>
+      </tr>
+      <tr>
+        <th>282</th>
+        <td>Mercado Livre</td>
+        <td>R$ 225,88</td>
+      </tr>
+      <tr>
+        <th>283</th>
+        <td>Renner</td>
+        <td>R$ 29,90</td>
+      </tr>
+      <tr>
+        <th>284</th>
+        <td>Pontofrio.com</td>
+        <td>R$ 13,52</td>
+      </tr>
+      <tr>
+        <th>285</th>
+        <td>C&amp;A</td>
+        <td>R$ 69,99</td>
+      </tr>
+      <tr>
+        <th>286</th>
+        <td>Atacadão Malhas</td>
+        <td>R$ 802,75</td>
+      </tr>
+      <tr>
+        <th>287</th>
+        <td>Malwee</td>
+        <td>R$ 82,90</td>
+      </tr>
+      <tr>
+        <th>288</th>
+        <td>casajuliana.com.br</td>
+        <td>R$ 47,22</td>
+      </tr>
+      <tr>
+        <th>289</th>
+        <td>Americanas.com</td>
+        <td>R$ 38,50</td>
+      </tr>
+      <tr>
+        <th>290</th>
+        <td>Netshoes</td>
+        <td>R$ 69,90</td>
+      </tr>
+      <tr>
+        <th>291</th>
+        <td>Rodeio Boots - Loja Integrada</td>
+        <td>R$ 47,40</td>
+      </tr>
+      <tr>
+        <th>292</th>
+        <td>Tricae</td>
+        <td>R$ 37,99</td>
+      </tr>
+      <tr>
+        <th>293</th>
+        <td>Loja La Republica</td>
+        <td>R$ 49,90</td>
+      </tr>
+      <tr>
+        <th>294</th>
+        <td>Shopee</td>
+        <td>R$ 136,50</td>
+      </tr>
+      <tr>
+        <th>295</th>
+        <td>Reffine</td>
+        <td>R$ 68,90</td>
+      </tr>
+      <tr>
+        <th>296</th>
+        <td>Yeesco</td>
+        <td>R$ 24,90</td>
+      </tr>
+      <tr>
+        <th>297</th>
+        <td>Que isso camarada</td>
+        <td>R$ 66,99</td>
+      </tr>
+      <tr>
+        <th>298</th>
+        <td>Magazine Luiza</td>
+        <td>R$ 159,00</td>
+      </tr>
+      <tr>
+        <th>299</th>
+        <td>Loja Mirante</td>
+        <td>R$ 135,90</td>
+      </tr>
+    </tbody>
+  </table>
+   <!-- Footer -->
+   <footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Turi. 2022</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deseja mesmo sair?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Selecione "Logout" se tem certeza que deseja encerrar a sessão</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" onclick="limparSessao()">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+</body>
+</html>
