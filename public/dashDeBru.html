@@ -302,7 +302,7 @@
                         <select name="selMachine" id="selMachine" onchange="selMachineCorreto()"
                             class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="margin-left: 63%;">
                             <option value=1>Máquina 1</option>
-                            <option value=2>Máquina 2</option>
+                            <option value=9>Máquina 2</option>
                             <option value=3>Máquina 3</option>
                             <option value=4>Máquina 4</option>
                             <option value=5>Máquina 5</option>
@@ -409,7 +409,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Chamados Abertos - Geral</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Chamados Abertos - Geral <span class="numMac"></span></h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -511,6 +511,7 @@
 
     function selMachineCorreto() {
         obterDadosGraficoBruna(document.getElementById("selMachine").value)
+        obterDadosDeb(document.getElementById("selMachine").value);
         // obterDadosGraficoBruna(documentGetElementById("selMachine").value)
     }
 

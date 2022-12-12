@@ -896,6 +896,8 @@ function plotarGraficoMu(resposta, idEmpresa) {
     let horario2 = `${dia}/${mes}/${ano}`
     console.log(horario2)
     
+    dataBarMurilo.labels.push(horario2);
+    dataBarMurilo.datasets[0].hoverBackgroundColor.push("#6959ce")
     let zeroData = true
     dataBarMurilo.labels.push(horario2);
     dataBarMurilo.datasets[0].hoverBackgroundColor.push("#6959ce")
@@ -1066,7 +1068,7 @@ function obterDadosDeb(idComputador) {
           response.json().then(function (resposta) {
               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-
+              console.log(resposta[0].quantidade)
               number.innerHTML = `${resposta[0].quantidade}`
           });
       } else {
