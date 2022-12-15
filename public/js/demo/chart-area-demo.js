@@ -40,7 +40,7 @@ let ChartRAM
 let timer
 
 function baseDataLinha(dtsetlabel) {
-  this.labels = []                       //HORARIO DA COLETA AQUI
+  this.labels = []
   this.datasets = [{
     label: dtsetlabel,
     lineTension: 0.3,
@@ -425,7 +425,7 @@ function barChartMU(dado) {
     }
 }
 
-function corDado(dado, cores, parametros) { // *DÉBORA* função que define a cor, baseado em um dado único, nas cores passadas(array) e nos parametros(array) que correspondem ao valor mínimo para uso daquela cor
+function corDado(dado, cores, parametros) { 
   let i
   for (i = 1; i < cores.length; i++) {    
     if(dado < parametros[i]) {
@@ -489,12 +489,12 @@ function obterDadosEst(resposta, idComputador) {
 
 function plotarGrafico(resposta, idComputador, resposta2) {
 
-  let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
+  let dataGeneral = [] 
 
   let dataDisk = new baseDataPie(["Em uso", "Livre"])
   let dataCPU = new baseDataLinha("Porcentagem de uso CPU")
   let dataMem = new baseDataLinha("Uso de Memória RAM")
-  let dataSaude = new baseDataPieCores(["Saúde da Máquina", "Distância do ideal"]) // *DÉBORA* nomes que vão aparecer em cada setor do gráfico de rosca
+  let dataSaude = new baseDataPieCores(["Saúde da Máquina", "Distância do ideal"]) 
 
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
@@ -520,7 +520,7 @@ function plotarGrafico(resposta, idComputador, resposta2) {
   console.log(`Oi, sou a ram ${totalRAM}`)
   console.log(`Oi, sou o disco ${totalDisco}`)
 
-  let cpu = registro.cpu_porcentagem // *DÉBORA* parte do código que eu adaptei, baseado na sua jogada de gênio
+  let cpu = registro.cpu_porcentagem 
   let ram = registro.memoria_usada
   let disco = registro.disco_usado
 
@@ -529,11 +529,9 @@ function plotarGrafico(resposta, idComputador, resposta2) {
     
   console.log(`cpu: ${cpu}`)
 
-  // transformando em porcentagem (para individual Débora)
   disco = (disco * 100) / totalDisco 
   ram = (ram * 100) / totalRAM
   
-  // saúde
   let saudeCpu
   let saudeDisco
   let saudeRam
@@ -548,16 +546,16 @@ function plotarGrafico(resposta, idComputador, resposta2) {
 
   console.log("saude:", saudeTotal)
   
-  dataSaude.datasets[0].data.push(saudeTotal) // *DÉBORA* push da saude da máquina e do que falta pra chegar em 100%
+  dataSaude.datasets[0].data.push(saudeTotal) 
   dataSaude.datasets[0].data.push(100 - saudeTotal)
 
-  dataSaude.datasets[0].backgroundColor.push(corDado(saudeTotal, cores, parametros)) // *DÉBORA* definição das cores, baseado na função corDado(), e o #DDDDDD é só um cinza que você pode alterar para a cor que achar mais bonita
+  dataSaude.datasets[0].backgroundColor.push(corDado(saudeTotal, cores, parametros)) 
   dataSaude.datasets[0].backgroundColor.push("#F8F8FF")
   dataSaude.datasets[0].hoverBackgroundColor.push(corDado(saudeTotal, cores, parametros))
   dataSaude.datasets[0].hoverBackgroundColor.push("#F8F8FF")
   
   if(document.getElementById("chartSaude")) {
-    var ctx = document.getElementById("chartSaude"); // *DÉBORA* Criação do chart (não alterei essa parte praticamente, apenas exclui o pieChart2 que me pareceu desnecessário)
+    var ctx = document.getElementById("chartSaude"); 
     if (ChartSaude != null) {
       ChartSaude.destroy();
     }
@@ -566,7 +564,6 @@ function plotarGrafico(resposta, idComputador, resposta2) {
 
   dataGeneral.push(dataCPU)
   dataGeneral.push(dataMem)
-  // dataGeneral.push(dataSaude)
 
   var ctx = document.getElementById("chartDisk1");
   if (ChartDisk != null) {
@@ -599,8 +596,6 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
         console.log(`Dados atuais do gráfico: ${dados}`);
 
-        // tirando e colocando valores no gráfico
-
 
         let momentoBanco = new Date(novoRegistro[0].data_hora)
 
@@ -625,32 +620,19 @@ function atualizarGrafico(idComputador, dados, totalDisco, totalRAM) {
         let ram = novoRegistro[0].memoria_usada
         let disco = novoRegistro[0].disco_usado
         
-        // transformando em porcentagem (para alertas e individual Débora)
         
         disco = (disco * 100) / totalDisco 
         ram = (ram * 100) / totalRAM
-      
-        // let saudeDisco = parseInt(disco * 0.333)
-        // let saudeRam = parseInt(ram * 0.333)
-        // let saudeCpu = parseInt(cpu * 0.333)
-        
-        // let saudeTotal = 100 - (saudeDisco + saudeRam + saudeCpu)
-        // console.log(saudeTotal)
-        
-        // dados[2].datasets[0].data.push(saudeTotal);
         
         ChartCPU.update();
         ChartMem.update();
-        // ChartSaude.update()
 
         verificar(idComputador, cpu, ram, disco, novoRegistro[0].id,momentoBanco)
 
-        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
       });
     } else {
       console.error('Nenhum dado encontrado ou erro na API');
-      // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
       proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
     }
   })
@@ -781,73 +763,7 @@ function alertar(nomeEmp, idComputador, alertas, id_leitura) {
   
 }
 
-
-function obterDadosGraficoBrumu(idComputador) { // Bruna e murilo, chamem a funcao no onload da pagina. Caso murilo, passar idEmpresa. Pegue o dado de idEmpresa no sessionStorage
-  // alterarTitulo(idComputador) // Para Bruna
-
-  // if (proximaAtualizacao != undefined) {
-  //   clearTimeout(proximaAtualizacao);
-  // }
-
-  fetch(`/medidas/ultimas/${idComputador}`, { cache: 'no-store' }).then(function (response) { // Fazer rotas, controller e model, o qual possuirá o código SQL passado no whatsapp
-    if (response.ok) {
-      response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-        // resposta.reverse();  //MURILO se a ordem aparecer invertida, descomente essa linha
-
-        plotarGraficoBrumu(resposta, idComputador)
-      });
-    } else {
-      console.error('Nenhum dado encontrado ou erro na API');
-    }
-  })
-    .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-}
-
-function plotarGraficoBrumu(resposta) {
-
-  // let dataGeneral = [] //criado para sermos capazes de passar todos os datas como paramêtros para a função atualizarGrafico
-
-  let dataBarBruna = new baseDataBar("Componente")
-  let dataBarMurilo = new baseDataBar("Dias")
-
-  for (i = 0; i < resposta.length; i++) {
-    var registro = resposta[i];
-
-    let momentoBanco = new Date(registro.dataDia) // murilo altere para usar somente os dados de dia e mes (e talvez ano, vai de você)
-    let horas = String(momentoBanco.getUTCHours());
-    while (horas.length < 2) { horas = "0" + horas; }
-    let minutos = String(momentoBanco.getUTCMinutes());
-    while (minutos.length < 2) { minutos = "0" + minutos; }
-    let segundos = String(momentoBanco.getUTCSeconds());
-    while (segundos.length < 2) { segundos = "0" + segundos; }
-    let horario = `${horas}:${minutos}:${segundos}`
-
-    dataBarMurilo.labels.push(horario);
-    dataBarBruna.labels.push(registro.componente)
-
-    dataBarMurilo.datasets[0].data.push(registro.quantidade);
-    dataBarBruna.datasets[0].data.push(registro.quantidade);
-
-  }
-
-  var ctx = document.getElementById("chartDisk1"); // Bruna plotagem, removendo possível gráfico de outra máquina
-  if (ChartComponente != null) {
-    ChartComponente.destroy();
-  }
-  ChartComponente = new Chart(ctx, new barChart(dataBarBruna));
-
-  var ctx = document.getElementById("chartDisk1"); // murilo plotagem
-  ChartSatisfacaoSemana = new Chart(ctx, new barChartMU(dataBarMurilo));
-
-  // setTimeout(() => atualizarGrafico(idComputador, dataGeneral, totalDisco, totalRAM), 2000);
-
-
-}
-
-function obterDadosGraficoMu(idEmpresa) { // Bruna e murilo, chamem a funcao no onload da pagina. Caso murilo, passar idEmpresa. Pegue o dado de idEmpresa no sessionStorage
+function obterDadosGraficoMu(idEmpresa) { 
   // alterarTitulo(idComputador) // Para Bruna
 
   // if (proximaAtualizacao != undefined) {
@@ -997,7 +913,7 @@ function emoji(cliente_sat) {
   }
 }
 
-  // FUNÇÕES BRUNA
+// FUNÇÕES BRUNA
 
 function obterDadosGraficoBruna(idComputador) { // Bruna e murilo, chamem a funcao no onload da pagina. Caso murilo, passar idEmpresa. Pegue o dado de idEmpresa no sessionStorage
 
@@ -1147,7 +1063,7 @@ function obterDadosEstMarcus(resposta, idComputador) {
     });   
 }
   
-  function plotarGraficoMarcus(resposta, idComputador, resposta2) {
+function plotarGraficoMarcus(resposta, idComputador, resposta2) {
     
   console.log("INICIOU PELO MENOS")
   
@@ -1261,4 +1177,3 @@ if(document.getElementById("chartBiling")) {
     // },
   });
 }
-
